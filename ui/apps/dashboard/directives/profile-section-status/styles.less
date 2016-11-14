@@ -1,0 +1,67 @@
+.profile-section-status {
+  p.lead { margin-bottom: 30px; }
+  p { margin-bottom: 4px; }
+
+  .status-block {
+    color: @text-color-inverse;
+    height: 100%;
+    border-radius: @border-radius-base;
+    margin-bottom: @navbar-height / 2;
+
+    .status-header {
+      color: @brand-info;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      font-weight: 300;
+      
+      .header-percent {
+        font-size: 3em;
+
+        .percent-num {}
+        
+        .percent-marker {
+          font-size: 0.75em;
+        }
+        
+        .progress-arc {}
+      }
+      
+      .header-title {
+        font-size: @font-size-small;
+      }
+    }
+    
+    .status-body {
+      color: @brand-primary;
+      dispay: flex;
+      flex-direction: column;
+    }
+  }
+
+  .subsections {
+    font-size: 1em;
+    font-weight: 300;
+    &:last-child {
+      border-bottom: 1px solid @gray-light;
+    }
+  }
+
+  .section-label {
+    font-size: 1em;
+    padding: 4px 2px;
+    border-top: 1px solid @gray-light;
+    
+    &:hover {
+      cursor: pointer;
+      background-color: fadeout(#000, 80%);
+    }
+    
+    .label-text {
+    }
+    
+    .label-icon {
+      float: right;
+    }
+  }
+
+}

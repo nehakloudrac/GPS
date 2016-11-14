@@ -1,0 +1,63 @@
+.app-header {
+  padding-bottom: @navbar-height/2;
+  margin-bottom: 0px;
+  background-color: @brand-info;
+  border-radius: 0;
+  
+  .gps-breadcrumb {
+    color: @text-color-inverse;
+
+    a {
+      color: @text-color-inverse;
+
+      &:hover {
+        color: @navbar-default-link-hover-color;
+      }
+      
+      img {
+        margin-top: -5px;
+        max-width: 30px;
+      }
+    }
+
+    .gps-breadcrumb-icon {}
+      
+    .gps-breadcrumb-text {
+      color: @text-color-inverse;
+    }
+
+    .gps-breadcrumb-separator {
+      margin: 0px 10px;
+      color: @text-color-inverse;
+
+      &:hover {
+        color: @text-color-inverse;
+      }
+    }
+
+  }
+
+  .dropdown-toggle {
+    cursor: pointer;
+    
+    .fa {
+      color: @brand-warning;
+    }
+
+    .user-img {
+      margin-top: -5px;
+      max-width: 30px;
+      margin-right: 10px;
+    }
+  }
+  
+  .user-menu {
+    li {
+      .fa {
+        margin-left: 5px;
+        margin-right: 10px;
+      }
+    }
+  }  
+  
+}

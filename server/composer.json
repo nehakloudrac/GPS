@@ -1,0 +1,89 @@
+{
+    "name": "globalprofessionalsearch/gps",
+    "type": "project",
+    "description": "The GPS app.",
+    "license": "proprietary",
+    "autoload": {
+        "psr-0": { "SymfonyStandard": "app/" },
+        "psr-4": {
+          "GPS\\": "src/",
+          "GPS\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:globalprofessionalsearch/gpspdftool.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "2.7.*",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/framework-extra-bundle": "~3.0",
+        "sensio/distribution-bundle": "~3.0,>=3.0.12",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "ac/model-traits": "0.2.*",
+        "ac/web-services-bundle": "~0.4",
+        "jms/serializer": "dev-master",
+        "doctrine/mongodb-odm-bundle": "~3.0",
+        "drak/native-session": "dev-master",
+        "oneup/flysystem-bundle": "~1.0@dev",
+        "imagine/imagine": "~0.6",
+        "theofidry/psysh-bundle": "dev-master",
+        "excelwebzone/recaptcha-bundle": "~1.4",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "aws/aws-sdk-php-symfony": "^1.1",
+        "ruflin/elastica": "~3.0",
+        "defuse/php-encryption": "~1.2",
+        "nesbot/carbon": "^1.21",
+        "nelmio/api-doc-bundle": "2.11.2",
+        "globalprofessionalsearch/gpspdftool": "dev-master"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3",
+        "phpunit/phpunit": "~4.0",
+        "league/factory-muffin-faker": "~1.0",
+        "globalprofessionalsearch/popov": "^1.0"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.6-dev"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{% block tagging_widget %}
+    {% spaceless %}
+      <select multiple {{ block('widget_attributes') }}>
+        {% for val in selected.choices %}
+        <option value="{{val}}" {% if selected.selectedMap[val] is defined %}selected="selected"{% endif %}>{{val}}</option>
+        {% endfor %}
+      </select>
+    {% endspaceless %}
+{% endblock %}

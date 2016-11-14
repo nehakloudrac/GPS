@@ -1,0 +1,41 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    trusted_proxies: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16]
+   # validation:
+   #     cache: apc
+
+#some services are only really relevant in a production context specific to AWS
+services:
+    gps.aws_s3:
+        class: Aws\S3\S3Client
+        arguments:
+            -
+                version: latest
+                region: "%aws_default_region%"
+                credentials:
+                    key: "%aws_key%"
+                    secret: %aws_secret%
+
+#overrides for flysystem file adapters to provide AWS S3 backed locations
+oneup_flysystem:
+    adapters:
+        transcoding:
+            local:
+                directory: '%files_transcoding_root%'
+        profile_images:
+            awss3v3:
+                client: 'gps.aws_s3'
+                bucket: '%files_profile_images_s3_bucket_name%'
+                prefix: '%files_profile_images_s3_directory%'
+        candidate_docs:
+            awss3v3:
+                client: 'gps.aws_s3'
+                bucket: '%files_candidate_docs_s3_bucket_name%'
+                prefix: '%files_candidate_docs_s3_directory%'
+        public:
+            awss3v3:
+                client: 'gps.aws_s3'
+                bucket: '%files_public_s3_bucket_name%'
+                prefix: '%files_public_s3_directory%'

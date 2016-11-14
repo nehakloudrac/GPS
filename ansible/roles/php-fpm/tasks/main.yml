@@ -1,0 +1,13 @@
+- name: install php5-fpm
+  apt: pkg=php5-fpm
+
+- name: copy fpm config
+  copy: src={{php_fpm_config_file}} dest=/etc/php5/fpm/php-fpm.conf
+
+- name: copy fpm pool config
+  copy: src={{php_fpm_pool_config_file}} dest=/etc/php5/fpm/pool.d/www.conf
+
+- name: update php.ini for php5-fpm
+  copy: src={{php_fpm_ini_config_file}} dest=/etc/php5/fpm/php.ini
+  notify:
+    - restart php-fpm

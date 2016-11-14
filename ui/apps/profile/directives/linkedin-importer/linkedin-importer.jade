@@ -1,0 +1,31 @@
+.linkedin-importer(cg-busy="promise")
+  
+
+  .alert.alert-danger(ng-if="error") {{error}}
+  
+  .import-success(ng-if="success")
+    .pad-lg
+      p.lead Import from LinkedIn complete!
+
+      .alert.alert-success Import complete!
+
+      p GPS imported as much information from your LinkedIn profile as allowed. Please confirm that the information was properly imported into the right sections as you progress through each GPS profile section.
+
+  .import(ng-if="!success")
+    .pad-lg
+      p.lead Import Information From LinkedIn
+      p Follow the directions below to pre-fill parts of your GPS profile with information from LinkedIn:
+    
+    .pad-lg
+      .row
+        .col-sm-8.col-sm-offset-2
+          img.img.img-responsive.center-block(src="/public/images/tutorials/linkedin/export.png")
+            
+    .pad-lg
+      ol
+        li Login to LinkedIn
+        li Export your profile as a PDF and save
+        li Click the button below and upload the saved PDF
+    
+    .text-center.pad-lg
+      button.btn.btn-info(ngf-select ngf-change="upload($files)" accept="application/pdf") Upload LinkedIn Profile

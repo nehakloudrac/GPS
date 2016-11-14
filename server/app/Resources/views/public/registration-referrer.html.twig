@@ -1,0 +1,80 @@
+{% extends 'public-page-default.html.twig' %}
+
+{% block content %}
+
+<div class="registration-referral">
+  {% include 'partials/flashes.html.twig' %}
+
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="column-pad">
+        <div class="row">
+
+          <div class="col-xs-6 col-sm-12">
+            {% if referrer['registration_theme']['logo'] is defined %}
+            <div class="content-pad logo">
+              <img class="img-responsive" src="{{referrer['registration_theme']['logo']}}" />
+            </div>
+            {% endif %}
+
+            <div class="content-pad partner-highlight">
+              <p>
+                <span class="highlight">{{referrer['name']}}</span> is partnering with <span class="highlight">Global Professional Search</span> to get your language and culture to work.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="col-xs-6 col-sm-12">
+            <div class="content-pad">
+              <p>
+                GPS connects global-ready talent&mdash;candidates with language and overseas experience&mdash;to jobs that require global skills.
+              </p>
+            </div>
+            <div class="content-pad">
+              <p>
+                GPS is <span class="highlight">FREE</span> for candidates.  Create your profile today!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="column-pad">
+        <div class="process-container">
+          <div class="process">
+            <div class="line-container">
+              <div class="line"></div>
+            </div>
+            <ul>
+              <li class="first">
+                <div class="num-circle">1</div>
+                <div class="clearfix"></div>
+                <div class="num-caption">Register</div>
+              </li>
+              <li class="middle">
+                <div class="num-circle">2</div>
+                <div class="clearfix"></div>
+                <div class="num-caption">Create Profile</div>
+              </li>
+              <li class="last">
+                <div class="num-circle">3</div>
+                <div class="clearfix"></div>
+                <div class="num-caption">Find Your Job</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="form">
+          {% include 'partials/registration-form.html.twig' %}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+{% endblock %}

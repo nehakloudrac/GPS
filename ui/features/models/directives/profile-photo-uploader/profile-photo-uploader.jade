@@ -1,0 +1,15 @@
+.profile-photo
+  .thumbnail(cg-busy="promise" ngf-drop ngf-drag-over-class="dropable" accept="image/*" ngf-change="upload($files)")
+    img.clickable.img-rounded.center-block(ng-src="{{profileImageUrl}}" ngf-select ngf-change="upload($files)" accept="image/*")
+    .caption
+      p.small {{instructions}}  <em>Max size 20MB</em>
+    .controls.pad-sm.small
+      .clickable(ng-show="appUser.avatarUrl" ng-click="removePhoto()")
+        a.btn.btn-link
+          i.fa.fa-trash  
+          |  Remove photo
+      .clickable(ng-show="!appUser.avatarUrl" ng-click="toggleGravatar()")
+        p
+          i.fa.fa-square-o(ng-show="!appUser.preferences.allowGravatar")  
+          i.fa.fa-check-square-o(ng-show="appUser.preferences.allowGravatar")  
+          |  Use image from Gravatar.com if available

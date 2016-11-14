@@ -1,0 +1,116 @@
+.form-job
+  .row
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.title}") Job title
+        field-container(error-path="title" promise="form.fields['title'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['title'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('title')")
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.positionLevel}") Position Level
+        field-container(error-path="positionLevel" promise="form.fields['positionLevel'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['positionLevel'].value"
+              ng-options="item.key as item.label for (i, item) in conf.positionLevels"
+              ng-change="form.saveField('positionLevel')"
+            )
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.status}") Job Type
+        field-container(error-path="status" promise="form.fields['status'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['status'].value"
+              ng-options="item.key as item.label for (i, item) in conf.jobTypes"
+              ng-change="form.saveField('status')"
+            )
+          
+  .row
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.institution.name}") Company
+        field-container(error-path="institution.name" promise="form.fields['institution.name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['institution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.name')")
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.institution.type}") Type
+        field-container(error-path="institution.type" promise="form.fields['institution.type'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['institution.type'].value"
+              ng-options="item.key as item.label for (i, item) in conf.institutionTypes"
+              ng-change="form.saveField('institution.type')"
+            )
+    .col-xs-4
+      .form-group
+        label Website
+        field-container(error-path="institution.url" promise="form.fields['institution.url'].promise")
+          input.form-control(type="text" placeholder="http://www.example.com" blur-on-enter ng-model="form.fields['institution.url'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.url')")
+
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.institution.industries.length}") Company Industry
+        field-container(error-path="institution.industries" promise="form.fields['institution.industries'].promise")
+          tags-input.input-multiselect(ng-model="form.fields['institution.industries'].value" on-tag-added="saveTaggedField('institution.industries')" on-tag-removed="saveTaggedField('institution.industries')" placeholder="Select all that apply" replace-spaces-with-dashes="false")
+            auto-complete(source="autocompleteFromList(conf.institutionIndustries, $query)" min-length="2" max-results-to-show="20")
+
+  .row
+    .col-xs-12      
+      .form-group
+        label(ng-class="{required: isLocationRequired(event.institution.address)}") Location
+        field-container(error-path="institution.address" promise="form.fields['institution.address'].promise")
+          input-location(ng-model="form.fields['institution.address'].value" ng-change="form.saveField('institution.address')")
+
+  .row
+    .col-xs-8
+      .form-group
+        label(ng-class="{required: !event.duration.start}") Duration
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="current position")
+
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.description.length}") Responsibilities & Achievements
+        field-container(error-path="description" promise="form.fields['description'].promise")
+          textarea.form-control(rows="5" maxlength="10000" placeholder="Briefly describe your roles and responsibilities..." ng-model="form.fields['description'].value" ng-model-options="{updateOn:'default blur', debounce: { 'default': 5000, 'blur': 0 } }" ng-change="form.saveField('description')")
+
+  .row
+    .col-xs-6
+      .form-group
+        label Department or Area
+        field-container(error-path="department" promise="form.fields['department'].promise")
+          input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['department'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('department')")
+    .col-xs-6(ng-show="event.status")
+      .form-group
+        label
+          span Compensation
+          label-description(text="Enter numbers only, no punctuation (e.g. 35000)")
+        field-container(ng-show="event.status == 'full_time'" error-path="salary" promise="form.fields['salary'].promise")
+          .input-group
+            .input-group-addon $
+            input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['salary'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('salary')")
+            .input-group-addon annually  
+        field-container(ng-show="event.status && event.status != 'full_time'" error-path="hourlyRate" promise="form.fields['hourlyRate'].promise")
+          .input-group
+            .input-group-addon $
+            input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['hourlyRate'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('hourlyRate')")
+            .input-group-addon hourly
+      
+  .row
+    .col-xs-6
+      .form-group
+        label
+          span Foreign Language Use
+          label-description(text="Did this position involve extensive use of any foreign languages?")
+        field-container(error-path="languageRefs" promise="form.fields['languageRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['languageRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.languageCodes" id-field="code" label-field="label" ng-change="form.saveField('languageRefs')")
+    .col-xs-6
+      .form-group
+        label
+          span Foreign Travel
+          label-description(text="Did this position involve extensive time in other countries?")
+        field-container(error-path="countryRefs" promise="form.fields['countryRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['countryRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.countryCodes" id-field="code" label-field="name" ng-change="form.saveField('countryRefs')")

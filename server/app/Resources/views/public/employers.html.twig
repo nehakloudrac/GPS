@@ -1,0 +1,355 @@
+{% extends 'public-layout.html.twig' %}
+
+{% block body %}
+
+<div class="employer">
+
+  {# begin header #}
+  <div class="faded-header">
+    {% include 'partials/public-header.html.twig' %}
+  </div>
+  {# end header #}
+
+
+  {# Rotating image full-screen header #}
+  <div class="employer-header">
+
+    <div class="title-row">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h1 class="text-center text-uppercase">A <span class="title text-highlight">Global Business</span> Model Requires a <span class="text-highlight">Global Workforce</span></h2>
+            <p class="text-center">
+              <a href="{{path('employer-contact')}}" class="btn btn-warning">Find Global Talent</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  {# END header #}
+
+  <!-- About Us Section -->
+  <div id="employer-section-about-us" class="section employer-section-about">
+
+    <div class="block block-bg-white">
+      <div class="container">
+      
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="headers">
+              <h3>
+                Staffing for Global Employers
+              </h3>
+              <p>
+                GPS is The Only Job-Matching Service:
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <div class="col-sm-4">
+            <div class="icon icon-time-money">
+              <img src="/public/images/new-design-2/home/icon-time-money.png" alt="" />
+            </div>
+            <div class="caption">
+              <p class="text-normal t14">To save employer's time and money by pre-qualifying candidates based on hiring criteria</p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="icon icon-network">
+              <img src="/public/images/new-design-2/home/icon-network.png" alt="" />
+            </div>
+            <div class="caption">
+              <p class="text-normal t14">With unprecedented access to candidates with global skills—foreign language proficiency, experience abroad, regional expertise, and cultural competency—as well as relevant work experience</p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="icon icon-handshake">
+              <img src="/public/images/new-design-2/home/icon-handshake.png" alt="" />
+            </div>
+            <div class="caption">
+              <p class="text-normal t14">That uses proprietary technology to successfully match employers with candidates</p>
+            </div>
+          </div>
+        </div>
+
+      </div>    
+    </div>
+  </div>
+  <!-- /END About Us Section -->
+
+  <!-- /BEGIN GPS Pre-qualifies section-->
+  <div id="employer-section-pre-qualify" class="section employer-section-pre-qualify">
+
+    <div class="block block-bg-light">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="headers">
+              <h3>
+                GPS Pre-Qualifies Candidates
+              </h3>
+              <p>
+                GPS uses a proprietary matching technology to pre-qualify candidates for employers based on hiring criteria
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-sm-4">
+            
+            <!-- BEGIN list -->
+            <div class="criteria-list">
+
+              {% for item in criteria %}
+              <div class="grey-item-wrapper">
+                <div class="
+                  grey-circles-outside 
+                  {%if loop.first%} first {%endif%} 
+                  {%if loop.last%} last {%endif%}
+                  {%if not loop.last and not loop.first%} middle {%endif%}
+                " style="height: 40px;">
+                  <div class="grey-circles-inside">
+                    <div class="grey-circle-item"></div>
+                    <div class="grey-circle-background" style="height: 35px;"></div>
+                  </div>
+                </div>
+                <div class="grey-background-outside">
+                  <div class="grey-background-inside">{{item}}</div>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+            <!-- END list -->
+            
+            
+            <p class="text-center">
+              <a href="{{path('employer-contact')}}" class="btn btn-warning">Find Global Talent</a>
+            </p>
+
+          </div>
+          <div class="col-sm-8">
+            <img class="img-responsive center-block laptop-resume-img" src="/public/images/new-design/laptopmobile_resume_daniel.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /END PGS Pre-qualifies section -->
+
+  <div class="public-section-hiring block block-bg-info">
+    <div class="container">
+      <div class="row visible-xs">
+        <div class="col-xs-12">
+          <div class='embed-container'><iframe src='https://www.youtube.com/embed/videoseries?list=PLBK-fEasFBaUnaQwZacT7_0nxg7RnaO9d' frameborder='0' allowfullscreen></iframe></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 hidden-xs">
+          <div class="headers">
+            <h3>Hear What Global CEOs Are Saying</h3>
+          </div>
+          <div class="video">
+            <div class='embed-container'><iframe src='https://www.youtube.com/embed/videoseries?list=PLBK-fEasFBaUnaQwZacT7_0nxg7RnaO9d' frameborder='0' allowfullscreen></iframe></div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="content">
+            <div class="media-container">
+              
+              <div class="infographic ratio">
+                <div class="media">
+                  <div class="media-left media-top">
+                    <img src="/public/images/new-design-2/home/1-in-3.png" alt="" />
+                  </div>
+                  <div class="media-body">
+                    <p class="text-normal t14">US mid- and large-size companies have international operations or serve multilingual clientele.</p>
+                    <div class="citation text-center">
+                      <cite title="US Census Bureau">&mdash; US Census Bureau</cite>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="infographic percent last">
+                <div class="media">
+                  <div class="media-left media-top">
+                    <img class="center-block" src="/public/images/new-design-2/home/93-percent.png" alt="" />
+                  </div>
+                  <div class="media-body">
+                    <p class="text-normal t14">of these companies are looking for candidates who have the global skills to work with clients from different countries and cultures.</p>
+                    <div class="citation text-center">
+                      <cite title="2014 Michigan State University, JNCL, GALA Employment Trends Survey">&mdash; 2014 Michigan State University, JNCL, GALA Employment Trends Survey</cite>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- BEGIN how it works -->
+  <div class="employer-section-how-it-works block block-bg-white">
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="headers">
+            <h3>
+              How It Works
+            </h3>
+            <p>
+              Find The Right Employee
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row content">
+        <div class="col-sm-6">
+          <img src="/public/images/new-design/laptop_employers.png" class="img-responsive center-block" alt="" />
+        </div>
+        <div class="col-sm-6">
+          
+          <div class="media-container">
+
+            <div class="media first">
+              <div class="media-left media-middle">
+                <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading text-bold t16">Define Your Hiring Criteria</h4>
+                <p class="text-normal t14">
+                  GPS solicits hiring criteria from each employer.
+                </p>
+              </div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading text-bold t16">Get Matched</h4>
+                <p class="text-normal t14">
+                  GPS uses its matching algorithm to identify the candidates in our database most compatible with employer criteria.
+                </p>
+              </div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading text-bold t16">Hire</h4>
+                <p class="text-normal t14">
+                  GPS connects employers to the best-qualified candidates.
+                </p>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <a href="{{path('employer-contact')}}" class="btn btn-warning">Find Global Talent</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END how it works -->
+
+  <!-- BEGIN time/money -->
+  <div class="section employer-section-time-money">
+    <div class="block block-bg-light">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="headers">
+              <h3>Save Time and Money</h3>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row text-center content">
+          <div class="col-sm-4">
+            <img src="/public/images/new-design/pin_g.png" class="center-block" alt="" />
+            <h4 class="text-bold t16">Global Skills</h4>
+            <p class="text-normal t14">The GPS database is comprised of candidates with exceptional global skills</p>
+          </div>
+          <div class="col-sm-4">
+            <img src="/public/images/new-design/pin_p.png" class="center-block" alt="" />
+            <h4 class="text-bold t16">Streamlined Process</h4>
+            <p class="text-normal t14">GPS expedites the hiring process by pre-qualifying candidates</p>
+          </div>
+          <div class="col-sm-4">
+            <img src="/public/images/new-design/pin_s.png" class="center-block" alt="" />
+            <h4 class="text-bold t16">Long-Term Value</h4>
+            <p class="text-normal t14">GPS minimizes employee turnover by providing better-matched candidates</p>
+          </div>
+        </div>
+                
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="text-center">
+              <a href="{{path('employer-contact')}}" class="btn btn-warning">Find Global Talent</a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- END time/money -->
+  
+  <div class="employer-section-partners block-bg-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="partner-logos">
+            {% for item in partners %}
+            <span class="logo">
+              <a href="{{item.href}}" target="_blank">
+                <img class="{{item.class}}" src="{{item.src}}" alt="{{item.name}}" />
+              </a>
+            </span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section employer-section-join block block-bg-collage">
+    <div class="container">
+      <div class="col-xs-12 text-center">
+        <h3 class="text-normal t30">Put Language and Culture to Work for You</h3>
+        <a href="{{path('employer-contact')}}" class="btn btn-warning btn-get-started">Find Global Talent</a>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+<!-- END time/money -->
+
+{% endblock %}
+
+
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link href="http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css" />
+    
+    
+    <!-- NOTE: If you change any styles, you need to also update the inline styles.  Cause email... -->
+    
+    <style>
+    
+      body {
+        padding: 0px;
+        margin: 0px;
+        background-color: #354B52;
+        background-image: url("{{email_assets_base_url}}/public/images/slideshow-paris-blurred.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+      
+      .table {
+        width: 100%;
+        min-width: 100%;
+      }
+      
+      .header {
+        width: 70%;
+        min-width: 70%;
+        color: #ffffff;
+      }
+      
+      .content {
+        width: 70%;
+        min-width: 70%;
+        padding: 20px;
+        border: 5px solid #276A7F;
+        background-color: #ffffff;
+        color: #777777;
+      }
+      
+      .font-open-sans {
+        font-family: "Open Sans", Helvetica, sans-serif;
+      }
+
+      .font-oswald {
+        font-family: 'Oswald', Helvetica, sans-serif;
+        font-weight: 300;
+      }
+
+    </style>
+
+  </head>
+  <body style="padding: 0px; margin: 0px; background-color: #354B52; background-image: url('{{email_assets_base_url}}/public/images/slideshow-paris-blurred.jpg'); background-repeat: no-repeat; background-position: center; background-attachment: fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+
+    <!-- That's right, table layouts.  Hello 90s. -->
+    <table style="width:100%; min-width:100%;">
+      <tbody >
+        <tr>
+          <td></td>
+          <td class="header" style="width: 70%; min-width: 70%; color: #ffffff;"><h1 class="font-oswald" style="font-family: 'Open Sans', Helvetica, sans-serif; font-weight: 300;">Global Professional Search</h1></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="content font-open-sans" style="width:70%; min-width:100%; border: 5px solid #276A7F; padding:20px; background-color: #ffffff; color: #777777; font-family: 'Oswald', Helvetica, sans-serif;">
+            {{content | extra_markdown}}
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+</html>

@@ -1,0 +1,8 @@
+.account-prefs
+  .row.pref.flex(ng-repeat="pref in prefsConfig")
+    .col-xs-3.left-col.valign-content
+      a(ng-click="updatePref(pref.key, !prefs[pref.key])")
+        i.fa.fa-2x(ng-class="{'fa-square-o': !prefs[pref.key], 'fa-check-square-o': prefs[pref.key], 'fa-spinner fa-spin': saving[pref.key]}")
+    .col-xs-9.right-col
+      h4.media-heading {{pref.label}}
+      p.small {{pref.desc}}

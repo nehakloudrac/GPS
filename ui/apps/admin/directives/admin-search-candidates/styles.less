@@ -1,0 +1,179 @@
+.admin-search-candidates {
+  
+  
+  .controls {
+    .nav-tabs {
+      margin-top: 10px;
+      li {
+        a {
+          cursor: pointer;
+        }
+      }
+    }
+    
+    .collapse-toggle {
+      cursor: pointer;
+    }
+    
+    .filters {
+      margin-top: 20px;
+      
+      .filter-wrapper {
+        margin-top: 10px;
+        
+        .filter {
+          border-radius: @border-radius-base;
+          background-color: @shaded-bg;
+          padding: 10px;
+          
+          &.dirty {
+            background-color: darken(@shaded-bg, 10%);
+          }
+          
+          .filter-header {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+    
+    .facets {
+      margin-top: 20px;
+      
+      .facet-wrapper {
+        margin-top: 10px;
+        
+        .facet {
+          border-radius: @border-radius-base;
+          background-color: @shaded-bg;
+          padding: 10px;
+          
+          .facet-search {
+            margin-top: 10px;
+          }
+          
+          .facet-values {
+            margin-top: 10px;
+            
+          }
+          
+        }
+      }
+    }
+
+  }
+  
+  
+}
+
+.add-filter-modal {
+
+  .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  
+  .available-filter {
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: @border-radius-base;
+    
+    .name {
+      margin-bottom: 0px;
+    }
+
+    &:hover {
+      background-color: @shaded-bg;
+    }
+    
+    &.selected {
+      .bg-success;
+      color: white;
+    }
+  }
+}
+
+.search-paginator {
+  ul {
+    margin: 0px auto;
+    padding: 0px;
+        
+    li {
+      list-style: none;
+      float: left;
+      margin: 10px;
+      
+      &.link:hover {
+        cursor: disabled;
+      }
+      
+      &.active:hover {
+        a {
+          cursor: pointer;
+        }
+      }
+      
+      input {
+        text-align: right;
+        width: 35px;
+      }
+      
+    }
+  }
+}
+
+.add-facet-popover,.add-filter-popover {
+  width: 100%;
+  
+  .popover-content {
+    max-width: 350px;    
+  }
+
+  ul {
+    padding: 0px;
+    margin: 0px;
+    max-height: 500px;
+    overflow: auto;
+    
+    li {
+      cursor: pointer;
+      padding: 2px 8px;
+      margin-bottom: 1px;
+      list-style: none;
+      border-radius: @border-radius-base;
+      
+      &:hover {
+        background-color: @gray-lighter;
+      }
+      
+      &.selected {
+        background-color: lighten(@brand-success, 20%);
+      }
+    }
+  }
+}
+
+.filter-facet-select {
+  .selections {
+    max-height: 300px;
+    overflow: auto;
+
+    .facet-value {
+      cursor: pointer;
+      font-size: @font-size-small;
+      padding: 1px 4px;
+      border-radius: @border-radius-base;
+      
+      &:hover {
+        background-color: darken(@shaded-bg, 5%);
+      }
+      
+      .checkbox {
+        margin: 0px;
+      }
+    }  
+    
+  }
+  
+}

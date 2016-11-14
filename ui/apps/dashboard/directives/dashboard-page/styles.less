@@ -1,0 +1,84 @@
+.dashboard-page {
+  .dashboard-page-body {
+    padding: @navbar-height/2 0px;
+    
+    .greeting-buttons {
+      a {
+        width: 150px;
+      }
+      .g {
+        color: @brand-warning;
+        cursor: pointer;
+        margin-top: -5px;
+        &:hover {
+          color: darken(@brand-warning, 10%);
+        }
+      }
+    }
+    
+    .example-profile {
+      cursor: pointer;
+      border: 3px solid @brand-info;
+      
+      &:hover {
+        box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+      }
+    }
+    
+    .profile-photo {
+      .center-block;
+      max-width: 80%;
+    }
+    
+    .contact-info {
+      p {
+        margin: 0;      
+      }
+      
+      .info-button {
+        .text-center;        
+        a {
+          width: 150px;
+        }
+      }
+    }
+
+    .btn-open {
+      color: @brand-warning;
+      background-color: transparent;
+      border: 1px solid @brand-warning;
+      border-radius: @border-radius-base;
+      
+      &:hover {
+        color: white;
+        background-color: @brand-warning;
+      }
+    }
+    
+    .btn-continue {
+      margin-top: 50px;
+    }
+    
+    .block {
+      border: 1px solid @gray-lighter;
+      border-radius: @border-radius-base;
+      padding: 7px;
+      margin-bottom: @navbar-height / 2;
+      
+      &.article-block {
+        font-size: @font-size-small;
+      }
+      
+      .title {
+        font-size: @font-size-large;
+        color: @brand-info;
+      }
+    }
+    
+    .separator {
+      margin-bottom: 50px;
+      border-color: fadeout(@brand-info, 10%);
+    }
+    
+  }
+}

@@ -1,0 +1,34 @@
+.input-date-range
+  .row
+    .col-sm-6
+      .form-group
+        input.datefield.form-control(
+          type="text" 
+          bs-datepicker 
+          min-view="1" 
+          autoclose="true" 
+          ng-model='model.start' 
+          data-max-date="{{getMaxDate()}}"
+          date-format="MMM yyyy"
+          placeholder="\uF073 From" 
+          ng-change="update()"
+        )
+        .checkbox(ng-show="isCurrentMessage")
+          label
+            input(type="checkbox" ng-checked="model.isCurrent" ng-click="toggleIsCurrent()")
+            span {{isCurrentMessage}}
+    .col-sm-6
+      .form-group
+        input.datefield.form-control(
+          type="text" 
+          ng-hide="model.isCurrent"
+          ng-disabled="!model.start"
+          bs-datepicker 
+          min-view="1" 
+          autoclose="true" 
+          ng-model='model.end'
+          data-min-date="{{getMinDate()}}" 
+          date-format="MMM yyyy"
+          placeholder="\uF073 Until" 
+          ng-change="update()"
+        )

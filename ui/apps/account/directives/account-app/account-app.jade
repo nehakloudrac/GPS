@@ -1,0 +1,26 @@
+.account-app
+  app-page
+    app-menu(active="account")
+    
+    .account-app-body
+      .container
+        .row
+          .col-sm-3
+            profile-photo-uploader(instructions="Click the image to upload a photo, or drag a photo into this area.")
+            .acct-button
+              a.btn.btn-block.btn-info(ng-click="changeEmail()")
+                i.fa.fa-lg.fa-fw.fa-at
+                span Change Email
+            //- .acct-button
+            //-   a.btn.btn-block.btn-info(ng-click="changePassword()")
+            //-     i.fa.fa-lg.fa-fw.fa-lock
+            //-     span Change Password
+          .col-sm-9
+            .row
+              .col-xs-12
+                p.lead.section-title Account Information
+                account-form
+            .row.section-spacer
+              .col-xs-12
+                p.lead.section-title Notification Preferences
+                account-prefs

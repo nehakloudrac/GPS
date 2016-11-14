@@ -1,0 +1,37 @@
+.filter-basic-number
+  .form-group.form-group-sm
+    
+    label
+      input(type="checkbox" ng-checked="isRange" ng-click="toggleRange()")
+      span.small &nbsp; Search range
+    
+    .entry(ng-repeat="(i,val) in filter.internalVal track by $index")
+      .row
+        .col-xs-3
+          .select-wrap
+            select.form-control(ng-model="val.op" ng-change="update()")
+              option(value="gte") >=
+              option(value="gt") >
+              option(value="lte") <=
+              option(value="lt") <
+
+        .col-xs-9(ng-if="'text' == filter.conf.widget")
+          input.form-control(
+            type="text"
+            placeholder="1234567"
+            blur-on-enter
+            ng-model="val.num"
+            ng-model-options="{updateOn: 'blur'}"
+            ng-change="update()"
+          )
+
+        .col-xs-9(ng-if="'date' == filter.conf.widget")
+          input.form-control.datefield(
+            type="text"
+            bs-datepicker
+            date-type="unix"
+            autoclose="true"
+            ng-model="val.num"
+            placeholder="\uF073"
+            ng-change="update()"
+          )

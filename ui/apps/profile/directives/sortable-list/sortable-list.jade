@@ -1,0 +1,25 @@
+.sortable-list
+  .row
+    .col-xs-12
+      ul.sortable-options(ng-sortable="sortableChoicesConfig")
+        li.sortable-option(ng-repeat="choice in choices | filter:excludeSelected") {{choice.label}}
+      .clearfix
+  .row
+    .col-xs-12
+      .sortable-choices-container(cg-busy="busy")
+        ul.sortable-choices(ng-sortable="sortableSelectionConfig")
+          li.sortable-choice(ng-repeat="item in selectedOptions track by $index")
+            .row
+              .col-xs-1
+                .pad-xs
+                  i.fa.fa-arrows
+              .col-xs-1
+                .pad-xs
+                  p {{$index + 1}}
+              .col-xs-7
+                .pad-xs
+                  p {{item.label}}
+              .col-xs-3
+                .pad-xs
+                  p.text-right
+                    a.remove(ng-click="remove($index)") Remove

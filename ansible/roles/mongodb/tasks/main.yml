@@ -1,0 +1,4 @@
+- name: install mongodb
+  apt: pkg=mongodb-server
+  notify:
+    - restart mongo

@@ -1,0 +1,23 @@
+.form-certification
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !cert.name}") Name
+        field-container(error-path="name" promise="form.fields['name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('name')")
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !cert.duration.start}") Date
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="no expiration")
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !cert.organization}" desc="o uknow") Organization
+        field-container(error-path="organization" promise="form.fields['organization'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['organization'].value" ng-model-options="{updateOn:'blur'}" ng-change="form.saveField('organization')")
+    .col-xs-6
+      .form-group
+        label Certification ID
+        field-container(error-path="certId" promise="form.fields['certId'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['certId'].value" ng-model-options="{updateOn:'blur'}" ng-change="form.saveField('certId')")

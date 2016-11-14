@@ -1,0 +1,105 @@
+{% set isEmployer = isEmployer|default(false) %}
+{% set showContact = showContact|default(false) %}
+{% set activeRouteName = app.request.attributes.get('_route') %}
+
+<div class="header">
+  <div class="header-mobile hidden-sm hidden-md hidden-lg">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#gps-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand text-family-gps" href="/">Global Professional Search</a>
+        </div>
+        <div class="collapse navbar-collapse" id="gps-navbar-collapse">
+          <ul class="nav navbar-nav navbar-right uppercase">
+            <li>
+              <a href="{{path('homepage')}}">Candidates</a>
+            </li>
+            <li>
+              <a href="{{path('employers')}}">Employers</a>
+            </li>
+            <li>
+              <a href="#" onclick="helpButton.activate()">Contact Us</a>
+            </li>
+            {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li>
+              <a href="{{path('dashboard-app')}}">My Dashboard</a>
+            </li>
+            {% else %}
+            <li>
+              <a href="{{path('create-account')}}">Join</a>
+            </li>
+            <li>
+              <a href="{{path('login')}}">Log In</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="header-desktop hidden-xs navbar-fixed-top">
+    <div class="header-background">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="middle-align-container">
+
+              <div class="middle-align header-brand">
+                <img src="/public/images/g-logo-shaded-md-white.png" alt="" class="header-logo"/>
+                <a href="{{path('homepage')}}" class="text-semibold text-large text-family-gps no-link-inverse">
+                  Global <br>
+                  Professional <br>
+                  Search
+                </a>
+              </div>
+
+              <div class="middle-align header-menu text-uppercase text-nowrap">
+                <ul>
+                  {% if isEmployer %}
+                  <li class="menu-button">
+                    <a class="btn-header" href="{{path('homepage')}}">Candidates Here</a>
+                  </li>
+                  {% else %}
+                  <li class="menu-button">
+                    <a class="btn-header" href="{{path('employers')}}">Employers Here</a>
+                  </li>
+                  {% endif %}
+
+                  <li class="menu-link">
+                    <a href="#" onclick="helpButton.activate()">Contact Us</a>
+                  </li>
+
+                  {% if app.user and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                  <li class="menu-link">
+                    <a href="{{path('dashboard-app')}}" class="btn-header">My Dashboard</a>
+                  </li>
+                  {% else %}
+                  {% if showContact %}
+                  <li class="menu-link">
+                    <a href="{{path('employer-contact')}}" class="btn-header">Contact GPS</a>
+                  </li>
+                  {% else %}
+                  <li class="menu-link {% if activeRouteName == 'create-account' %} active {% endif %}">
+                    <a href="{{path('create-account')}}" class="btn-header">Join GPS</a>
+                  </li>
+                  {% endif %}
+                  <li class="menu-link {% if activeRouteName == 'login' %} active {% endif %}">
+                    <a href="{{path('login')}}" class="btn-header btn-login">Log In</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

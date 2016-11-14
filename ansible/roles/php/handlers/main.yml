@@ -1,0 +1,2 @@
+- name: "restart php-fpm"
+  command: "echo 'not really doing anything'"

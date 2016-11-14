@@ -1,0 +1,48 @@
+.candidate-profile
+  .header
+
+    .row
+      .col-xs-4
+        .profile-image
+          img.img-circle.center-block.img-responsive(ng-src="{{profileImageUrl}}")
+          h3.text-center(ng-bind-html="getFormattedLocation()")
+      .col-xs-8
+        .row
+          .col-xs-12
+            .contact-info(ng-show="!showContact")
+              h3 
+                span GPS Candidate &nbsp;
+                span.small ID: {{user.shortId}}
+              hr
+            .contact-info(ng-show="showContact")
+              h3
+                span {{user.firstName}} {{user.lastName}}
+                span.small.email ({{user.email}})
+                span.small.phone(ng-show="user.phone") {{user.phone}}
+              hr
+        .row
+          .col-xs-6
+            .work-edu
+              h4 Work Experience
+              p {{getYearsExperience()}}
+              h4 Industries
+              p {{headerIndustries}}
+              h4 Degrees
+              p {{allDegrees}}
+              h4 Majors
+              p {{allMajors}}
+          .col-xs-6
+            .langs-countries
+              h4 Native Language
+              p {{listNativeLanguages()}}
+              h4 Foreign Languages
+              p {{listForeignLanguages()}}
+              h4 Passports/Visas
+              p {{listVisaCountries()}}
+              h4 US Security Clearance
+              p {{getSecurityClearanceLabel()}}
+        
+    //- main body
+  .body
+
+    ng-include(ng-repeat="template in getSectionTemplates()" src="template")

@@ -1,0 +1,109 @@
+.form-country
+  .select-country
+    .row
+      .col-md-4(ng-show="!country.code")
+        .form-group
+          label(ng-class="{required: !country.code}") Country
+          field-container(error-path="code" promise="form.fields['code'].promise")
+            .select-wrap
+              select.form-control(
+                ng-model="form.fields['code'].value"
+                ng-change="form.saveField('code')"
+                ng-options="item.code as item.name for item in conf.countryCodes"
+              )
+                option(value="") -- Choose --
+
+  .form(ng-if="country.code")
+    .row
+      .col-xs-12
+        p.lead {{labeler.getLabel(conf.countryCodes, country.code, 'code', 'name')}}
+    .row
+      .col-xs-12
+        .familiarity-slider(ng-repeat="question in conf.countrySliders" cg-busy="form.fields[question.key].promise")
+          .form-group
+            label(ng-class="{'required': !country[question.key]}") {{question.label}}
+            .slider-box(ng-class="{'unanswered': !country[question.key]}")
+              slider(
+                ng-model="form.fields[question.key].value"
+                value="form.fields[question.key].value"
+                min="0"
+                max="6"
+                step="1"
+                ticks="[0,1,2,3,4,5,6]"
+                on-stop-slide="form.saveField(question.key)"
+                tooltip="hide"
+              )
+              p.text-center(ng-show="!country[question.key]") {{question.instructions}}
+              p.small {{question.valueDescriptions[form.fields[question.key].value - 1]}}
+  
+    .row
+      .col-xs-6
+        .form-group
+          label(ng-class="{required: !country.purposes.length}") Purposes
+          field-container(promise="form.fields.purposes.promise")
+            .bs-select-custom
+              button.btn.btn-form(
+                bs-select
+                ng-model="form.fields.purposes.value"
+                data-multiple="1"
+                ng-blur="form.saveField('purposes')"
+                data-html="1"
+                bs-options="item.key as item.label for item in conf.countryPurposes"
+              )
+      .col-xs-6
+        .form-group
+          label(ng-class="{required: !country.approximateNumberMonths}")
+            span Time in Country
+            label-description(text="Total time spent in country.")
+          field-container(promise="form.fields.approximateNumberMonths.promise")
+            input-num-months(model="form.fields.approximateNumberMonths.value" on-change="form.saveField('approximateNumberMonths')")
+    .row
+      .col-xs-6
+        .form-group
+          label(ng-class="{required: !country.dateLastVisit}") Last Visit
+          field-container(promise="form.fields.dateLastVisit.promise")
+            input.form-control.datefield(type="text" bs-datepicker autoclose="true" min-view="1" date-format="MMM yyyy" ng-model="form.fields.dateLastVisit.value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('dateLastVisit')" placeholder="\uF073 > than 2 months")
+      .col-xs-6
+        .form-group
+          label(ng-class="{required: !country.cities.length}") City
+          field-container(promise="form.fields.cities.promise")
+            input-string-list(model="form.fields.cities.value" on-change="form.saveField('cities')" instructions="Separate cities with a comma...")
+
+    .row
+      .col-xs-12
+        p.lead Tell us more about your experience abroad <em>(Optional):</em>
+    
+        .country-slider-row(
+          ng-repeat="slider in conf.countryPurposeSliders"
+          ng-if="shouldShowSlider(slider)"
+          ng-class="{unanswered: !sliderStates[slider.key].answered}" 
+          cg-busy="form.fields['activities.'+slider.key].promise"
+        )
+          .row
+            .col-xs-12
+              p {{slider.label}}
+          .row.flex
+            .col-xs-3
+              .checkbox(ng-click="toggleSliderNA(slider.key)")
+                label
+                  i.fa.fa-check-square-o(ng-show="!sliderStates[slider.key].answered || form.fields['activities.'+slider.key].value == 1")
+                  i.fa.fa-square-o(ng-show="form.fields['activities.'+slider.key].value > 1")
+                  span.small N/A
+              .checkbox(cg-busy="form.fields['activities.'+slider.key+'LocalLangBool'].promise" ng-show="sliderStates[slider.key].localLang && form.fields['activities.'+slider.key].value > 1" ng-click="toggleSliderLocalLang(slider.key)")
+                label
+                  i.fa.fa-check-square-o(ng-show="form.fields['activities.'+slider.key+'LocalLangBool'].value")
+                  i.fa.fa-square-o(ng-show="!form.fields['activities.'+slider.key+'LocalLangBool'].value == true")
+                  span.small In a local language?                  
+            .col-xs-9
+              .slider-box(ng-class="{unanswered: !sliderStates[slider.key].answered}")
+                slider(
+                  ng-model="form.fields['activities.'+slider.key].value"
+                  tooltip="hide"
+                  min="1"
+                  max="6"
+                  step="1"
+                  value="form.fields['activities.'+slider.key].value"
+                  on-stop-slide="saveSlider(slider.key)"
+                  ticks="[1,2,3,4,5,6]"
+                  ticks-labels="conf.purposeSliderLabels"
+                )

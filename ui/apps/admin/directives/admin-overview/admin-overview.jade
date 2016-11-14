@@ -1,0 +1,45 @@
+.admin-overview
+  .row
+    .col-xs-12
+      .alert.alert-danger(ng-show="counts.error") {{counts.error}}
+      .alert.alert-danger(ng-show="distributions.error") {{distributions.error}}
+  .row.row-spacer
+    .col-xs-6
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title
+            span User Counts
+            span.pull-right
+              i.fa.fa-refresh(ng-click="loadCounts()")
+        .panel-body(cg-busy="counts.promise")
+          .text-large
+            dl.dl-horizontal
+              dt Total
+              dd {{ counts.data.total || '??' }}
+              dt Last 7 days
+              dd {{ counts.data.thisWeek || '??' }}
+              dt Last 24 hours
+              dd {{ counts.data.this24 || '??' }}
+          
+    .col-xs-6
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title
+            span Profile Distributions
+            span.pull-right
+              i.fa.fa-refresh(ng-click="loadDistributions()")
+        .panel-body(cg-busy="distributions.promise")
+          p.lead Total Profiles: {{distributions.data.total}}
+          p.lead Completed Short Forms: {{distributions.data.completedShortForms}}
+          table.table.table-striped
+            tbody
+              tr
+                th Completeness
+                th Count
+                th % of total
+              tr(ng-repeat="row in distributions.data.ranges")
+                td {{row.min}}% - {{row.max}}%
+                td {{row.count}}
+                td {{100*row.count / distributions.data.total | number:0 }}
+        .panel-footer
+          span.small Profile distributions updated approximately once per hour.

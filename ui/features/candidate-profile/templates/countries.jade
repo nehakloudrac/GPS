@@ -1,0 +1,49 @@
+.section(ng-if="showCountriesSection()")
+  .section-title
+    h2
+      span Experience Abroad
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.countries")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+
+  .section-body
+
+    //- empty check
+    .row(ng-if="!profile.countries || profile.countries.length == 0")
+      .col-xs-8.col-xs-offset-4
+        .incomplete-block
+          span Information for experiences abroad is incomplete
+          a.incomplete-link(ui-sref="profile.edit.countries")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+
+    .row(ng-if="profile.countries.length > 0")
+      .col-xs-12
+        .subsection(
+          ng-repeat="country in profile.countries" 
+          ng-show="(hideIncomplete && completenessHelper.isCountryComplete(country)) || !hideIncomplete"
+        )
+          .divider(ng-show="!$first")
+            .highlight
+          .row
+            .col-xs-4
+              h3 {{getLabel(labels.countryCodes, country.code, 'code', 'name')}}
+            .col-xs-8(ng-if="!completenessHelper.isCountryComplete(country)")
+              .incomplete-block
+                span Information for this country is incomplete
+                a.incomplete-link(ui-sref="profile.edit.countries")
+                  span Add Info
+                  i.g.g-2x.g-circle-plus
+            .col-xs-8(ng-if="completenessHelper.isCountryComplete(country)")
+              h5 Familiarity with culture:
+              p {{labels.countrySliders[0].valueDescriptions[country.cultureFamiliarity - 1]}}
+              h5 Familiarity with local business practices:
+              p {{labels.countrySliders[1].valueDescriptions[country.businessFamiliarity - 1]}}
+              div(ng-show="getCountryNotableActivitiesLocalLang(country).length > 0")
+                h5 Candidate has exceptional experience doing the following activities in the local language while in country:
+                ul
+                  li.small(ng-repeat="item in getCountryNotableActivitiesLocalLang(country)") {{item}}
+              div(ng-show="getCountryNotableActivities(country).length > 0")
+                h5 Candidate has exceptional experience doing the following activities while in country:
+                ul
+                  li.small(ng-repeat="item in getCountryNotableActivities(country)") {{item}}

@@ -1,0 +1,247 @@
+//- Ideal job section
+.section-ideal-job
+  .row
+    .col-xs-12
+      
+      .row
+        .col-xs-12
+          p.lead What is your desired...
+      
+      .row.form-row
+        .col-sm-3
+          field-label Job Type
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="jobTypes" promise="fields.jobTypes.promise")
+                  ui-select.form-control(multiple ng-model="fields.jobTypes.value" on-select="saveField('jobTypes')" on-remove="saveField('jobTypes')")
+                    ui-select-match(placeholder="Select all that apply") {{$item.label}}
+                    ui-select-choices(repeat="item.key as item in jobTypes")
+                      span(ng-bind-html="item.label")
+
+      .row.form-row
+        .col-sm-3
+          field-label Industry
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="industries" promise="fields.industries.promise")
+                  ui-select.form-control(tagging tagging-label="(custom)" multiple ng-model="fields.industries.value" on-select="saveField('industries')" on-remove="saveField('industries')")
+                    ui-select-match(placeholder="Select or add custom") {{$item}}
+                    ui-select-choices(repeat="item in institutionIndustries  | filter: $select.search")
+                      span(ng-bind-html="item")
+
+      .row.form-row
+        .col-sm-3
+          field-label Type of Employer
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="employerTypes" promise="fields.employerTypes.promise")
+                  ui-select.form-control(multiple ng-model="fields.employerTypes.value" on-select="saveField('employerTypes')" on-remove="saveField('employerTypes')")
+                    ui-select-match(placeholder="Select all that apply") {{$item.label}}
+                    ui-select-choices(repeat="item.key as item in institutionTypes")
+                      span(ng-bind-html="item.label")
+      .row.form-row
+        .col-sm-3
+          field-label Location Abroad
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="locationsAbroad" promise="fields.locationsAbroad.promise")
+                  ui-select.form-control(multiple limit="3" ng-model="fields.locationsAbroad.value" on-select="saveField('locationsAbroad')" on-remove="saveField('locationsAbroad')")
+                    ui-select-match(placeholder="Select up to 3") {{$item.name}}
+                    ui-select-choices(repeat="item.code as item in locationsAbroadChoices  | filter: $select.search")
+                      span(ng-bind-html="item.name")
+
+      .row.form-row
+        .col-sm-3
+          field-label Location in US
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="locationsUSA" promise="fields.locationsUSA.promise")
+                  ui-select.form-control(multiple limit="3" ng-model="fields.locationsUSA.value" on-select="saveField('locationsUSA')" on-remove="saveField('locationsUSA')")
+                    ui-select-match(placeholder="Select up to 3") {{$item.label}}
+                    ui-select-choices(repeat="item.key as item in locationsUSAChoices  | filter: $select.search")
+                      span(ng-bind-html="item.label")
+      .row.form-row
+        .col-sm-3
+          field-label Willingness to Travel
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="willingnessToTravel" promise="fields.willingnessToTravel.promise")
+                  .ui-select-custom
+                    ui-select(ng-model="fields.willingnessToTravel.value" on-select="saveField('willingnessToTravel')")
+                      ui-select-match(placeholder="Optional") {{$select.selected.label}}
+                      ui-select-choices(repeat="item.key as item in willingnessToTravel")
+                        span(ng-bind-html="item.label")
+              .form-group
+                field-container(error-path="willingToTravelOverseas" promise="fields.willingToTravelOverseas.promise")
+                  .checkbox
+                    label
+                      input(type="checkbox" ng-model="fields.willingToTravelOverseas.value" ng-change="saveField('willingToTravelOverseas')" ng-checked="fields.willingToTravelOverseas.value")
+                      |  Willing to travel overseas
+
+      .row.form-row
+        .col-sm-3
+          field-label Start Date
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="desiredDate.start" promise="fields.desiredDate.promise")
+                  input.form-control.datefield(type="text" bs-datepicker autoclose="true" ng-model="fields.desiredDate.value.start" placeholder="\uF073" ng-change="saveField('desiredDate')")
+              .form-group
+                field-container(error-path="availableImmediately" promise="fields.availableImmediately.promise")
+                  .checkbox
+                    label
+                      input(type="checkbox" ng-model="fields.availableImmediately.value" ng-change="saveField('availableImmediately')" ng-checked="fields.availableImmediately.value")
+                      |  Available immediately
+
+      .row.form-row(ng-show="hasTypes(['internship'])")
+        .col-sm-3
+          field-label End Date
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="desiredDate.end" promise="fields.desiredDate.promise")
+                  input.form-control.datefield(type="text" bs-datepicker autoclose="true" ng-model="fields.desiredDate.value.end" placeholder="\uF073" ng-change="saveField('desiredDate')")
+                p.help-block If you are available for a short-term internship, when would your preferred end-date be?
+                      
+      .row.form-row(ng-show="hasTypes(['part_time','internship','project'])")
+        .col-sm-3
+          field-label Hours Per Week
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group
+                field-container(error-path="hoursPerWeek" promise="fields.hoursPerWeek.promise")
+                  input.form-control(type="text" blur-on-enter ng-model="fields.hoursPerWeek.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('hoursPerWeek')")
+              
+      .row.form-row(ng-show="hasTypes(['internship'])")
+        .col-sm-3
+          field-label Internship Payment Status
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8                
+              .form-group
+                field-container(error-path="payStatus" promise="fields.payStatus.promise")
+                  ui-select.form-control(multiple ng-model="fields.payStatus.value" on-select="saveField('payStatus')" on-remove="saveField('payStatus')")
+                    ui-select-match(placeholder="Select all that apply") {{$item.label}}
+                    ui-select-choices(repeat="item.key as item in paymentStatuses")
+                      span(ng-bind-html="item.label")
+
+      .row.form-row.compensation-row(ng-show="idealJob.jobTypes.length > 0")
+        .col-sm-3
+          field-label Compensation
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .form-group(ng-show="hasTypes(['full_time'])")
+                field-container(error-path="minSalary" promise="fields.minSalary.promise")
+                  .input-group
+                    .input-group-addon $
+                    input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="fields.minSalary.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('minSalary')")
+                    .input-group-addon annually
+              .form-group(ng-show="hasTypes(['project'])")
+                field-container(error-path="minMonthlyRate" promise="fields.minMonthlyRate.promise")
+                  .input-group
+                    .input-group-addon $
+                    input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="fields.minMonthlyRate.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('minMonthlyRate')")
+                    .input-group-addon monthly
+              .form-group(ng-show="hasTypes(['project'])")
+                field-container(error-path="minWeeklyRate" promise="fields.minWeeklyRate.promise")
+                  .input-group
+                    .input-group-addon $
+                    input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="fields.minWeeklyRate.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('minWeeklyRate')")
+                    .input-group-addon weekly
+              .form-group(ng-show="hasTypes(['project'])")
+                field-container(error-path="minDailyRate" promise="fields.minDailyRate.promise")
+                  .input-group
+                    .input-group-addon $
+                    input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="fields.minDailyRate.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('minDailyRate')")
+                    .input-group-addon daily
+              .form-group(ng-show="hasTypes(['part_time','internship','project'])")
+                field-container(error-path="minHourlyRate" promise="fields.minHourlyRate.promise")
+                  .input-group
+                    .input-group-addon $
+                    input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="fields.minHourlyRate.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('minHourlyRate')")
+                    .input-group-addon hourly
+              .form-group
+                p.help-block Numbers only (e.g. 48000)
+
+      .row.form-row(ng-if="hasTypes(['project'])")
+        .col-sm-3
+          field-label Availability
+        .col-sm-9
+          .row
+            .col-xs-12.col-sm-8
+              .row(ng-repeat="avail in availabilities")
+                .col-xs-12
+                  .row
+                    .col-xs-12
+                      .availability-block(cg-busy="avail.promise")
+                        .row
+                          .col-xs-6
+                            input.form-control.datefield(type="text" bs-datepicker autoclose="true" ng-model="avail.fields.duration.start" ng-change="saveAvailability($index)" placeholder="\uF073 From")
+                          .col-xs-6
+                            input.form-control.datefield(type="text" bs-datepicker autoclose="true" ng-model="avail.fields.duration.end" ng-change="saveAvailability($index)" placeholder="\uF073 Until")
+                        .row
+                          .col-xs-12
+                            .checkbox
+                              label
+                                input(type="checkbox" ng-model="avail.fields.travelInternational" ng-change="saveAvailability($index)" ng-true-value="true" ng-false-value="false" ng-checked="avail.fields.travelInternational")
+                                |  Available for international travel
+                            .checkbox
+                              label
+                                input(type="checkbox" ng-model="avail.fields.travelDomestic" ng-change="saveAvailability($index)" ng-true-value="true" ng-false-value="false" ng-checked="avail.fields.travelDomestic")
+                                |  Available for domestic travel
+                  .row
+                    .col-xs-12
+                      p.text-right
+                        a.btn.btn-xs.btn-link.text-danger(ng-click="deleteAvailability($index)")
+                          i.fa.fa-trash &nbsp;
+                          span Delete
+              .row.row-spacer
+                .col-xs-12
+                  a.btn.btn-primary.btn-xs(ng-click="addAvailability()")
+                    i.fa.fa-plus
+                    |  Add availability
+              p.help-block List windows of availability for project-based work.
+
+
+  .row.section-spacer
+    .col-xs-12(ng-controller="EmployerIdealsController")
+      p.lead Drag and drop up to 3 values that are most important in an employer and rank by importance:
+      sortable-list(
+        model="profile.employerIdeals"
+        on-update="save(items)"
+        choices="ideals"
+        busy="promise"
+        max="3"
+      )
+
+
+  .row.section-spacer
+    .col-xs-12
+      p.lead I prefer to...
+      .row.slider-row(ng-repeat="(key, pref) in preferences" ng-class="{unanswered: !pref.answered}")
+        .col-xs-12(cg-busy="pref.promise")
+          .row
+            .col-xs-3
+              p {{pref.lowLabel}}
+            .col-xs-6
+              .slider-box(ng-class="{unanswered: !pref.answered}")
+                slider(ng-model="pref.value" tooltip="hide" handle="square" min="0" max="1" precision="2" step=".01" on-stop-slide="savePreference(key)")
+            .col-xs-3
+              p {{pref.highLabel}}
+  

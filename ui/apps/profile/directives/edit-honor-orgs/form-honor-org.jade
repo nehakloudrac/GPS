@@ -1,0 +1,12 @@
+.form-honor-org
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !org.name}") Name
+        field-container(error-path="name" promise="form.fields['name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('name')")
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !org.duration.start}") Duration
+        field-container(error-path="duration.start" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="current member")

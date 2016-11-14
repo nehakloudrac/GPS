@@ -1,0 +1,46 @@
+.field-container {
+
+  // custom error styling for various input widgets
+  &.has-errors {
+    input { border-color: @brand-danger; }
+  }
+
+}
+
+.field-container-error-popover {
+  .dismiss-errors {
+    cursor: pointer;
+  }
+}
+
+.form-row {
+  margin-bottom: 10px;
+}
+
+.field-label {
+  text-align: right;
+  
+  @media(max-width: @screen-xs-max) {
+    text-align: left;
+  }  
+  
+  // use css to prepend or append required asterisk depending on 
+  // responsive breakpoint
+  .required {
+    font-weight: bold;
+    
+    @media(max-width: @screen-xs-max) {
+      &::after {
+        content: "\00A0 *";
+        color: @brand-warning;
+      }
+    }
+    
+    @media(min-width: @screen-sm-min) {
+      &::before {
+        content: "* \00A0";
+        color: @brand-warning;
+      }
+    }
+  }
+}

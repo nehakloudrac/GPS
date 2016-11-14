@@ -1,0 +1,8 @@
+.input-string-list
+  input.form-control(
+    type="text"
+    ng-model="value"
+    ng-model-options="{ updateOn: 'blur'}"
+    ng-change="update()"
+    placeholder="{{instructions}}"
+  )

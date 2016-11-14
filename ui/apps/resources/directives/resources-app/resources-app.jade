@@ -1,0 +1,19 @@
+.resources-app
+  app-page
+    app-menu(active="resources")
+    
+    .resources-app-body
+      .container
+        .row
+          .col-sm-4
+            .resources-menu
+              ul.lead
+                li(ng-class="{active: layout.eq('resources.articles')}" ng-click="layout.go('resources.articles')") Articles
+                li(ng-class="{active: layout.eq('resources.quotes')}" ng-click="layout.go('resources.quotes')") Quotes
+                //- li(ng-class="{active: layout.eq('resources.programs')}" ng-click="layout.go('resources.programs')") Programs
+                //- li(ng-class="{active: layout.eq('resources.news')}" ng-click="layout.go('resources.news')") GPS News
+            .twitter.hidden-xs
+              <a class="twitter-timeline"  href="https://twitter.com/GPS_Jobs" data-widget-id="622472110548615173">Tweets by @GPS_Jobs</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                  
+          .col-sm-8
+            ui-view

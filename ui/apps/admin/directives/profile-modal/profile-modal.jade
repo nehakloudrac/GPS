@@ -1,0 +1,54 @@
+.modal.candidate-profile-modal(ng-controller="ProfileModalController")
+  .container
+    .row
+      .col-xs-12
+        .modal-dialog
+          .modal-content
+            .modal-body
+              p.lead
+                span {{user.firstName}} {{user.lastName}}
+                span
+                  a(href="mailto:{{user.email}}?subject=Global Professional Search") ({{user.email}})
+                span - {{user.id}}
+                a.btn.btn-sm.btn-info.pull-right(ng-click="$close()")
+                  i.fa.fa-times &nbsp;
+                  span Close
+              hr.clearfix
+                
+              ul.nav.nav-tabs(ng-init="view = 'profile'")
+                li(ng-click="view = 'profile'" ng-class="{active: view == 'profile'}")
+                  a Profile
+                li(ng-click="view = 'comments'" ng-class="{active: view == 'comments'}")
+                  a Comments
+                li(ng-click="view = 'summary'" ng-class="{active: view == 'summary'}")
+                  a Summary
+                li(ng-click="view = 'raw-profile'" ng-class="{active: view == 'raw-profile'}")
+                  a Profile Data
+                li(ng-click="view = 'raw-user'" ng-class="{active: view == 'raw-user'}")
+                  a User Data
+              
+              .candidate-profile-modal-content(cg-busy="promise")
+                .error(ng-show="error")
+                  .alert.alert-danger {{error}}
+                
+                div(ng-if="view == 'summary' && user && profile")
+                  user-summary(user="user" profile="profile")
+
+                div(ng-if="view == 'profile'")
+                  .candidate-profile-container(ng-show="!error")
+                    .candidate-profile-inner(ng-if="user")
+                      candidate-profile(user="user" profile="profile" viewAsEmployer="false")
+                
+                div(ng-if="view == 'comments'")
+                  user-comments(user="user")
+                
+                div(ng-if="view == 'raw-profile'")
+                  pre {{getProfileJson()}}
+
+                div(ng-if="view == 'raw-user'")
+                  pre {{getUserJson()}}
+                
+            .modal-footer
+              a.btn.btn-sm.btn-info(ng-click="$close()")
+                i.fa.fa-times &nbsp;
+                span Close

@@ -1,0 +1,19 @@
+- name: access modern nodejs repository
+  apt_repository: repo=ppa:chris-lea/node.js
+  register: nodejs_repo
+
+- name: update apt cache for nodejs repo
+  apt: update_cache=yes
+  when: nodejs_repo.changed
+
+- name: install node
+  apt: pkg={{item}}
+  with_items:
+    - nodejs
+    - build-essential
+
+- name: install bower
+  command: npm install --global bower
+
+- name: install gulp
+  command: npm install --global gulp

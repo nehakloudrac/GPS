@@ -1,0 +1,50 @@
+.form-university
+
+  .row
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.institution.name}") School
+        field-container(error-path="institution.name" promise="form.fields['institution.name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['institution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.name')")
+    .col-xs-8
+      .form-group
+        label(ng-class="{required: !event.duration.start}") Duration
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="currently enrolled")
+  
+  .row
+    .col-xs-12      
+      .form-group
+        label(ng-class="{required: isLocationRequired(event.institution.address)}") Location
+        field-container(error-path="institution.address" promise="form.fields['institution.address'].promise")
+          input-location(ng-model="form.fields['institution.address'].value" ng-change="form.saveField('institution.address')")
+  
+  .row
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.degrees}")
+          span Degrees
+          label-description(text="Select multiple if you earned more than one degree.")
+        field-container(error-path="degrees" promise="form.fields['degrees'].promise")
+          .bs-select-custom
+            button.btn.btn-form(
+              bs-select
+              placeholder=""
+              ng-model="form.fields.degrees.value"
+              data-multiple="1"
+              ng-blur="form.saveField('degrees')"
+              data-html="1"
+              bs-options="item.key as item.label for item in conf.universityDegrees"
+            )          
+    .col-xs-4
+      .form-group
+        label GPA
+        field-container(error-path="gpa" promise="form.fields['gpa'].promise")
+          input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['gpa'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('gpa')")
+  
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.concentrations.length || !event.concentrations[0].fieldName}") Majors & Minors
+        field-container(error-path="concentrations" promise="form.fields['concentrations'].promise")
+          input-concentrations(model="form.fields['concentrations'].value" on-change="form.saveField('concentrations')")

@@ -1,0 +1,44 @@
+.resources-app {
+  .resources-app-body {
+    margin: @navbar-height/2 0px;
+    min-height: 500px;
+  }
+  
+  .resources-menu {
+    ul {
+      margin: 0px;
+      padding: 0px;
+    }
+    
+    li {
+      border-bottom: 1px solid @gray-lighter;
+      list-style: none;
+      padding: 20px 0px;
+      color: lighten(@brand-info, 10%);
+
+      &:hover {
+        cursor: pointer;
+        color: @brand-info;
+      }
+      
+      &.active  {
+        color: @brand-info;
+        font-weight: bold;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      
+    }
+    
+  }
+  
+  .twitter {
+    margin: @navbar-height/2 0px;
+    background-color: @shaded-bg;
+    padding: 10px;
+    border-radius: @border-radius-base;
+  }
+}

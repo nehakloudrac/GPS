@@ -1,0 +1,18 @@
+.form-membership-org
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !org.institution.name}") Name
+        field-container(error-path="institution.name" promise="form.fields['institution.name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['institution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.name')")
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !org.level}") Membership Level
+        field-container(error-path="level" promise="form.fields['level'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['level'].value"
+              ng-change="form.saveField('level')"
+              ng-options="item.value as item.label for item in organizationMembershipLevels"
+            )
+              option(value="") -- Choose --

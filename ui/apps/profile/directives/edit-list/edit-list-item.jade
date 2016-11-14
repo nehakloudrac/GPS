@@ -1,0 +1,12 @@
+.edit-list-item
+  .incomplete(ng-if="isIncomplete()")
+    p
+      i.fa.fa-fw.fa-exclamation-triangle.text-warning(bs-tooltip="{title: 'This item is incomplete', trigger: 'hover'}")
+  .title
+    p.subtext {{titleText}}
+  .subtitle(ng-show="canHaveSubtitle")
+    p.subtext {{subTitleText}}
+  .controls
+    a.btn.btn-link(ng-click="onEdit()") Edit
+    span.separator |
+    a.btn.btn-link(ng-click="onRemove()") Remove

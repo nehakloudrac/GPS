@@ -1,0 +1,59 @@
+.app-menu {
+  @border-width: 6px;
+  @background: @shaded-bg;
+  @divider: 3px;
+
+  .tabs {        
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    background-color: darken(@background, 10%);
+    display: flex;
+    flex-direction: row;
+    
+    
+    .tab {
+      margin-left: @divider;
+      flex-grow: 1;
+      width: 100%;
+      background-color: @background;
+      border-top: @border-width solid transparent;
+      
+      &:first-child {
+        margin-left: 0px;
+      }
+
+      &:hover {
+        background-color: average(@background, @body-bg);
+        border-color: fadeout(@brand-warning, 25%);
+      }
+      
+      &.active {
+        background-color: @body-bg;
+        border-color: @brand-warning;
+        margin: 0px -@divider;
+      }
+
+      a {
+        text-align: center;
+        cursor: pointer;
+        display: inline-block;
+        padding: 20px 0px;
+        width: 100%;
+        
+        &:hover {
+          text-decoration: none;
+        }
+        
+        .g {
+          .hidden-xs;
+          font-size: 2em;
+          margin-right: 15px;
+          vertical-align: middle;
+        }
+        
+      }
+    }
+    
+  }
+}

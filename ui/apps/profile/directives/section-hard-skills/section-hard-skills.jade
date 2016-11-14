@@ -1,0 +1,13 @@
+.section-hard-skills
+  .row
+    .col-xs-12
+      p.lead Please indicate any experience performing the following:
+      
+      .row.hard-skill-row(ng-repeat="skill in hardSkills" cg-busy="promises[skill.key]" ng-class="{unanswered: rawValues[skill.key] == undefined}")
+        .col-xs-12
+          hr(ng-show="!$first")
+          p {{skill.label}}
+          .slider-box-container
+            .slider-box(ng-class="{unanswered: rawValues[skill.key] == undefined}")
+              slider(ng-model="values[skill.key]" min="0" max="5" step="1" tooltip="hide" ticks="[0,1,2,3,4,5]" ticks-labels="skillLabels" value="values[skill.key]" on-stop-slide="saveField(skill.key)")
+

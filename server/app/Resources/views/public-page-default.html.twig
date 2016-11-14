@@ -1,0 +1,37 @@
+{% extends 'public-layout.html.twig' %}
+
+{% block body %}
+
+<div class="body">
+
+  {% include 'partials/public-header.html.twig' %}
+  
+  <div class="main">
+
+    <div class="banner page-title-banner">
+      <div class="banner-content">
+        <div class="container">
+          <h2 class="text-center">{{title}}</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-background">
+      <div class="banner">
+        <div class="banner-arrow-row">
+          <div class="banner-arrow"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="content-container">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+
+
+{% endblock %}

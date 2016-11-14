@@ -1,0 +1,186 @@
+.edit-background.edit-section
+  .row
+    .col-sm-4
+      profile-photo-uploader(instructions="Click the image to upload a photo, or drag a photo into this area.")
+      .spacer(ng-if="showLiImporter")
+        button.btn.btn-info.btn-block(ng-click="launchLiImporter()")
+          i.fa.fa-linkedin
+          span &nbsp; Import LinkedIn Profile
+    .col-sm-8
+      
+      .row.row-spacer
+        .col-xs-12
+          p.lead Personal
+      .row.row-spacer
+        .col-xs-4
+          .form-group
+            label Preferred Name
+            field-container(error-path="preferredName" error-placement="right" promise="fields.user['preferredName'].promise")
+              input.form-control(type="text" blur-on-enter ng-model="fields.user['preferredName'].value" ng-model-options="{updateOn: 'blur'}" ng-change="saveUserField('preferredName')")
+
+        .col-xs-8
+          .form-group
+            label(ng-class="{required: !user.currentJobStatus}") Status
+            field-container(error-path="currentJobStatus" error-placement="right" promise="fields.user['currentJobStatus'].promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="fields.user['currentJobStatus'].value"
+                  ng-options="item.key as item.label for item in conf.userJobStatusOptions"
+                  ng-change="saveUserField('currentJobStatus')"
+                )
+
+      .row
+        .col-xs-12
+          .form-group
+            label(ng-class="{required: !user.address.countryCode || !user.address.city}") Current Location
+            field-container(error-path="address" promise="fields.user['address'].promise")
+              input-location(ng-model="fields.user['address'].value" ng-change="saveUserField('address')")
+
+      .row
+        .col-xs-4
+          .form-group
+            label Gender
+            field-container(error-path="gender" error-placement="right" promise="fields.user['gender'].promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="fields.user['gender'].value"
+                  ng-options="item.key as item.label for item in conf.genderOptions"
+                  ng-change="saveUserField('gender')"
+                )
+                option(value="") Optional                    
+        .col-xs-8
+          .form-group
+            label
+              span Help Us Increase Workforce Diversity
+              label-description(text="Presidential Executive Orders and Federal personnel programs established by the U.S. Government's Office of Personnel Management aim to eliminate demographic group imbalances in targeted occupations. Help us to improve workforce diversity by selecting the categories in which you include yourself.")
+            field-container(error-path="diversity" promise="fields.user['diversity'].promise")
+              .bs-select-custom
+                button.btn.btn-form(
+                  bs-select
+                  placeholder="Optional"
+                  ng-model="fields.user['diversity'].value"
+                  data-multiple="1"
+                  ng-blur="saveUserField('diversity')"
+                  data-html="1"
+                  bs-options="item.key as item.label for item in conf.diversityFlags"
+                )
+      .row
+        .col-xs-4
+          .form-group
+            label How you heard about us
+            field-container(error-path="referralMediumChoice" error-placement="right" promise="fields.user['referralMediumChoice'].promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="fields.user['referralMediumChoice'].value"
+                  ng-options="item.key as item.label for item in conf.referralMediums"
+                  ng-change="saveUserField('referralMediumChoice')"
+                )
+        .col-xs-8(ng-show="user.referralMediumChoice == 'other'")
+          .form-group
+            label.empty
+            field-container(error-path="referralMediumOther" promise="fields.user['referralMediumOther'].promise")
+              input.form-control(type="text" blur-on-enter placeholder="Please tell us how you found out about GPS." ng-model="fields.user['referralMediumOther'].value" ng-model-options="{updateOn: 'blur'}" ng-change="saveUserField('referralMediumOther')")
+              
+      .row.row-spacer
+        .col-xs-12
+          p.lead Languages & Countries
+      .row.row-spacer
+        .col-xs-12
+          .row
+            .col-xs-6
+              .form-group
+                label(ng-class="{required: !user.languages.length || user.languages.length < 1}") Native Language
+                field-container(error-path="languages" error-placement="right" promise="fields.user['languages'].promise")
+                  input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="fields.user['languages'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.languageCodes" id-field="code" label-field="label" ng-change="saveUserField('languages')")
+            .col-xs-6
+              .form-group
+                label(ng-class="{required: !user.citizenship.length || user.citizenship.length < 1}") Passports & Visas
+                field-container(error-path="citizenship" error-placement="right" promise="fields.user['citizenship'].promise")
+                  input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" placeholder="Where you can legally work" load-on-focus suggestion-limit="50" ng-model="fields.user['citizenship'].value" choices="conf.countryCodes" id-field="code" label-field="name" ng-change="saveUserField('citizenship')")
+          .row.row-spacer(ng-show="canWorkInUS()")
+            .col-xs-6
+              .form-group
+                label US Work Authorization
+                field-container(error-path="usWorkAuthorization" error-placement="right" promise="fields.user['usWorkAuthorization'].promise")
+                  .select-wrap
+                    select.form-control(
+                      ng-model="fields.user['usWorkAuthorization'].value"
+                      ng-options="item.key as item.label for item in conf.usWorkAuthorizations"
+                      ng-change="saveUserField('usWorkAuthorization')"
+                    )
+            .col-xs-6
+              .form-group
+                label US Security Clearance
+                field-container(error-path="usSecurityClearance" error-placement="right" promise="fields.user['usSecurityClearance'].promise")
+                  .select-wrap
+                    select.form-control(
+                      ng-model="fields.user['usSecurityClearance'].value"
+                      ng-options="item.key as item.label for item in conf.usSecurityClearances"
+                      ng-change="saveUserField('usSecurityClearance')"
+                    )
+          .row(ng-if="initial")
+            .col-xs-6
+              .form-group
+                label Foreign Languages
+                field-container(error-path="foreignLanguages" error-placement="right" promise="fields.form['foreignLanguages'].promise")
+                  input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" placeholder="Select all that apply" suggestion-limit="50" ng-model="fields.form['foreignLanguages'].value" choices="conf.languageCodes" id-field='code' label-field="label" ng-change="saveFormField('foreignLanguages')")
+            .col-xs-6
+              .form-group
+                label Foreign Countries
+                field-container(error-path="countries" error-placement="right" promise="fields.form['countries'].promise")
+                  input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" placeholder="Where you spent > 2 months" load-on-focus suggestion-limit="50" ng-model="fields.form['countries'].value" choices="conf.countryCodes" id-field="code" label-field="name" ng-change="saveFormField('countries')")
+              
+
+      .row.row-spacer
+        .col-xs-12
+          p.lead Profession & Education
+      .row.row-spacer
+        .col-xs-12
+          .row
+            .col-xs-6
+              .form-group
+                label Industry Expertise
+                field-container(error-path="preferredIndustries" error-placement="right" promise="fields.form['preferredIndustries'].promise")
+                  tags-input.input-multiselect(ng-model="fields.form['preferredIndustries'].value" on-tag-added="saveTaggedFormField('preferredIndustries')" on-tag-removed="saveTaggedFormField('preferredIndustries')" placeholder="Select all that apply" replace-spaces-with-dashes="false")
+                    auto-complete(source="autocompleteFromList(conf.institutionIndustries, $query)" min-length="2" max-results-to-show="20")
+
+            .col-xs-6
+              .form-group
+                label Professional Experience to Date
+                field-container(error-path="yearsWorkExperience" error-placement="right" promise="fields.form['yearsWorkExperience'].promise")
+                  .input-group
+                    input.form-control(type="text" maxlength="2" placeholder="Total # years of experience" blur-on-enter ng-model="fields.form['yearsWorkExperience'].value" ng-model-options="{updateOn: 'blur'}" ng-change="saveFormField('yearsWorkExperience')")
+                    .input-group-addon years
+          .row.row-spacer
+            .col-xs-6
+              .form-group
+                label Job Level
+                field-container(error-path="lastPositionLevelHeld" error-placement="right" promise="fields.form['lastPositionLevelHeld'].promise")
+                  .select-wrap
+                    select.form-control(
+                      ng-model="fields.form['lastPositionLevelHeld'].value"
+                      ng-options="item.key as item.label for item in conf.positionLevels"
+                      ng-change="saveFormField('lastPositionLevelHeld')"
+                    )
+
+            .col-xs-6
+              .form-group
+                label Degrees
+                field-container(error-path="degrees" error-placement="right" promise="fields.form['degrees'].promise")
+                  .bs-select-custom
+                    button.btn.btn-form(
+                      bs-select
+                      placeholder="Optional"
+                      ng-model="fields.form['degrees'].value"
+                      data-multiple="1"
+                      ng-blur="saveFormField('degrees')"
+                      data-html="1"
+                      bs-options="item.key as item.label for item in conf.universityDegrees"
+                    )
+  .row
+    .col-xs-12
+      .pad-lg
+        p.text-right
+          span.text-warning * &nbsp;
+          span Denotes a required field
+        

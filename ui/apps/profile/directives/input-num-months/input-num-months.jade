@@ -1,0 +1,24 @@
+.input-num-months.form-inline
+  .row
+    .col-sm-6.col-xs-12
+      .form-group
+        .input-group
+          input.form-control(
+            type='text'
+            ng-model="numYears"
+            ng-model-options="{updateOn: 'blur'}"
+            ng-change="update()"
+            maxlength="2"
+          )
+          .input-group-addon years
+    .col-sm-6.col-xs-12
+      .form-group
+        .input-group
+          input.form-control(
+            type='text'
+            ng-model="numMonths"
+            ng-model-options="{updateOn: 'blur'}"
+            ng-change="update()"
+            maxlength="2"
+          )
+          .input-group-addon months

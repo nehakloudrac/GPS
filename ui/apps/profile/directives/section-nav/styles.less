@@ -1,0 +1,27 @@
+.section-nav {
+  .pager {
+    li {
+      &:hover {
+        cursor: pointer;
+      }
+      
+      &.expand {
+        flex: 1;
+      }
+      
+      .pager-text {
+        cursor: default;
+        background-color: @body-bg;
+        color: @text-color;
+      }
+      
+      a {
+        background-color: @brand-primary;
+
+        &:hover {
+          background-color: darken(@brand-info, 10%);
+        }
+      }
+    }
+  }
+}

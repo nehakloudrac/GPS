@@ -1,0 +1,33 @@
+.filter-facet-select
+
+  .facet-search(ng-if="filter.def.facet.selectionSearch")
+    .form-group
+      input.form-control.input-sm(
+        blur-on-enter
+        ng-model="facetSearchString"
+        ng-model-options="{updateOn: 'blur'}"
+        ng-change="searchSelections(facetSearchString)"
+      )
+
+  .facet-search(ng-if="filter.def.facet.search && !filter.def.facet.selectionSearch")
+    .form-group
+      input.form-control.input-sm(
+        blur-on-enter
+        ng-model="facetSearchString"
+        ng-model-options="{updateOn: 'blur'}"
+        ng-change="searchFacet(facetSearchString)"
+      )
+  
+  .selections(ng-if="!loaded && facetResult.length == 0")
+    p.small Loading ...
+  
+  .selections(ng-if="loaded && facetResult.length == 0")
+    p.small No results for this field.
+  
+  .selections(ng-if="facetResult.length > 0")
+    .facet-value(
+      ng-repeat="item in facetResult"
+      ng-click="toggleSelectedValue(item.key)"
+    )
+      i.fa.fa-fw(ng-class="{'fa-square-o': !facetSelections[item.key], 'fa-check-square-o': facetSelections[item.key]}")
+      span ({{item.doc_count}}) {{getLabel(item.key)}}

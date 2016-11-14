@@ -1,0 +1,12 @@
+.user-summary-items
+  table
+    tbody
+      tr(ng-repeat="item in items track by $index")
+        td.text-right.key
+          b {{item.label}}: &nbsp;
+        td.val(ng-if="item.value") {{item.value}}
+        td.val(ng-if="!item.value && !item.sub")
+          em N/A
+        td.val(ng-if="item.sub")
+          .pad-lg
+            user-summary-items(items="item.sub")

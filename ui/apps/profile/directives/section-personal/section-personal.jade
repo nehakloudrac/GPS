@@ -1,0 +1,24 @@
+.section-personal
+  
+  .row(ng-controller="CharacterTraitsController")
+    .col-xs-12
+      p.lead Drag and drop the 5 traits that best describe you and rank by importance (1=most important):
+      sortable-list(
+        model="profile.characterTraits"
+        on-update="save(items)"
+        choices="characterTraits"
+        busy="promise"
+        max="5"
+      )
+
+  .row.section-spacer
+    .col-xs-12
+      edit-membership-orgs
+
+  .row.section-spacer(ng-controller="HobbiesController")
+    .col-xs-12
+      p.lead List any hobbies you wish to share (up to 5):
+      .row
+        .col-xs-12
+          field-container(promise="data.promise")
+            timeline-activities-editor(max="5" length="100" ng-model="data.hobbies" ng-change="save()")

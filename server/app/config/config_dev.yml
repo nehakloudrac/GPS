@@ -1,0 +1,30 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+assetic:
+    use_controller: true
+
+swiftmailer:
+   disable_delivery: true
+   
+parameters:
+    gps.test_referrers:
+        test-referrer:
+            name: The Test Referrer
+            registration_theme:
+                logo: /public/images/partner-logos/_test.png
+        other-test-referrer:
+            name: Another Test Referrer
+        person-referrer:
+            name: "Foobert Bartleby"
+            person: true

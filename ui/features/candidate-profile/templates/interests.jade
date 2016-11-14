@@ -1,0 +1,30 @@
+.section.subsection(ng-if="showInterestsSection()")
+  .section-title
+    h2
+      span Other Interests
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.personal")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+  .section-body
+    .row
+      .col-xs-4
+      .col-xs-4(ng-if="showOrganizationsSection()")
+        h4 Organizations
+        .incomplete-block(ng-if="!profile.organizations || profile.organizations.length == 0")
+          span Information for organizations is incomplete
+          a.incomplete-link(ui-sref="profile.edit.personal")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+        ul(ng-if="profile.organizations.length > 0")
+          li(ng-repeat="item in profile.organizations")
+            span {{item.institution.name}} &nbsp;
+            span.subtext {{getLabel(labels.organizationMembershipLevels, item.level, 'value')}}
+      .col-xs-4(ng-if="showHobbiesSection()")
+        h4 Hobbies
+        .incomplete-block(ng-if="!profile.hobbies || profile.hobbies.length == 0")
+          span Information for hobbies is incomplete
+          a.incomplete-link(ui-sref="profile.edit.personal")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+        ul(ng-if="profile.hobbies.length > 0")
+          li(ng-repeat="item in profile.hobbies track by $index") {{item}}

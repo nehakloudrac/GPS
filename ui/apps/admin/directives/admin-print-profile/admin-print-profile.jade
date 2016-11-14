@@ -1,0 +1,23 @@
+.admin-print-profile.print-view
+  .print-header.no-print
+    .container
+      .col-xs-12
+        h1 Print Preview
+        p.small Note: exporting as PDF works best in Safari or Firefox at the moment.  Remember to properly configure the export settings in the print dialogue before saving.
+        .form-group
+          .checkbox
+            label
+              input(type="checkbox" ng-model="showContact")
+              span Show contact info
+          .checkbox
+            label
+              input(type="checkbox" ng-model="hideIncomplete")
+              span Hide empty sections and incomplete items
+        button.btn.btn-info(ng-click="print()")
+          i.fa.fa-print &nbsp
+          span Print/PDF
+        a.btn.btn-default(ng-click="layout.back()") Close
+  .body
+    .container(cg-busy="promise")
+      .col-xs-12(ng-if="user && profile")
+        candidate-profile(profile="profile" user="user" hide-incomplete="hideIncomplete" show-contact="showContact")

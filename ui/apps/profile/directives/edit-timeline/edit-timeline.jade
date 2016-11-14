@@ -1,0 +1,27 @@
+.edit-timeline
+  .edit-section(cg-busy="deletePromise")
+    p.lead List your {{typeLabel}} history.
+    .list
+      edit-list-item(
+        ng-repeat="event in events | filter:notCurrentlyEditing"
+        title="{{getEventLabel(event)}}"
+        sub-title="{{getEventDurationLabel(event)}}"
+        on-edit="edit(event)"
+        on-remove="delete(event)"
+        incomplete-when="isIncomplete(event)"
+      )
+    .empty(ng-if="!currentEvent")
+      p(ng-show="events.length == 0") No items to show.
+      a.btn.btn-sm.btn-info(ng-click="add()") Add history
+    .form
+      edit-list-form(
+        show-when="currentEvent != null"
+        remove-text="Remove this event"
+        cancel-when="!currentEvent.hash"
+        done-when="currentEvent.hash"
+        incomplete-when="isIncomplete(currentEvent)"
+        on-remove="delete(currentEvent)"
+        on-cancel="done()"
+        on-done="done()"
+      )
+        form-timeline-event(event="currentEvent" types="types")

@@ -1,0 +1,56 @@
+.shaded-bg-calc(@col) {
+  @shaded-bg-calc-xs: percentage((@col / @grid-columns));
+  @shaded-bg-calc-sm: ~"50% - (@{container-sm}/2) + ((@{container-sm} * @{col})/@{grid-columns})";
+  @shaded-bg-calc-md: ~"50% - (@{container-md}/2) + ((@{container-md} * @{col})/@{grid-columns})";
+  @shaded-bg-calc-lg: ~"50% - (@{container-lg}/2) + ((@{container-lg} * @{col})/@{grid-columns})";
+}
+
+.shaded-bg-xs-column(@col, @leftColor, @rightColor) {
+  .shaded-bg-calc(@col);
+  
+  background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-xs), @rightColor calc(@shaded-bg-calc-xs));
+
+  @media (min-width: @screen-sm-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-sm), @rightColor calc(@shaded-bg-calc-sm));
+  }
+  @media (min-width: @screen-md-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-md), @rightColor calc(@shaded-bg-calc-md));
+  }
+  @media (min-width: @screen-lg-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-lg), @rightColor calc(@shaded-bg-calc-lg));
+  }
+}
+
+.shaded-bg-sm-column() {
+  .shaded-bg-calc(@col);
+
+  @media (min-width: @screen-sm-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-sm), @rightColor calc(@shaded-bg-calc-sm));
+  }
+  @media (min-width: @screen-md-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-md), @rightColor calc(@shaded-bg-calc-md));
+  }
+  @media (min-width: @screen-lg-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-lg), @rightColor calc(@shaded-bg-calc-lg));
+  }
+}
+
+.shaded-bg-md-column(@col, @leftColor, @rightColor) {
+  .shaded-bg-calc(@col);
+
+  @media (min-width: @screen-md-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-md), @rightColor calc(@shaded-bg-calc-md));
+  }
+  
+  @media (min-width: @screen-lg-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-lg), @rightColor calc(@shaded-bg-calc-lg));
+  }
+}
+
+.shaded-bg-lg-column(@col, @leftColor, @rightColor) {
+  .shaded-bg-calc(@col);
+
+  @media (min-width: @screen-lg-min) {
+    background: linear-gradient(to right, @leftColor calc(@shaded-bg-calc-lg), @rightColor calc(@shaded-bg-calc-lg));
+  }
+}

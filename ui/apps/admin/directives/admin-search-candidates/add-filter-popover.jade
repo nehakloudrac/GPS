@@ -1,0 +1,11 @@
+.popover.add-filter-popover(ng-controller="AddFilterController")
+  .arrow
+  h3.popover-title
+    span Choose Fields
+  .popover-content
+    ul
+      li(
+        ng-repeat="filter in defs"
+        ng-click="toggleFilter(filter.key)"
+        ng-class="{selected: selections[filter.key]}"
+      ) {{filter.name}}

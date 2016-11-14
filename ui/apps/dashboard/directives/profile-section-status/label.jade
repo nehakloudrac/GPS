@@ -1,0 +1,6 @@
+.section-label(ng-click="click()")
+  span.label-text {{label}} &nbsp;
+  span.label-icon
+    //- i.fa.fa-check.text-muted(ng-show="status == 'empty'")
+    //- i.fa.fa-check.text-muted(ng-show="status == 'incomplete'")
+    i.fa.fa-check.text-success(ng-show="status == 'complete'")

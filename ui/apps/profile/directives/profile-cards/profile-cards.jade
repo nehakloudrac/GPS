@@ -1,0 +1,35 @@
+.profile-cards#card-sections
+  
+  profile-card#card-background(title="Background" expand-when="'background' == current" on-expand="navigateTo('background')")
+    edit-background(initial="false")
+  
+  profile-card#card-professional(title="Professional History" expand-when="'professional' == current" on-expand="navigateTo('professional')")
+    edit-timeline(type-label="Professional" types="['job','volunteer','military','research']")
+    .section-spacer
+    edit-certifications
+  
+  profile-card#card-education(title="Education" expand-when="'education' == current" on-expand="navigateTo('education')")
+    edit-timeline(type-label="Academic" types="['university','study_abroad','language_acquisition']")
+    .section-spacer
+    edit-awards
+    .section-spacer
+    edit-honor-orgs
+  
+  profile-card#card-ideal-job(title="Ideal Job" expand-when="'ideal-job' == current" on-expand="navigateTo('ideal-job')")
+    section-ideal-job
+  
+  profile-card#card-countries(title="Experience Abroad" expand-when="'countries' == current" on-expand="navigateTo('countries')")
+    edit-countries
+  
+  profile-card#card-languages(title="Foreign Languages" expand-when="'languages' == current" on-expand="navigateTo('languages')")
+    edit-languages
+  
+  profile-card#card-skills( title="Skills" expand-when="'skills' == current" on-expand="navigateTo('skills')")
+    section-soft-skills
+    .section-spacer
+    section-hard-skills
+    .section-spacer
+    section-domain-skills
+  
+  profile-card#card-personal(title="Personal" expand-when="'personal' == current" on-expand="navigateTo('personal')")
+    section-personal

@@ -1,0 +1,27 @@
+.edit-certifications
+  .edit-section(cg-busy="deletePromise")
+    p.lead Professional Certifications
+    .list
+      edit-list-item(
+        ng-repeat="cert in certs | filter:notCurrentlyEditing"
+        title="{{cert.name}}"
+        sub-title="{{cert.duration.start ? (cert.duration.start * 1000 | date:'MMM yyyy') : ''}}"
+        on-edit="edit(cert)"
+        on-remove="delete(cert)"
+        incomplete-when="isIncomplete(cert)"
+      )
+    .empty(ng-if="!currentCert")
+      p(ng-show="certs.length == 0") No certifications to show.
+      a.btn.btn-sm.btn-info(ng-click="add()") Add certification
+    .form
+      edit-list-form(
+        show-when="currentCert != null"
+        remove-text="Remove this certification"
+        cancel-when="!currentCert.hash"
+        done-when="currentCert.hash"
+        incomplete-when="isIncomplete(currentCert)"
+        on-remove="delete(currentCert)"
+        on-cancel="done()"
+        on-done="done()"
+      )
+        form-certification(cert="currentCert")

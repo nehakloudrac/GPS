@@ -1,0 +1,83 @@
+<form class="form" action="" method="POST">
+    
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group {% if form_errors(form.firstName)|length > 0 %} has-error {% endif %}">
+        {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'First Name'}}) }}
+        {% if form_errors(form.firstName)|length > 0 %}
+        <div class="form-errors text-danger small">
+          {{ form_errors(form.firstName) }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group {% if form_errors(form.lastName)|length > 0 %} has-error {% endif %}">
+        {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+        {% if form_errors(form.lastName)|length > 0 %}
+        <div class="form-errors text-danger small">
+          {{ form_errors(form.lastName) }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group email-field {% if form_errors(form.email)|length > 0 %} has-error {% endif %}">
+        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'address@example.com'}}) }}
+        {% if form_errors(form.email)|length > 0 %}
+        <div class="form-errors text-danger small">
+          {{ form_errors(form.email) }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group {% if form_errors(form.password_confirm)|length > 0 %} has-error {% endif %}">
+            {{ form_widget(form.password_confirm.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="form-group {% if form_errors(form.password_confirm)|length > 0 %} has-error {% endif %}">
+            {{ form_widget(form.password_confirm.confirm, {'attr': {'class': 'form-control', 'placeholder': 'Confirm Password'}}) }}
+          </div>
+        </div>
+
+        {% if form_errors(form.password_confirm)|length > 0 %}
+        <div class="form-errors text-danger small">
+          {{ form_errors(form.password_confirm) }}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="form-group">
+        <div class="checkbox">
+          <label class="small">
+            <input type="checkbox" value="1" name="{{form.acceptedTerms.vars.full_name}}">
+            <p>I accept the <a href="/terms-of-use" target="_blank">terms of use</a> and <a href="/privacy-policy" target="_blank">privacy policy</a> and agree to accurately represent my information.</p>
+          </label>
+          {% if form_errors(form.acceptedTerms)|length > 0 %}
+            <p class="text-danger small"><i class="fa fa-exclamation-circle"></i>&nbsp;You must accept the <a href="/terms-of-use" target="_blank">terms of use</a> and <a href="/privacy-policy" target="_blank">privacy policy</a> in order to register.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 text-right">
+      <input class="btn btn-primary btn-submit" type="submit" name="submit" value="Submit" />
+    </div>
+  </div>
+
+  {{ form_widget(form._token) }}
+</form>

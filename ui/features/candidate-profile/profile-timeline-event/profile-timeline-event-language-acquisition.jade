@@ -1,0 +1,5 @@
+.row
+  .col-xs-12
+    h4 Language Study: {{getLabel(languageCodes, event.languageReferences[0].code, 'code')}}
+    h5(ng-show="event.institution.name") {{event.institution.name}}
+    p Studied {{event.lanugage}} in {{getLabel(languageAcquisitionSources, event.source)}}

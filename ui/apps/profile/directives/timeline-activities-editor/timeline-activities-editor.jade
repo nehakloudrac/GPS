@@ -1,0 +1,18 @@
+.timeline-activities-editor
+  .row(ng-repeat="value in model track by $index")
+    .col-xs-12
+      .input-group
+        input.form-control(type="text" maxlength="{{length}}" blur-on-enter ng-blur="update($index)" ng-model="model[$index]")
+        .input-group-addon {{length - model[$index].length}}
+    .col-xs-12
+      p
+        span &nbsp;
+        span.pull-left(ng-show="$last && model.length < max")
+          a.btn.btn-xs.btn-info(ng-click="model.push('')")
+            i.fa.fa-plus
+            span &nbsp; Add
+          span.btn.btn-xs.btn-text(ng-show="instructions") &nbsp; {{instructions}}
+        span.pull-right
+          a.btn.btn-link.btn-xs.text-danger(ng-click="remove($index)" ng-show="!$first")
+            i.fa.fa-trash &nbsp;
+            span Remove

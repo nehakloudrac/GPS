@@ -1,0 +1,2 @@
+---
+elasticsearch_config_file: roles/elasticsearch/files/elasticsearch.yml

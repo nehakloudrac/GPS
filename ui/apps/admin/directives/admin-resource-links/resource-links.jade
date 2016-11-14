@@ -1,0 +1,30 @@
+.admin-resource-links
+  
+  .text-right
+    a.btn.btn-sm.btn-info(ng-click="add()") + New
+  
+  .alert.alert-danger(ng-show="error") {{error}}
+  
+  .spacer
+  
+  .links-list(ng-if="!currentItem" cg-busy="promise")
+    p(ng-show="!items.length") No items to show.
+    table.table.table-condensed.table-striped
+      tbody
+        tr(ng-repeat="item in items")
+          td.title(ng-show="item.title") {{item.title}}
+          td.title(ng-show="!item.title")
+            em "{{item.description}}"
+          td.type {{item.type}}
+          td.date {{item.datePublished ? (item.datePublished * 1000 | date:'MMM dd yyyy') : 'unpublished'}}
+          td.text-right
+            button.btn.btn-xs.btn-info(ng-click="edit($index)")
+              i.fa.fa-pencil
+            button.btn.btn-xs.btn-danger(ng-click="delete($index)")
+              i.fa.fa-trash
+  
+  .edit-link(ng-if="currentItem" cg-busy="promise")
+    resource-form(item="currentItem")
+    .btn-group
+      button.btn.btn-default(ng-click="cancelEdit()") Cancel
+      button.btn.btn-info(ng-click="save()") Save

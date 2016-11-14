@@ -1,0 +1,11 @@
+.modal.alert-modal
+  .modal-dialog
+    .modal-content
+      .modal-header(ng-if="title")
+        h3 {{title}}
+      .modal-body
+        p(ng-if="message") {{message}}
+        div(ng-if="templateUrl" ng-include="templateUrl")
+        div(ng-if="template" bind-template="template")
+      .modal-footer
+        a.btn.btn-info(ng-click="$close()") {{ closeText ? closeText : 'Close' }}

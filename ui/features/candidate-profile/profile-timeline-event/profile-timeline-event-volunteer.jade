@@ -1,0 +1,7 @@
+.row
+  .col-xs-12
+    h4
+      |  Volunteer  
+      small  {{event.institution.name}}
+    h5(ng-show="event.hostingInstitution.name") {{event.hostingInstitution.name}}
+    div(ng-bind-html="getDescription()")

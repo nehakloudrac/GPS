@@ -1,0 +1,8 @@
+.app-menu
+  .container
+    nav
+      div.tabs
+        div.tab(ng-repeat="tab in tabs" ng-if="tab.visible" ng-class="{active: tab.key == active}")
+          a(ng-href="{{tab.url}}")
+            i(ng-class="tab.classes")
+            span {{tab.name}}

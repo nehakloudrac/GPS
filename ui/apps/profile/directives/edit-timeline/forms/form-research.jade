@@ -1,0 +1,104 @@
+.form-research
+  
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.sponsoringProgram}") Program Name
+        field-container(error-path="sponsoringProgram" promise="form.fields['sponsoringProgram'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['sponsoringProgram'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('sponsoringProgram')")
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.subject}")
+          span Subject Area
+          label-description(text="Type to search, or enter a custom field of research.")
+        field-container(error-path="subject" promise="form.fields['subject'].promise")
+          input.form-control(
+            type="text"
+            blur-on-enter
+            ng-model="form.fields['subject'].value"
+            ng-model-options="{updateOn:'default blur', debounce: { 'default': 200, 'blur': 0 } }"
+            ng-blur="form.saveField('subject')"
+            bs-typeahead
+            data-min-length="0"
+            data-limit="20"
+            bs-options="name for name in conf.academicSubjects"
+          )
+
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.duration.start}") Duration
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="current position")
+  
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.level}") Position Level
+        field-container(error-path="level" promise="form.fields['level'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['level'].value"
+              ng-options="item.key as item.label for item in conf.researchLevels"
+              ng-change="form.saveField('level')"
+            )
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.hoursPerWeek}") Hours Per Week
+        field-container(error-path="hoursPerWeek" promise="form.fields['hoursPerWeek'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['hoursPerWeek'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('hoursPerWeek')")
+  
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.description.length}") Responsibilities & Achievements
+        field-container(error-path="description" promise="form.fields['description'].promise")
+          textarea.form-control(rows="5" maxlength="10000" placeholder="Briefly describe your roles and responsibilities..." ng-model="form.fields['description'].value" ng-model-options="{updateOn:'default blur', debounce: { 'default': 5000, 'blur': 0 } }" ng-change="form.saveField('description')")
+  
+  .row
+    .col-xs-6
+      .form-group
+        label
+          span Foreign Language Use
+          label-description(text="Did this position involve extensive use of any foreign languages?")
+        field-container(error-path="languageRefs" promise="form.fields['languageRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['languageRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.languageCodes" id-field="code" label-field="label" ng-change="form.saveField('languageRefs')")
+    .col-xs-6
+      .form-group
+        label
+          span Foreign Travel
+          label-description(text="Did this position involve extensive time in other countries?")
+        field-container(error-path="countryRefs" promise="form.fields['countryRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['countryRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.countryCodes" id-field="code" label-field="name" ng-change="form.saveField('countryRefs')")
+  
+  .section-spacer
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.institution.name}") Sponsoring Institution Name
+        field-container(error-path="institution.name" promise="form.fields['institution.name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['institution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.name')")
+    
+  .row
+    .col-xs-12      
+      .form-group
+        label(ng-class="{required: isLocationRequired(event.institution.address)}") Sponsoring Institution Location
+        field-container(error-path="institution.address" promise="form.fields['institution.address'].promise")
+          input-location(ng-model="form.fields['institution.address'].value" ng-change="form.saveField('institution.address')")
+  
+  .section-spacer
+  .row
+    .col-xs-12
+      .form-group
+        label
+          span Hosting Institution Name
+          label-description(text="Only fill if different than the institution above.")
+        field-container(error-path="hostingInstitution.name" promise="form.fields['hostingInstitution.name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['hostingInstitution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('hostingInstitution.name')")
+    
+  .row
+    .col-xs-12      
+      .form-group
+        label
+        field-container(error-path="hostingInstitution.address" promise="form.fields['hostingInstitution.address'].promise")
+          input-location(ng-model="form.fields['hostingInstitution.address'].value" ng-change="form.saveField('hostingInstitution.address')")

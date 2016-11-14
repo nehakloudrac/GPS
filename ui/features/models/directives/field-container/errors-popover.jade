@@ -1,0 +1,10 @@
+.popover.field-container-error-popover(ng-controller="FieldContainerErrorController")
+  .arrow
+  h3.popover-title
+    span Errors
+    span.pull-right.dismiss-errors(ng-click="$hide()")
+      i.fa.fa-times
+  .popover-content.text-danger
+    p.small(ng-repeat="error in content.errors")
+      i.fa.fa-exclamation-circle &nbsp;
+      span {{error}}

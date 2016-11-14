@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="" ng-controller="LayoutController"> <!--<![endif]-->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Loading...</title>
+    <link href="//fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" type="text/css" href="/apps/{{appName}}/styles.css?{{cacheInvalidator}}" />
+    <link rel="stylesheet" type="text/css" href="/icons/gps-icons.css?{{cacheInvalidator}}" />
+
+
+    {% include 'partials/trackjs.html.twig' %}
+    {% include 'partials/zendesk.html.twig' %}
+
+    {% if app.environment == 'prod' %}
+    {% include 'partials/google-analytics-angular.html.twig' %}
+    {% endif %}
+
+  </head>
+  <body>
+
+    <div id="bad-ie" class="container" style="margin-top: 10%; display: none;">
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="alert alert-info">
+            <h2><i class="fa fa-exclamation-circle"></i> Unsupported Browser</h2>
+            <p class="lead">Woah, looks like you're using an older browser.</p>
+            <p>This site will only work well in a more modern browser.  In addition to modern features, newer browsers offer vastly improved security measures to keep you safe on the internet.</p>
+            <p>Updating your browser is quick and free, see <a class="alert-link" href="https://browser-update.org/update.html">browser-update.org</a> for more information about browser options for your platform.</p>
+            <p class="text-right">
+              <a href="https://browser-update.org/update.html" class="btn btn-primary">Update My Browser &rarr;</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="init">
+      <div class="app-page">
+        <div class="app-header navbar navbar-default">
+          <div class="text-info">Loading...</div>
+        </div>
+        <div class="app-page-body">
+          <div class="container" style="margin-top: 10%">
+            <div class="row">
+              <div class="col-xs-4 col-xs-offset-4">
+                <p class="lead text-center">
+                  <i class="fa fa-spinner fa-spin fa-5x"></i>
+                </p>
+                <h1 class="text-center">Loading ...</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+		<ui-view></ui-view>
+
+		<script src="/apps/{{appName}}/app.js?{{cacheInvalidator}}"></script>
+    <script>
+
+      // bootstrap angular app if this isn't a bad IE version
+      (function ($) {
+        "use strict";
+
+        $(document).ready(function() {
+          // Detecting IE
+          var oldIE = false;
+          if ($('html').is('.ie6, .ie7, .ie8, .ie9')) {
+              oldIE = true;
+          }
+
+          // show bad ie alert, return early
+          if (oldIE) {
+            $('#init').remove();
+            $('#bad-ie').show();
+            return;
+          }
+
+          $('#bad-ie').remove();
+
+          var conf = {{config | raw}}
+          
+          // define the root angular app for the page
+          var app = window.app = angular.module('gps.app', ['{{angularAppModule}}', 'gps.templates']);
+          
+          // set any injected config as both a constant, and as a key for the
+          // config service... in general we are transitioning to the config service
+          // and away from using raw angular constants
+          var configModule = angular.module('gps.config');
+          for(var key in conf) {
+            configModule.constant(key, conf[key]);
+          }
+          configModule.config(function(configProvider) {
+            for (var key in conf) {
+              configProvider.set(key, conf[key]);
+            }
+          });
+          
+          // manually bootstrap the angular app and remove the page 'loading' div
+          angular.element(document).ready(function() {
+            $('#init').remove();
+            angular.bootstrap(document, ['gps.app']);
+          });
+        });
+
+      }(jQuery));
+
+    </script>
+
+    {% if app.environment == 'dev' %}
+    <script>
+      document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+    {% endif %}
+
+    <div class="custom-zd-help-button">
+      <span>Leave us a message</span>
+      <i class="fa fa-lg fa-comment"></i>
+    </div>
+
+  </body>
+</html>

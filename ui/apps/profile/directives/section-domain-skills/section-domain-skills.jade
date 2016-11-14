@@ -1,0 +1,66 @@
+.section-domain-skills
+  .row
+    .col-xs-12
+      p.lead Tag any other skills you wish to highlight:
+  .row.flex
+    .col-xs-8
+      .skill-block.expert
+        .header
+          span.lead.pull-left Expert
+          .input-group.pull-right
+            form(ng-submit="addSkill('expert')")
+              input.form-control.input-sm(type="text" ng-model="newSkills.expert" placeholder="Add up to 5..." ng-disabled="skills.expert.length >= 5")
+            .input-group-btn
+              button.btn.btn-primary.btn-sm(ng-click="addSkill('expert')")
+                i.fa.fa-plus
+          .clearfix
+        .body(cg-busy="promise")
+          ul(ng-sortable="sortableConfig")
+            li(ng-repeat="skill in skills.expert track by $index")
+              span.small {{skill}}&nbsp;
+              i.fa.fa-times.remove(ng-click="removeItem('expert', $index)")
+          .clearfix
+
+      .skill-block.advanced
+        .header
+          span.lead.pull-left Advanced
+          .input-group.pull-right
+            form(ng-submit="addSkill('advanced')")
+              input.form-control.input-sm(type="text" ng-model="newSkills.advanced" placeholder="Add up to 10..." ng-disabled="skills.advanced.length >= 10")
+            .input-group-btn
+              button.btn.btn-primary.btn-sm(ng-click="addSkill('advanced')")
+                i.fa.fa-plus
+          .clearfix
+        .body(cg-busy="promise")
+          ul(ng-sortable="sortableConfig")
+            li(ng-repeat="skill in skills.advanced track by $index")
+              span.small {{skill}}&nbsp;
+              i.fa.fa-times.remove(ng-click="removeItem('advanced', $index)")
+          .clearfix
+
+      .skill-block.proficient
+        .header
+          span.lead.pull-left Proficient
+          .input-group.pull-right
+            form(ng-submit="addSkill('proficient')")
+              input.form-control.input-sm(type="text" ng-model="newSkills.proficient" placeholder="Add up to 15..." ng-disabled="skills.proficient.length >= 15")
+            .input-group-btn
+              button.btn.btn-primary.btn-sm(ng-click="addSkill('proficient')")
+                i.fa.fa-plus
+          .clearfix
+        .body(cg-busy="promise")
+          ul(ng-sortable="sortableConfig")
+            li(ng-repeat="skill in skills.proficient track by $index")
+              span.small {{skill}}&nbsp;
+              i.fa.fa-times.remove(ng-click="removeItem('proficient', $index)")
+          .clearfix
+            
+    .col-xs-4
+      .skill-block.examples
+        .header
+          p.lead Examples
+        .body
+          ul(ng-sortable="examplesConfig")
+            li(ng-repeat="skill in examples track by $index")
+              span.small {{skill}}
+          .clearfix

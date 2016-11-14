@@ -1,0 +1,46 @@
+.edit-list-form {
+  .form-controls {
+    margin-top: 30px;    
+  }
+}
+
+.edit-list-item {
+  display: flex;
+  flex-direction: row;
+  
+  border-bottom: 1px solid @gray-lighter;
+  
+  .title, .subtitle, .incomplete {
+    
+    p {
+      margin: 10px 0px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    &.incomplete {
+      .text-center;
+      min-width: 30px;
+    }
+    
+    &.title {
+      flex: 2 1 auto;
+      min-width: 300px;
+    }
+    
+    &.subtitle {
+      flex: 1 1 auto;
+      max-width: 200px;
+      width: 100%
+    }
+
+  }
+  
+  .controls {
+    min-width: 200px;
+    width: 200px;
+    text-align: right;
+  }
+  
+}

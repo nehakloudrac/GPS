@@ -1,0 +1,241 @@
+.homepage {  
+  @spacer: 40px;
+  
+  .btn-get-started {
+    text-transform: uppercase;
+    width: 200px;
+  }
+  
+  .home-header {
+    @header-spacer-sm: 90px;
+    @header-spacer-xs: 40px;
+    
+    
+    padding-top: @header-spacer-sm;
+    @media(max-width: @screen-xs-max) {
+      padding-top: @header-spacer-xs;
+    }
+
+    overflow: hidden;
+    text-overflow: clip;
+
+    // this is just the first background image, to ensure it loads
+    // before the angular app bootstraps
+    background: url("/public/images/slideshow-paris.jpg") no-repeat center center;
+    background-size: cover;
+    transition: background 1s ease-in;
+    
+    // change background image depending on class... set via angular
+    &.paris { background-image: url("/public/images/slideshow-paris.jpg"); }
+    &.moscow { background-image: url("/public/images/slideshow-moscow.jpg"); }
+    &.new-york { background-image: url("/public/images/slideshow-new-york.jpg"); }
+    &.brazil { background-image: url("/public/images/slideshow-brazil.jpg"); }
+    &.hong-kong { background-image: url("/public/images/slideshow-hong-kong.jpg"); }
+    &.africa-middle-east { background-image: url("/public/images/slideshow-africa-middle-east.jpg"); }
+
+    // This is an experimental hack, taken from http://stackoverflow.com/a/14390213
+    // to force images to load immediately and prevent flickering during transition
+    &::after {
+      display: none;
+      content: url("/public/images/slideshow-paris.jpg") url("/public/images/slideshow-moscow.jpg") url("/public/images/slideshow-new-york.jpg") url("/public/images/slideshow-brazil.jpg") url("/public/images/slideshow-hong-kong.jpg") url("/public/images/slideshow-africa-middle-east.jpg");
+    }
+
+
+    .background-text-container {
+      margin-top: @header-spacer-sm / 2;
+      @media(max-width: @screen-xs-max) {
+        margin-top: @header-spacer-xs;
+      }
+
+      .background-text {
+        float: right;
+        width: 300px;
+        padding: 0px 20px;
+        color: @text-color-inverse;
+        background-color: fadeout(@brand-info, 35%);
+        border-bottom-left-radius: @border-radius-base * 2;
+        border-top-left-radius: @border-radius-base * 2;
+
+        .background-text-content {
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 140px;
+        }
+      }
+    }
+
+    .banner {
+      @spacer: 20px;
+
+      background-color: fadeout(@brand-primary, 70%);
+      padding: @spacer 0px;
+      margin-top: @header-spacer-sm;
+      @media(max-width: @screen-xs-max) {
+        margin-top: @header-spacer-xs;
+      }
+      
+      p,h1,h2,h3,h4,h5 {
+        margin: 0px;
+      }
+
+      .title {
+        h2 {
+          text-transform: uppercase;
+          font-size: 2.5em;
+        }
+      }
+
+      .tagline {
+        margin-top: @spacer/1.5;
+        font-size: 1.33em;
+      }
+
+      .join {
+        margin-top: @spacer/1.5;
+      }
+
+    }
+
+    .continue {
+      
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      
+      .center {
+      }
+      
+      .right {
+        position: absolute;
+        right: 0px;
+      }
+    }
+    
+  }
+
+
+  .media-body {
+    vertical-align: middle;
+    
+    p {
+      margin: 0px;
+    }
+  }
+
+  .home-section-advantage {
+    .icon {
+      margin: @spacer 0px;
+      
+      img {
+        max-height: 90px;
+      }
+    }
+    
+    .subheader {
+      padding: 0px @spacer/2;
+      min-height: 40px;
+    }
+    
+    .content {
+      margin-top: @spacer/2;
+      padding: 0px @spacer/2;
+    }
+  }
+  
+  .home-section-about {
+    .content {
+      padding-right: @spacer;
+      padding-bottom: @spacer*4;
+    }
+    
+    .image-container {
+      padding-left: @spacer;
+      width: 100%;
+      
+      .bg-profile-image {
+        width: 100%;
+        background-image: url('/public/images/new-design-2/home/sample-profile.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        // background-position: 50% 0%;
+      }
+    }
+
+    .media-container {
+      padding: 0px @spacer;
+      
+      .media {
+        margin-top: @spacer;
+        &.last {
+          margin-bottom: @spacer;
+        }      
+      }
+    }
+  }
+    
+  .home-section-getting-started {
+    position: relative;
+    min-height: 600px;
+    
+    .laptop-bg {
+      // attempt at responsive background image
+      background-image: url('/public/images/new-design-2/home/mb-air.png');
+      background-repeat: no-repeat;
+      min-height: 600px;
+      width: 56%;
+      z-index: 1000px;
+      position: absolute;
+      top: @spacer;
+      right: 0;
+    }
+    
+    .subheader {
+      margin-top: 10px;
+    }
+    
+    .content {
+      .content-container {
+        padding-right: @spacer;
+        padding-bottom: @spacer;
+        
+        .media {
+          margin-top: @spacer;
+        }
+      }
+    }
+  }
+    
+  .home-section-membership {
+    padding-top: 0px;
+
+    .content {
+      margin-top: @spacer;
+    }
+    
+    .btn {
+      margin-top: @spacer;
+    }
+  }
+  
+  .home-section-employers {
+    h3 {
+      margin-bottom: @spacer / 2;
+    }
+    
+    img {
+      margin: @spacer auto;
+    }
+    
+    p {
+      margin-bottom: 0px;
+    }
+  }
+  
+  .home-section-join {
+    .btn {
+      margin-top: @spacer;
+    }
+  }
+}

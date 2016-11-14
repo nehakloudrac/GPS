@@ -1,0 +1,48 @@
+.form-language-acquisition
+  .row
+    .col-xs-6
+        .form-group
+          label(ng-class="{required: !event.languageRefs[0]}") Language
+          field-container(error-path="languageRefs" promise="form.fields['languageRefs'].promise")
+            .select-wrap
+              select.form-control(
+                ng-model="form.fields['language'].value"
+                ng-options="lang.code as lang.label for lang in conf.languageCodes"
+                ng-change="onSelectLanguage()"
+              )
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.source}") Method
+        field-container(error-path="source" promise="form.fields['source'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['source'].value"
+              ng-options="item.key as item.label for item in conf.languageAcquisitionSources"
+              ng-change="form.saveField('source')"
+            )
+  .row
+    .col-xs-8
+      .form-group
+        label(ng-class="{required: !event.duration.start}") Duration
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="currently enrolled")
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.hoursPerWeek}") Hours Per Week
+        field-container(error-path="hoursPerWeek" promise="form.fields['hoursPerWeek'].promise")
+          input.form-control(type="text" ng-model="form.fields['hoursPerWeek'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('hoursPerWeek')")
+
+  .inst-form(ng-if="showInstitution()")
+    .row
+      .col-xs-12
+        .form-group
+          label(ng-class="{required: !event.institution.name}") Institution Name
+          field-container(error-path="institution.name" promise="form.fields['institution.name'].promise")
+            input.form-control(type="text" blur-on-enter ng-model="form.fields['institution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.name')")
+      
+  .row
+    .col-xs-12      
+      .form-group
+        label(ng-class="{required: isLocationRequired(event.institution.address)}") Location
+        field-container(error-path="institution.address" promise="form.fields['institution.address'].promise")
+          input-location(ng-model="form.fields['institution.address'].value" ng-change="form.saveField('institution.address')")

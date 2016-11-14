@@ -1,0 +1,44 @@
+.articles
+  .row
+    //- profile status menu col
+    .col-xs-6.col-sm-7.col-news
+      //- facts and figures
+      .row
+        .col-xs-12
+          p.lead.section-title Interesting Facts
+      .row
+        .col-xs-12
+          blockquote.quote
+            div.content(ng-bind-html="factsAndFigures[factsIndex].content")
+            footer
+              a(ng-href="{{factsAndFigures[factsIndex].url}}" target="_blank" analytics-on="click" analytics-event="resources.article.view")
+                span Read more &nbsp;
+                i.fa.fa-external-link
+      
+      //- news stories
+      .row.section-spacer
+        .col-xs-12
+          p.lead.section-title Featured Reading
+      .row(ng-repeat="story in newsStories")
+        .col-xs-12
+          .media
+            .media-body
+              h4.media-heading(ng-bind="story.title")
+              p.small(ng-repeat="paragraph in story.abstract" ng-bind="paragraph")
+              p.small.text-right
+                a(ng-href="{{story.url}}" target="_blank" analytics-on="click" analytics-event="resources.article.view")
+                  span View full article &nbsp;
+                  i.fa.fa-external-link
+    //- twitter col
+    .col-xs-6.col-sm-4.col-sm-offset-1.col-twitter
+      p.lead.section-title.text-left
+        span Social Media
+        span.pull-right
+          a.btn-social(href="https://www.facebook.com/GlobalProfessionalSearch/" target="_blank" analytics-on="click" analytics-event="resources.facebook.view")
+            i.fa.fa-facebook
+          a.btn-social(href="https://twitter.com/GPS_Jobs" target="_blank" analytics-on="click" analytics-event="resources.twitter.view")
+            i.fa.fa-twitter
+          a.btn-social(href="https://www.linkedin.com/company/global-professional-search" target="_blank" analytics-on="click" analytics-event="resources.linkedin.view")
+            i.fa.fa-linkedin
+          
+      <a class="twitter-timeline" data-chrome="" href="https://twitter.com/GPS_Jobs" data-widget-id="622472110548615173">Tweets by @GPS_Jobs</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

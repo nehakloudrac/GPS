@@ -1,0 +1,37 @@
+.admin-search-candidates
+  .row
+    .col-xs-12
+      .alert.alert-danger(ng-show="result.error") {{result.error}}
+      .search
+        .row
+          .col-sm-4
+            .controls
+              .btn-toolbar
+                .btn-group
+                  a.btn.btn-info(ng-click="search()") Search
+                  a.btn.btn-default(ng-click="reset()") Reset
+                .btn-group
+              
+              .filters
+                a.btn.btn-sm.btn-info(
+                  bs-popover="{filters: filters}"
+                  data-container="body"
+                  data-trigger="click"
+                  data-template-url="/apps/admin/directives/admin-search-candidates/add-filter-popover.html"
+                  data-auto-close="1"
+                ) + Fields
+                .filter-wrapper(ng-show="filters.length == 0")
+                  p No fields added yet
+                .filter-wrapper(ng-repeat="filter in filters")
+                  search-filter(filter="filter" result="result.result")
+                  span.small.remove(ng-click="removeFilter($index)") remove
+
+          .col-sm-8
+            .quick-search
+              .form-group
+                input.form-control(type="text" placeholder="Quickly search names, email addresses, user IDs or other text" blur-on-enter ng-model="quickSearch" ng-model-options="{updateOn: 'blur'}" ng-change="search(true)")
+            .results(cg-busy="result.promise")
+              p.lead Results ({{result.result.total}}):
+              search-paginator(limit="pagination.limit" skip="pagination.skip" total="result.result.total" on-paginate="search()")
+              overview-results(results="result.result.hits")
+              search-paginator(limit="pagination.limit" skip="pagination.skip" total="result.result.total" on-paginate="search()")

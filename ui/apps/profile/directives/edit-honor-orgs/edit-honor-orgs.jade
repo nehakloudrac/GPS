@@ -1,0 +1,26 @@
+.edit-honor-orgs.edit-section(cg-busy="deletePromise")
+  p.lead List any honor societies or academic organizations
+  .list
+    edit-list-item(
+      ng-repeat="org in orgs | filter:notCurrentlyEditing"
+      title="{{org.name}}"
+      sub-title="{{org.duration.start ? (org.duration.start * 1000 | date:'MMM yyyy') : ''}}"
+      on-edit="edit(org)"
+      on-remove="delete(org)"
+      incomplete-when="isIncomplete(org)"
+    )
+  .empty(ng-if="!currentOrg")
+    p(ng-show="orgs.length == 0") No organizations to show.
+    a.btn.btn-sm.btn-info(ng-click="add()") Add organization
+  .form
+    edit-list-form(
+      show-when="currentOrg != null"
+      remove-text="Remove this organization"
+      cancel-when="!currentOrg.hash"
+      done-when="currentOrg.hash"
+      incomplete-when="isIncomplete(currentOrg)"
+      on-remove="delete(currentOrg)"
+      on-cancel="done()"
+      on-done="done()"
+    )
+      form-honor-org(org="currentOrg")

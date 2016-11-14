@@ -1,0 +1,33 @@
+.section(ng-if="showWorkSection()")
+  .section-title
+    h2
+      span Work Experience
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.professional")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+  .section-body
+    .row(ng-if="professionalEvents.complete.length == 0 && professionalEvents.incomplete.length == 0")
+      .col-xs-8.col-xs-offset-4
+        .incomplete-block
+          span Information for work history is incomplete
+          a.incomplete-link.pull-right(ui-sref="profile.edit.professional")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+               
+    .row(ng-if="!hideIncomplete && professionalEvents.incomplete.length > 0")
+      .col-xs-8.col-xs-offset-4
+        .incomplete-block
+          span {{professionalEvents.incomplete.length}} incomplete experience(s) not being shown
+          a.incomplete-link(ui-sref="profile.edit.professional")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+    .divider(ng-show="professionalEvents.complete.length && professionalEvents.incomplete.length > 0")
+      .highlight
+    .row(ng-if="professionalEvents.complete.length > 0")
+      .col-xs-12
+        .subsection(ng-repeat="evt in professionalEvents.complete")
+          .divider(ng-show="!$first")
+            .highlight
+          .row
+            .col-xs-12
+              profile-timeline-event(event="evt")

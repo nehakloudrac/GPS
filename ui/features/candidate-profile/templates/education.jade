@@ -1,0 +1,32 @@
+.section(ng-if="showEducationSection()")
+  .section-title
+    h2
+      span Education
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.education")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+  .section-body
+    .row(ng-if="academicEvents.complete.length == 0 && academicEvents.incomplete.length == 0")
+      .col-xs-8.col-xs-offset-4
+        .incomplete-block
+          span Information for education history is incomplete
+          a.incomplete-link(ui-sref="profile.edit.education")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+    .row(ng-if="!hideIncomplete && academicEvents.incomplete.length > 0")
+      .col-xs-8.col-xs-offset-4
+        .incomplete-block
+          span  {{academicEvents.incomplete.length}} incomplete experience(s) not being shown
+          a.incomplete-link(ui-sref="profile.edit.education")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+    .divider(ng-show="academicEvents.complete.length && academicEvents.incomplete.length > 0")
+      .highlight
+    .row(ng-if="academicEvents.complete.length > 0")
+      .col-xs-12
+        .subsection(ng-repeat="evt in academicEvents.complete")
+          .divider(ng-show="!$first")
+            .highlight
+          .row
+            .col-xs-12
+              profile-timeline-event(event="evt")

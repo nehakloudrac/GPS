@@ -1,0 +1,14 @@
+.section-nav
+  ul.pager.flex
+    li.previous(
+      ng-show="showPrev"
+      ng-click="prev()"
+    )
+      a {{prevText}}
+    li.expand
+      span.pager-text(ng-show="message") {{message}}
+    li.next(
+      ng-show="showNext"
+      ng-click="next()"
+    )
+      a {{nextText}}

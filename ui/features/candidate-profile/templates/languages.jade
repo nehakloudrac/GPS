@@ -1,0 +1,88 @@
+.section(ng-if="showLanguagesSection()")
+  .section-title
+    h2
+      span Languages
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.languages")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+  .section-body
+    .row(ng-if="!profile.languages || profile.languages.length == 0")
+      .col-xs-8.col-xs-offset-4
+        .incomplete-block
+          span Information for foreign languages is incomplete
+          a.incomplete-link(ui-sref="profile.edit.languages")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+    .row(ng-if="profile.languages.length > 0")
+      .col-xs-12
+        .subsection(ng-repeat="lang in getForeignLanguages()")
+          .divider(ng-show="!$first")
+            .highlight
+          .row(ng-if="!hideIncomplete && !completenessHelper.isLanguageComplete(lang)")
+            .col-xs-4
+              h3 {{labeler.getLanguageLabel(lang)}}
+            .col-xs-8
+              .incomplete-block
+                span Information for this language is incomplete
+                a.incomplete-link(ui-sref="profile.edit.languages")
+                  span Add Info
+                  i.g.g-2x.g-circle-plus
+          .row(ng-if="completenessHelper.isLanguageComplete(lang)")
+            .col-xs-12
+              //- about
+              .row
+                .col-xs-4
+                  h3 {{labeler.getLanguageLabel(lang)}}
+                .col-xs-8
+                  h5 Current Usage
+                  ul
+                    li {{labels.languageCurrentUsage[lang.currentUsageWork - 1]}} in a professional setting
+                    li {{labels.languageCurrentUsage[lang.currentUsageSocial - 1]}} in a social setting
+
+              //- self rating
+              .row
+                .col-xs-4
+                  h3.subtext Self Rating
+                  p.subtext {{lang.selfCertification.lastModified * 1000 | date:'MMMM yyyy'}}
+                .col-xs-8
+                  .row(ng-repeat="fields in labels.languageCertifications.gps.fieldOrder")
+                    .col-xs-6(ng-repeat="field in fields" ng-show="lang.selfCertification[field]")
+                      p.text-center {{getLabel(labels.languageCertifications.gps.fields, field)}}
+                      .progress
+                        .progress-bar.progress-bar-info(ng-style="{width: calculateLangPercentComplete(lang.selfCertification[field], 'gps')+'%'}") {{labels.languageCertifications.gps.valueLabels[lang.selfCertification[field] - 1]}}
+
+              //- official certs
+              .row.lang-cert(ng-repeat="cert in lang.officialCertifications" ng-class="{incomplete: !completenessHelper.isLanguageCertComplete(cert)}")
+                .col-xs-12(ng-if="!hideIncomplete && !completenessHelper.isLanguageCertComplete(cert)")
+                  .row
+                    .col-xs-4
+                    .col-xs-8
+                      .divider
+                        .highlight
+                  .row
+                    .col-xs-4
+                      h3.subtext {{labels.languageCertifications[cert.scale].label}}
+                    .col-xs-8
+                      .incomplete-block
+                        span Information for this certification is incomplete
+                        a.incomplete-link(ui-sref="profile.edit.languages")
+                          span Add Info
+                          i.g.g-2x.g-circle-plus
+                .col-xs-12(ng-if="completenessHelper.isLanguageCertComplete(cert)")
+                  .row
+                    .col-xs-4
+                    .col-xs-8
+                      .divider
+                        .highlight
+                  .row
+                    .col-xs-4
+                      h3.subtext {{labels.languageCertifications[cert.scale].label}}
+                      p.subtext {{cert.date * 1000 | date:'MMMM yyyy'}}
+                    .col-xs-8
+                      .row(ng-repeat="fields in labels.languageCertifications[cert.scale].fieldOrder")
+                        .col-xs-6(ng-repeat="field in fields")
+                          p.text-center {{getLabel(labels.languageCertifications[cert.scale].fields, field)}}
+                          .progress(style="line-height: 2em")
+                            .progress-bar.progress-bar-info(style="min-width: 15%; width: 15%;" ng-style="{width: calculateLangPercentComplete(cert[field], cert.scale)+'%'}") {{labels.languageCertifications[cert.scale].valueLabels[cert[field] - 1]}}
+                      
+

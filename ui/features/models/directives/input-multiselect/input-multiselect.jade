@@ -1,0 +1,19 @@
+.input-multiselect
+  tags-input(
+    ng-model="selected"
+    placeholder="{{placeholderText}}"
+    key-property="{{idField}}"
+    display-property="{{labelField}}"
+    add-from-autocomplete-only="{{requireAutocompleteChoice}}"
+    on-tag-added="update()"
+    on-tag-removed="update()"
+    replace-spaces-with-dashes="false"
+  )
+    auto-complete(
+      source="autocomplete($query)"
+      min-length="0"
+      display-property="{{labelField}}"
+      max-results-to-show="{{suggestionLimit}}"
+      load-on-empty="{{loadOnFocus}}"
+      load-on-focus="{{loadOnFocus}}"
+    )

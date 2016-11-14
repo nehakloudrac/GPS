@@ -1,0 +1,30 @@
+.overview-results
+  table.table.table-striped(ng-show="results.length")
+    tbody
+      tr
+        th Name
+        th Email
+        th Joined
+        th Last Updated
+        th % Complete
+        th Print
+      tr(
+        ng-repeat="result in results"
+        bs-popover="{result: result}"
+        data-container="body"
+        data-trigger="hover"
+        data-delay="100"
+        data-placement="left"
+        data-template-url="/apps/admin/directives/overview-results/search-highlight-popover.html"
+      )
+        td.name
+          a(ng-click="launchProfileModal(result.user.id)") {{result.user.firstName}} {{result.user.lastName}}
+        td {{result.user.email}}
+        td {{result.user.dateCreated * 1000 | date:'MMM dd yyyy'}}
+        td {{result.profile.lastModified * 1000 | date:'MMM dd yyyy'}}
+        td ~{{result.profile.completeness.percentage}}%
+          //- .progress
+          //-   .progress-bar.progress-bar-info(ng-style="{width: result.profile.completeness.percentage+'%'}") ~{{result.profile.completeness.percentage}}%
+        td.text-right
+          a.btn.btn-info.btn-sm(ui-sref="user-print-view({userId: result.user.id})")
+            i.fa.fa-print

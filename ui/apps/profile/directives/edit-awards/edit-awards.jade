@@ -1,0 +1,26 @@
+.edit-awards.edit-section(cg-busy="deletePromise")
+  p.lead List any scholarships, awards, or fellowships:
+  .list
+    edit-list-item(
+      ng-repeat="award in awards | filter:notCurrentlyEditing"
+      title="{{award.name}}"
+      sub-title="{{award.date ? (award.date * 1000 | date:'MMM yyyy') : ''}}"
+      on-edit="edit(award)"
+      on-remove="delete(award)"
+      incomplete-when="isIncomplete(award)"
+    )
+  .empty(ng-if="!currentAward")
+    p(ng-show="awards.length == 0") No awards to show.
+    a.btn.btn-sm.btn-info(ng-click="add()") Add award
+  .form
+    edit-list-form(
+      show-when="currentAward != null"
+      remove-text="Remove this award"
+      cancel-when="!currentAward.hash"
+      done-when="currentAward.hash"
+      incomplete-when="isIncomplete(currentAward)"
+      on-remove="delete(currentAward)"
+      on-cancel="done()"
+      on-done="done()"
+    )
+      form-award(award="currentAward")

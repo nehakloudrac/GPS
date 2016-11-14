@@ -1,0 +1,36 @@
+#general rules
+
+*.DS_Store
+*npm-debug.log
+.vagrant/
+node_modules/
+bower_components/
+*composer.phar
+data/
+*.retry
+
+indexer/
+
+#symfony specific rules
+
+server/app/cache/*
+server/app/logs/*
+server/app/files/*
+!server/app/cache/.gitkeep
+!server/app/logs/.gitkeep
+server/vendor/
+server/bin/
+server/web/bower_components/
+server/web/node_modules/
+server/web/apps/
+server/web/vendor/
+server/web/public/
+server/web/bundles/
+server/web/icons/
+server/web/files/
+server/web/uploads/
+
+#ansible/deploy
+deploy/
+
+server/app/config/parameters.yml

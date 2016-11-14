@@ -1,0 +1,11 @@
+.profile-card(ng-if="show()" ng-class="{expanded: expanded(), enabled: enabled()}")
+  .profile-card-header(ng-click="toggleExpand()")
+    span.warning(ng-show="titleWarningWhen()")
+      i.fa.fa-exclamation-triangle.text-warning(bs-tooltip="{title: titleWarningText(), trigger: 'hover'}")
+    span.title.h3 {{title}}
+    span.expander.pull-right
+      span
+        i.fa.fa-minus(ng-show="expanded()")
+        i.fa.fa-plus(ng-show="!expanded()")
+  .profile-card-body(ng-if="expanded()")
+    ng-transclude

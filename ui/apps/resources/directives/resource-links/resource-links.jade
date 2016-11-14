@@ -1,0 +1,18 @@
+.resource-links(cg-busy="promise")
+  
+  .alert.alert-danger(ng-if="error") {{error}}
+
+  p(ng-show="!links.length") No items to show.
+
+  .item(ng-repeat="item in links")
+    .media
+      .media-left
+        .media-object
+          i.fa.fa-fw.fa-3x.text-info(ng-class="getMediaClass($index)")
+      .media-body
+        h4.media-heading(ng-bind="item.title")
+        div.small(ng-bind-html="item.description | markdown")
+        p.small.text-right(ng-show="item.url")
+          a(ng-href="{{item.url}}" target="_blank" analytics-on="click" analytics-event="resource.view")
+            span View full article &nbsp;
+            i.fa.fa-external-link

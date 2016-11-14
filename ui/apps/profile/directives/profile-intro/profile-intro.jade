@@ -1,0 +1,63 @@
+.profile-intro
+  app-page(show-user-menu="false")
+    //- note, menu hidden on purpose
+    .intro-header(bs-affix)
+      .container
+        .row
+          .col-xs-10
+            .progress-meter
+              .progress
+                .progress-bar.progress-bar-info(ng-style="{width: getProgressWidth()+'%'}") Section {{currentSectionNumber}} / {{sectionOrder.length}}
+          .col-xs-2.text-right
+            a.btn.text-warning(ng-click="showTutorial()")
+              i.fa.fa-fw.fa-2x.fa-question
+            a.btn.btn-sm.btn-warning(ng-show="!profile.profileStatus.introCompleted" ng-click="saveAndExit()") Save & Exit
+            a.btn.btn-sm.btn-warning(ng-show="profile.profileStatus.introCompleted" ng-click="finishAndViewProfile()") View Profile
+            
+    .profile-app-body
+      .container
+        .row
+          .col-xs-12
+            .profile-cards
+            
+              intro-card(active="isCurrent('background')" can-skip="false" on-continue="finishBackground()" continue-check="checkBackground()")
+                profile-card#card-background(title="Background" expand-when="isCurrent('background')" on-expand="tryNavToState('background')")
+                  edit-background(initial="!profile.shortForm.completed" show-li-importer="true")
+
+              intro-card(active="isCurrent('professional')" can-skip="true" on-skip="skipSection('professional')" on-continue="seenSection('professional')" continue-check="checkProfessional()")
+                profile-card#card-professional(title="Professional History" expand-when="isCurrent('professional')" on-expand="tryNavToState('professional')")
+                  edit-timeline(type-label="Professional" types="['job','volunteer','military','research']")
+                  .section-spacer
+                  edit-certifications
+              
+              intro-card(active="isCurrent('education')" can-skip="true" on-skip="skipSection('education')" on-continue="seenSection('education')" continue-check="checkEducation()")
+                profile-card#education(title="Education" expand-when="isCurrent('education')" on-expand="tryNavToState('education')")
+                  edit-timeline(type-label="Academic" types="['university','study_abroad','language_acquisition']")
+                  .section-spacer
+                  edit-awards
+                  .section-spacer
+                  edit-honor-orgs
+
+              intro-card(active="isCurrent('ideal-job')" can-skip="true" on-skip="skipSection('ideal-job')" on-continue="seenSection('ideal-job')" continue-check="checkIdealJob()")
+                profile-card#ideal-job(title="Ideal Job" expand-when="isCurrent('ideal-job')" on-expand="tryNavToState('ideal-job')")
+                  section-ideal-job
+
+              intro-card(active="isCurrent('countries')" can-skip="true" on-skip="skipSection('countries')" on-continue="seenSection('countries')" continue-check="checkCountries()")
+                profile-card#countries(title="Experience Abroad" expand-when="isCurrent('countries')" on-expand="tryNavToState('countries')")
+                  edit-countries
+
+              intro-card(active="isCurrent('languages')" can-skip="true" on-skip="skipSection('languages')" on-continue="seenSection('languages')" continue-check="checkLanguages()")
+                profile-card#languages(title="Foreign Languages" expand-when="isCurrent('languages')" on-expand="tryNavToState('languages')")
+                  edit-languages
+
+              intro-card(active="isCurrent('skills')" can-skip="true" on-skip="skipSection('skills')" on-continue="seenSection('skills')" continue-check="checkSkills()")
+                profile-card#skills(title="Skills" expand-when="isCurrent('skills')" on-expand="tryNavToState('skills')")
+                  section-soft-skills
+                  .section-spacer
+                  section-hard-skills
+                  .section-spacer
+                  section-domain-skills
+
+              intro-card(active="isCurrent('personal')" can-skip="true" on-skip="finishPersonal()" on-continue="finishPersonal()" continue-check="checkPersonal()")
+                profile-card#personal(title="Personal" expand-when="isCurrent('personal')" on-expand="tryNavToState('personal')")
+                  section-personal

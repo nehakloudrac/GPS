@@ -1,0 +1,9 @@
+.intro-card
+  ng-transclude
+
+  .row(ng-show="isActive()")
+    .col-xs-12
+      .controls.text-right
+        button.btn.btn-primary(ng-show="canSkip" ng-click="onSkip()") Skip This Section
+        button.btn.btn-info(ng-click="tryContinue()") Next Section
+  

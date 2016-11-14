@@ -1,0 +1,21 @@
+.profile-photo {
+  .clickable {
+    cursor: pointer;
+  }
+  
+  .thumbnail {
+
+    &.dropable {
+      border: 3px dashed @brand-primary;
+      background-color: @shaded-bg;
+      opacity: 0.90;
+    }
+
+    img {
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+  
+}

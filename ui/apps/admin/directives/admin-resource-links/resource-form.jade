@@ -1,0 +1,38 @@
+.resource-form
+  .row
+    .col-xs-6
+      .form-group
+        input.form-control(type="text" ng-model="item.title" placeholder="Title")
+
+    .col-xs-3
+      .form-group
+        .select-wrap
+          select.form-control(ng-model="item.type" ng-options="key as label for (key, label) in types")
+            
+    .col-xs-3
+      .form-group
+        .select-wrap
+          select.form-control(ng-model="item.mediaType" ng-options="key as key for key in ['text','file','audio','video']")
+  
+  .row
+    .col-xs-12
+      .form-group
+        input.form-control(type="text" ng-model="item.url" placeholder="http://example.com/")
+  
+  .row
+    .col-xs-12
+      .form-group
+        .input-multiselect
+          tags-input(ng-model="tags" replace-spaces-with-dashes="false" placeholder="Enter tags..." on-tag-added="updateTags()" on-tag-removed="updateTags()")
+  
+  .row
+    .col-xs-12
+      textarea.form-control(rows="5" ng-model="item.description" placeholder="Description... Markdown syntax is permitted.")
+  
+  .row
+    .col-xs-12
+      .checkbox
+        label
+          input(type="checkbox" ng-model="item.published")
+          span Published?
+

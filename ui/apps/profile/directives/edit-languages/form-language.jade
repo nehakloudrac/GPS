@@ -1,0 +1,100 @@
+.form-language
+
+  .select-language(ng-if="!language.code")
+    .row
+      .col-xs-4
+        .form-group
+          label(ng-class="{required: !language.code}") Language
+          field-container(error-path="code" promise="form.fields['code'].promise")
+            .select-wrap
+              select.form-control(
+                ng-model="form.fields['code'].value"
+                ng-change="form.saveField('code')"
+                ng-options="item.code as item.label for item in conf.languageCodes"
+              )
+                option(value="") -- Choose --
+  
+  .form(ng-if="language.code")
+    .row
+      .col-xs-12
+        p.lead How often do you currently use {{getLanguageLabel(language.code)}}?
+
+    //- current usage sliders
+    .row.required-labels
+      .col-xs-12
+        label(ng-class="{required: !language.currentUsageSocial}") In a social setting?
+        .slider-box(ng-class="{unanswered: !language.currentUsageSocial}" cg-busy="form.fields['currentUsageSocial'].promise")
+          slider(ng-model="form.fields['currentUsageSocial'].value" min="0" max="7" step="1" tooltip="hide" ticks="[0,1,2,3,4,5,6,7]" on-stop-slide="form.saveField('currentUsageSocial')" value="form.fields['currentUsageSocial'].value")
+          p.small.text-center(ng-show="form.fields['currentUsageSocial'].value > 0") {{conf.usageSliderLabels[form.fields['currentUsageSocial'].value - 1]}}
+          p.small.text-center(ng-show="!language.currentUsageSocial") Use the slider to rank your current usage.
+          
+      .col-xs-12
+        label(ng-class="{required: !language.currentUsageWork}") In a professional setting?
+        .row
+          .col-xs-12
+            .slider-box(ng-class="{unanswered: !language.currentUsageWork}" cg-busy="form.fields['currentUsageWork'].promise")
+              slider(ng-model="form.fields['currentUsageWork'].value" min="0" max="7" step="1" tooltip="hide" ticks="[0,1,2,3,4,5,6,7]" on-stop-slide="form.saveField('currentUsageWork')" value="form.fields['currentUsageWork'].value")
+              p.small.text-center(ng-show="form.fields['currentUsageWork'].value > 0") {{conf.usageSliderLabels[form.fields['currentUsageWork'].value - 1]}}
+              p.small.text-center(ng-show="!language.currentUsageWork") Use the slider to rank your current usage.
+
+    //- peak proficiency
+    .row.section-spacer
+      .col-xs-12
+        p.lead Rate your peak proficiency:
+    .row
+      .col-xs-6
+        .date-peak-proficiency.required-labels
+          .form-group
+            label(ng-class="{required: !language.selfCertification.peakProficiency}") Date of Peak Proficiency
+            field-container(promise="form.fields['selfCertification.peakProficiency'].promise")
+              input.form-control.datefield(type="text" bs-datepicker date-format="MMM yyyy" autoclose="true" min-view="1" ng-model="form.fields['selfCertification.peakProficiency'].value" ng-change="form.saveField('selfCertification.peakProficiency')" placeholder="\uF073")
+      .col-xs-6
+        .form-group
+          label(ng-class="{required: !language.selfCertification.peakProficiencyLevel}") Peak Proficiency Level
+          field-container(error-path="selfCertification.peakProficiencyLevel" promise="form.fields['selfCertification.peakProficiencyLevel'].promise")
+            .select-wrap
+              select.form-control(
+                ng-model="form.fields['selfCertification.peakProficiencyLevel'].value"
+                ng-options="item.k as item.l for item in conf.peakProficiency"
+                ng-change="form.saveField('selfCertification.peakProficiencyLevel')"
+              )
+              
+    .row.section-spacer
+      .col-xs-12
+        p.lead Rate your current proficiency:
+    .row.row-spacer.required-labels.self-cert-slider-collection(ng-repeat="field in conf.languageCertifications.gps.fields")
+      .col-xs-12
+        label(ng-class="{required: language.selfCertification[field.key] == undefined}") {{field.label}}
+        .slider-box(ng-class="{unanswered: language.selfCertification[field.key] == undefined}" bs-popover="{title: conf.languageCertifications.gps.valueLabels[form.fields['selfCertification.'+field.key].value - 1], items: field.descriptors[form.fields['selfCertification.'+field.key].value - 1]}" data-trigger="hover" data-placement="top" data-template-url="/apps/profile/directives/lang-slider-popover/template.html" cg-busy="form.fields['selfCertification.'+field.key].promise")
+          slider(ng-model="form.fields['selfCertification.'+field.key].value" tooltip="hide" value="form.fields['selfCertification.'+field.key].value" min="0" max="6" step="1" ticks="[0,1,2,3,4,5,6]" ticks-labels="selfProficiencyTickLabels" on-stop-slide="form.saveField('selfCertification.'+field.key)")
+
+    //- official certifications
+    .row.section-spacer
+      .col-xs-12
+        .edit-lang-certs.edit-section(cg-busy="deleteCertPromise")
+          p.lead If you have any official certifications in the language, please list them.
+          .list
+            edit-list-item(
+              ng-repeat="cert in language.officialCertifications | filter:notCurrentlyEditingCert"
+              title="{{cert.testName}}"
+              sub-title="{{cert.date ? (cert.date * 1000 | date:'MMM yyyy') : ''}}"
+              on-edit="editCert(cert)"
+              on-remove="deleteCert(cert)"
+              incomplete-when="isCertIncomplete(cert)"
+            )
+          .empty(ng-if="!currentCert")
+            p(ng-show="language.officialCertifications.length == 0") No certifications to show.
+            a.btn.btn-sm.btn-info(ng-click="addCert()") Add certification
+          .form
+            edit-list-form(
+              show-when="currentCert != null"
+              remove-text="Remove this certification"
+              cancel-when="!currentCert.hash"
+              done-when="currentCert.hash"
+              incomplete-when="isCertIncomplete(currentCert)"
+              on-remove="deleteCert(currentCert)"
+              on-cancel="doneEditingCert()"
+              on-done="doneEditingCert()"
+              nested="true"
+            )
+              form-lang-cert(language="language" cert="currentCert")

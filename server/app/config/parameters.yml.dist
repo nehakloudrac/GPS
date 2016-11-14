@@ -1,0 +1,73 @@
+# This file is a "template" of what your parameters.yml file should look like
+parameters:
+
+    log_root: /var/log/gps
+
+    mailer_transport:       smtp
+    mailer_host:            127.0.0.1
+    mailer_user:            ~
+    mailer_password:        ~
+    mailer_encryption:      ~
+    mailer_port:            ~
+    mailer_sender_address:  ~
+    mailer_file_spool_path: "%kernel.cache_dir%/swiftmailer/spool"
+    mailer_disable_delivery: true
+
+    email_asset_base_url: "http://192.168.13.37"
+    email_from_address: "noreply@globalprofessionalsearch.com"
+
+
+    locale:            en
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    mongodb_database: gps_%kernel.environment%
+    mongodb_server: "localhost:27017"
+    mongodb_replica_set: ""
+
+    include_api_exception_data: true
+    
+    # whether or not the fixtures command is allowed to reset the state
+    # of the mongo db - this is ok for dev machines; NEVER OK FOR LIVE INSTANCES
+    fixtures_allow_mongo_reset: false
+    fixtures_path: /vagrant/server/tests/fixture/models/all.php
+    
+    redis_host: "localhost"
+    redis_port: 6379
+    redis_url: "tcp://%redis_host%:%redis_port%?timeout=2"
+    
+    #for elasticsearch index
+    es_host: localhost
+    es_port: 9200
+    es_index: "gps-search"
+
+    #for the aws SDK; used by flysystem for S3, but also directly
+    #for SQS
+    aws_key:      ~
+    aws_secret:   ~
+    aws_default_region:   us-east-1
+    aws_sqs_indexer_queue_url: "https://sqs.us-east-1.amazonaws.com/286684336646/gps-dev-es-indexer"
+
+    #this is where certain pools of files live, and their base urls
+    files_transcoding_root: /tmp/transcoding
+    files_transcoding_base_url: null
+    files_profile_images_root: /vagrant/server/web/uploads/profile-images
+    files_profile_images_base_url: "/uploads/profile-images"
+    files_profile_images_s3_bucket_name: ~
+    files_profile_images_s3_directory: ~
+    files_candidate_docs_root: /vagrant/server/web/uploads/candidate-docs
+    files_candidate_docs_base_url: "/uploads/candidate-docs"
+    files_candidate_docs_s3_bucket_name: ~
+    files_candidate_docs_s3_directory: ~
+    files_public_root: /vagrant/server/web/uploads/public
+    files_public_base_url: "/uploads/public"
+    files_public_s3_bucket_name: ~
+    files_public_s3_directory: ~
+
+    #Google reCaptcha support
+    recaptcha_enabled: false
+    recaptcha_public_key: your-public-key-here
+    recaptcha_private_key: your-private-key-here
+    
+    crypto_key: pcIxPro9BShJ88TaA71zKw==

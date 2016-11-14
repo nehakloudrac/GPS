@@ -1,0 +1,40 @@
+.admin-partners
+  
+  .text-right
+    a.btn.btn-sm.btn-info(ng-click="add()") + New
+  .spacer
+  
+  .list-partners(ng-if="!currentPartner" cg-busy="promise")
+    p(ng-show="!partners.length") No items to show.
+    
+    table.table.table-condensed.table-striped
+      tbody
+        tr
+          td
+            b Name
+          td
+            b Enabled?
+          td
+            b Has Link?
+          td
+            b Public Logo?
+          td
+        tr(ng-repeat="partner in partners")
+          td {{partner.name}}
+          td
+            i.fa.fa-fw(ng-class="{'fa-check text-success': partner.isEnabled, 'fa-times text-danger': !partner.isEnabled}")
+          td
+            i.fa.fa-fw(ng-class="{'fa-check text-success': partner.isReferrerLinkEnabled, 'fa-times text-danger': !partner.isReferrerLinkEnabled}")
+          td
+            i.fa.fa-fw(ng-class="{'fa-check text-success': partner.isPublicPartner, 'fa-times text-danger': !partner.isPublicPartner}")
+          td.text-right
+            button.btn.btn-xs.btn-info(ng-click="edit($index)")
+              i.fa.fa-pencil
+            button.btn.btn-xs.btn-danger(ng-click="remove($index)")
+              i.fa.fa-trash
+  
+  .edit-partner(ng-if="currentPartner" cg-busy="promise")
+    partner-form(partner="currentPartner")
+      
+    button.btn.btn-default(ng-click="cancel()") Cancel
+    button.btn.btn-info(ng-click="save()") Save

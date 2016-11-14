@@ -1,0 +1,173 @@
+.employer {
+  @spacer: 40px;
+  
+  .employer-header {
+  	background: url("/public/images/new-design/employer-header.png") no-repeat center top fixed;
+    background-size: 120% cover;
+  	padding-top: 200px;
+  	height: 600px;
+  	
+  	.title-row {
+  		font-size: 1em;
+  		background-color: fadeout(#000, 70%);
+  		padding: 25px 0px;
+  		
+      .btn {
+        margin-top: @spacer / 2;
+      }
+  	}
+  }  
+  
+  .employer-section-about {
+    
+    .icon {
+      height: 100px;
+      margin: @spacer 0px;
+      
+      img {
+        max-height: 100px;
+        max-width: 100px;
+      }
+      
+      &.icon-handshake {
+        padding-top: 20px;
+      }
+    }
+    
+    .caption {
+      padding: 0px @spacer;
+    }
+    
+    .media-container {
+      .media {
+        margin-top: @spacer;
+      }
+    }
+  }
+  
+  .employer-section-pre-qualify {
+    .criteria-list {
+      margin-top: @spacer;
+      
+      .grey-background-outside {
+        margin: 0px 0px 0px 40px;
+      }
+      
+    	.grey-background-inside {
+    		// padding: 0px;
+    		position: relative;
+    		
+    		&:after {
+    			content: none;
+    		}
+    	}
+    }
+    
+  }
+  
+  
+  .employer-section-how-it-works {
+    .content, .btn {
+      margin-top: @spacer;
+    }
+
+    .media {
+      margin-top: @spacer;
+      
+      &.first {
+        margin-top: 0px;
+      }
+    }
+  }
+  
+  .employer-section-time-money {
+    .content, .btn {
+      margin-top: @spacer;
+    }
+  }
+
+  .employer-section-join {
+    .btn {
+      margin-top: @spacer;
+    }
+  }
+
+  .btn-warning {
+    text-transform: uppercase;
+  }
+  
+  .media-body {
+    vertical-align: middle;
+    
+    p {
+      margin: 0px;
+    }
+  }  
+  
+  @bullet-border-color: @gray-dark;
+  @bullet-circle-bg: @gray-lighter;
+  @bullet-content-bg: @gray-lighter;
+  
+  // circle bullet points from old design
+  .grey-item-wrapper {
+  	overflow: hidden;
+  	font-family: 'Open Sans', sans-serif;
+  	font-size: 14px;
+  }
+  .grey-circles-outside {
+  	float: left;
+  	width: 14px;
+  	display: table;
+  }
+  .grey-circles-inside {
+  	display: table-cell;
+  	vertical-align: middle;
+  	position: relative;
+  }
+  .grey-circle-item {
+  	width: 14px;
+  	height: 14px;
+  	border-radius: 14px;
+  	border: 3px solid @bullet-border-color;
+  	background-color: @bullet-circle-bg;
+  	position: absolute;
+  	margin-top: -6px;
+  	z-index: 10;
+  }
+  .grey-circle-background {
+  	position: absolute;
+  	background-color: @bullet-border-color;
+  	width: 2px;
+  	left: 6px;
+  	z-index: 0;
+  }
+
+  .grey-circles-outside.middle .grey-circle-background {
+  	top: 0;
+  }
+  .grey-circles-outside.last .grey-circle-background {
+  	top: 0;
+  }
+  .grey-background-outside {
+  	margin: 15px 0 15px 40px;
+  }
+  .grey-background-inside {
+  	padding: 15px;
+  	position: relative;
+  	background: #ECEEEF;
+  }
+  .grey-background-inside:after {
+  	right: 100%;
+  	top: 50%;
+  	border: solid transparent;
+  	content: " ";
+  	height: 0;
+  	width: 0;
+  	position: absolute;
+  	pointer-events: none;
+  	border-color: rgba(236, 238, 239, 0);
+  	border-right-color: #ECEEEF;
+  	border-width: 10px;
+  	margin-top: -10px;
+  }
+}

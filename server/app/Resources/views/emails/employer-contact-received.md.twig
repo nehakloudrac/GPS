@@ -1,0 +1,32 @@
+An employer contact was submitted on GPS:
+
+**First Name**:             {{contact.getFirstName()}}  
+**Last Name**:              {{contact.getLastName()}}  
+**Email**:                  {{contact.getEmail()}}  
+**Phone**:                  {{contact.getPhoneNumber()}}  
+**Title**:                  {{contact.getTitle()}}  
+**Business Name**:          {{contact.getInstitution().getName()}}  
+**Industries**:             {{contact.getInstitution().getIndustries() | join(', ')}}  
+**# Employees**:            {{contact.getNumEmployees()}}  
+**# Annual Hires**:         {{contact.getNumAnnualHires()}}  
+**# Positions to fill**:    {{contact.getNumPositions()}}  
+
+
+{% if contact.getPositions() | length > 0 %}
+
+{{contact.getFirstName()}} also submitted some data for positions to fill:
+
+{% for position in contact.getPositions() %}
+**Position # {{ loop.index }}**
+------------  
+**Title**:              {{position.getTitle()}}  
+**City**:               {{position.getCity()}}  
+**Country**:            {{position.getCountry()}}  
+**Status**:             {{position.getStatus()}}  
+**Start Date**:         {{position.getStartDate() | date('d/m/Y')}}  
+**Salary**:             {{position.getSalary()}}  
+**Desired Languages**:  {{position.getDesiredLanguages() | join(', ')}}  
+**Desired Countries**:  {{position.getDesiredCountries() | join(', ')}}  
+
+{% endfor %}
+{% endif %}

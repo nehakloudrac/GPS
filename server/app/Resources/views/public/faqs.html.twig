@@ -1,0 +1,48 @@
+{% extends 'public-page-default.html.twig' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="content-pad">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>How do I join the GPS community?</h3>
+          <p>Join the GPS community of global professionals by first registering your name and email. GPS will then send an invitation to verify your account and create your customized profile. You must verify your account to be eligible for matching. Once verified, your profile will be considered for all job opportunity queries. When our GPS placement consultants match your profile with the employer criteria, we will send your profile to the employer for review.</p>
+          <p>Note:</p>
+          <ul>
+            <li>You can update your information at any time. </li>
+            <li>The more complete you profile, the greater our ability to find the job that matches your skills and interest.</li>
+            <li>You are not required to upload a photo, but it is recommended.</li>
+          </ul>
+
+          <h3>What does it cost?</h3>
+          <p>GPS membership is <em>FREE</em> for candidates. You are our most important asset. <a href="{{path('create-account')}}">Join GPS</a> today and complete your customized profile.</p>
+
+          <h3>I registered. Why can’t I log in from the home page?</h3>
+          <p>You must <a href="{{path('create-account')}}">Join GPS</a> before you can log in. After you register, you will receive an email from GPS for account verification. Once verified, GPS can begin to match you with job opportunities.</p>
+          
+          <h3>How do I search for jobs on GPS?</h3>
+          <p>You don’t. GPS is not a job board where candidates get lost in a horde of resumes. We don’t rely on a few keyword searches.</p>
+          <p>Our value is in our ability to understand and solicit the hiring criteria of each employer as well as the distinctive skills and experience of each candidate and to match them using our proprietary algorithm. Employers only receive the profiles of the candidates that score the highest relative to their criteria. GPS saves the candidate time by only contacting them when an employer has short-listed their profile.</p>
+        </div>
+        <div class="col-sm-6">          
+          <h3>What are the benefits of being a member of GPS’s exclusive network of global professionals?</h3>
+          <p>GPS is the <b><u>only</u></b> job matching service that spotlights international experience (overseas work and study), foreign language proficiency, and intercultural competency <b><u>in addition</u></b> to industry-specific expertise.</p>
+          <p>Global employers value this combination of skills and will rely on GPS to fulfill their global talent needs.</p>
+          
+          <h3>How long does membership in the GPS community last?</h3>
+          <p>You remain in the system until you opt out. Just adjust your “status” so that we know when to contact you. GPS will continue to add new and relevant information and features to your Dashboard.</p>
+          
+          <h3>How long does it take to complete the questionnaire?</h3>
+          <p>The time it takes to complete a profile depends on the amount history you wish to add.  It is important to keep your profile up-to-date for best results.</p>
+          
+          <h3>How can I get help?</h3>
+          <p>Help is only a click away. On the bottom of each page, you will the help button. You can also contact us at any time at <a href="mailto: support@globalprofessionalsearch.zendesk.com">support@globalprofessionalsearch.zendesk.com</a>.</p>
+        </div>        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

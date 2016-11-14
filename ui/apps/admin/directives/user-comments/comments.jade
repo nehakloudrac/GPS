@@ -1,0 +1,15 @@
+.user-comments
+  .comments(cg-busy="loadingPromise")
+    p.lead(ng-show="comments.length == 0") No comments to show
+    ul(ng-show="comments.length > 0")
+      li(ng-repeat="comment in comments")
+        .comment
+          .comment-header
+            b {{comment.creator.firstName}}: &nbsp
+            small {{comment.dateCreated * 1000 | date:'MM/dd/yyyy'}}
+          .comment-body
+            p(ng-bind="comment.text")
+  .new-comment(cg-busy="savingPromise")
+    .form-group
+      textarea.form-control(ng-model="newComment" placeholder="Type your comment...")
+    button.btn.btn-info(ng-click="submit()") Comment

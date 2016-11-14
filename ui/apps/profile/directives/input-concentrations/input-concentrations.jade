@@ -1,0 +1,64 @@
+.input-concentrations
+  .row(ng-repeat="item in model")
+    .col-xs-12
+
+      .concentration-container
+        .row
+          .col-xs-4
+            .form-group
+              .select-wrap
+                select.form-control(
+                  ng-model="item.type"
+                  ng-options="item.key as item.label for item in concentrationTypes"
+                  ng-change="update()"
+                )
+          .col-xs-8
+            .form-group
+              input.form-control(
+                type="text"
+                blur-on-enter
+                ng-model="item.fieldName"
+                ng-model-options="{updateOn:'default blur', debounce: { 'default': 200, 'blur': 0 } }"
+                ng-blur="update()"
+                bs-typeahead
+                data-min-length="0"
+                data-limit="20"
+                bs-options="item for item in academicSubjects"
+              )
+
+            .form-group(ng-if="item.fieldName == 'Foreign Language'")
+              .select-wrap
+                select.form-control(
+                  ng-model="item.meta.languageCode"
+                  ng-options="item.code as item.label for item in languageCodes"
+                  ng-change="setMetaLanguage($index)"
+                )
+                  option(value="") -- Choose Language --
+
+            .form-group(ng-if="item.fieldName == 'Area Studies'")
+              .select-wrap
+                select.form-control(
+                  ng-model="item.meta.countryCode"
+                  ng-options="item.code as item.name for item in countryCodes"
+                  ng-change="setMetaCountry($index)"
+                )
+                  option(value="") -- Choose Country --
+
+            .form-group
+              .checkbox
+                label
+                  input(type="checkbox" ng-model="item.intlConcentration" ng-true-value="true" ng-checked="item.intlConcentration" ng-change="update()")
+                  small International concentration
+          
+      .row
+        .col-xs-12.text-right
+          a.btn.btn-xs.btn-link.text-danger(ng-click="remove($index)")
+            i.fa.fa-trash &nbsp;
+            span Remove
+
+  .row.row-spacer
+    .col-xs-12
+      p
+        a.btn.btn-xs.btn-primary(ng-click="add()")
+          i.fa.fa-plus
+          |  Add major/minor

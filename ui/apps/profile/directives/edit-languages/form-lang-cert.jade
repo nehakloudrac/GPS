@@ -1,0 +1,56 @@
+.form-lang-cert
+  
+  //- first determine the test used & rating scale before showing
+  //- the rest of the form
+  .choose-cert(ng-if="!cert.test || !cert.scale")
+    .row
+      .col-xs-6
+        .form-group
+          label(ng-class="{required: !cert.test}") Type of test
+          .select-wrap
+            select.form-control(
+              ng-model="cert.test"
+              ng-options="item.test as item.label for item in conf.languageTests"
+              ng-change="onSelectTest()"
+            )
+              option(value="") -- Choose --
+      .col-xs-6(ng-show="cert.test == 'custom'")
+        .form-group
+          label(ng-class="{required: !cert.scale}") Rating scale
+          .select-wrap
+            select.form-control(
+              ng-model="cert.scale"
+              ng-options="key as item.label for (key, item) in conf.languageCertifications"
+              ng-change="onSelectTest()"
+            )
+              option(value="") -- Choose --
+
+  .form(ng-if="cert.test && cert.scale")
+    .row
+      .col-xs-6
+        .form-group(ng-show="cert.test == 'custom'")
+          label.form-label(ng-class="{required: !cert.testName}") Name of the test taken?
+          field-container(error-path="testName" promise="form.fields['testName'].promise")
+            input.form-control(type="text" ng-model="form.fields['testName'].value" blur-on-enter ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('testName')")
+        .form-group
+          label.form-label(ng-class="{required: !cert.institution}") Name of administering institution
+          field-container(error-path="institution" promise="form.fields['institution'].promise")
+            input.form-control(type="text" ng-model="form.fields['institution'].value" blur-on-enter ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution')")
+        .form-group
+          label.form-label(ng-class="{required: !cert.date}") Date administered
+          field-container(error-path="date" promise="form.fields['date'].promise")
+            input.form-control.datefield(type="text" placeholder="\uF073 Date" bs-datepicker min-view="1" autoclose="true" date-format="MMM yyyy" ng-model="form.fields['date'].value" ng-change="form.saveField('date')")
+      .col-xs-6
+        .form-group(ng-repeat="field in conf.languageCertifications[cert.scale].fields")
+          label.form-label(ng-class="{required: !cert[field.key]}") {{field.label}} ({{conf.languageCertifications[cert.scale].valueLabels[form.fields[field.key].value - 1]}})
+          field-container(error-path="field.key" promise="form.fields[field.key].promise")
+            .slider-box(ng-class="{unanswered: cert[field.key] == undefined}")
+              slider(
+                ng-model="form.fields[field.key].value"
+                tooltip="hide"
+                min="1"
+                max="conf.languageCertifications[cert.scale].valueLabels.length"
+                step="1"
+                ticks="Array(conf.languageCertifications[cert.scale].valueLabels.length)"
+                on-stop-slide="form.saveField(field.key)"
+              )

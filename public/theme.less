@@ -1,0 +1,97 @@
+@import './font.less';
+@import './variables.less';
+@import './shaded-bg-cols.less';
+
+@shaded-bg: rgb(232,232,232);
+
+.custom-zd-help-button {
+  position: fixed;
+  bottom: 0px;
+  right: 30px;
+  cursor: pointer;
+  color: @brand-primary;
+  background-color: @brand-warning;
+  font-size: 0.75em;
+  padding: 10px;
+  border-top-left-radius: @border-radius-base;
+  border-top-right-radius: @border-radius-base;
+
+  &:hover {
+    background-color: lighten(@brand-warning, 10%);
+  }
+  
+  .fa {
+    margin-left: 15px;
+  }
+}
+
+// flexbox helpers - DO NOT USE ON PUBLIC PAGES
+.flex {
+  display: flex;
+}
+
+.valign-content {
+  display: flex;
+  align-items: center;
+}
+
+// padding helper classes
+.pad-lg {
+  padding: @padding-large-vertical @padding-large-horizontal;
+}
+.pad-md {
+  padding: @padding-base-vertical @padding-base-horizontal;
+}
+.pad-sm {
+  padding: @padding-small-vertical @padding-small-horizontal;
+}
+.pad-xs {
+  padding: @padding-xs-vertical @padding-xs-horizontal;
+}
+
+// font weight helpers
+.text-light { font-weight: 100; }
+.text-normal { font-weight: 500; }
+.text-semibold { font-weight: 600; }
+.text-bold { font-weight: 700; }
+.text-heavy { font-weight: 800; }
+
+.text-highlight {
+  color: @brand-warning;
+}
+
+.text-inverse {
+  color: @text-color-inverse;
+}
+
+.text-family-base {
+  font-family: @font-family-base;
+}
+
+.text-family-headings {
+  font-family: @font-family-headings;
+}
+
+.text-family-gps {
+  font-family: 'Trajan Sans';
+  font-weight: 300;
+}
+
+.text-large {
+  font-size: @font-size-large;
+}
+
+.text-small {
+  font-size: @font-size-small;
+}
+
+.form-group {
+  label.empty {
+    &::before {
+      content: '\a0';
+    }
+  }
+}
+
+@text-color-inverse: #fff;
+// @text-color-inverse: hsl(hue(@brand-primary), saturation(@gray-lighter), lightness(@gray-lighter));

@@ -1,0 +1,48 @@
+.app-footer {
+  @spacer: @navbar-height/2;
+
+  background-color: @shaded-bg;
+  padding: @spacer 0px;
+  color: @brand-info;
+  
+  .menus {
+    .menu {
+      .text-center;
+      border-right: 1px solid @brand-info;
+      &:last-child {
+        border-right: none;
+      }
+    }
+    
+  }
+  
+  .copyright {
+    margin-top: @spacer;
+    span {
+      margin-left: 10px;
+    }
+  }
+  
+  ul {
+    padding: 0px;
+  }
+  
+  li {
+    list-style: none;
+    font-size: @font-size-small;
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .social-icon {
+      font-size: 2em;
+      margin-right: 7px;
+      
+      i {
+        color: @brand-warning;
+      }
+    }
+  }
+  
+}

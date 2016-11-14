@@ -1,0 +1,110 @@
+.admin-search
+  .row
+    .col-xs-3
+      ul.nav.nav-tabs.search-form-nav(ng-init="searchForm = 'profile'")
+        li(ng-click="searchForm = 'profile'" ng-class="{active: searchForm == 'profile'}")
+          a Profiles
+        li(ng-click="searchForm = 'user'" ng-class="{active: searchForm == 'user'}")
+          a Users
+
+      div(ng-if="searchForm == 'profile'")
+        .form-group
+          label Countries
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple ng-model="profileFilters.countries" reset-search-input="true")
+              ui-select-match(placeholder="Select any") {{$item.name}}
+              ui-select-choices(repeat="country.code as country in countryCodes  | filter: $select.search")
+                span {{country.name}}
+        .form-group
+          label Foreign Languages
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple ng-model="profileFilters.languages" reset-search-input="true")
+              ui-select-match(placeholder="Select any") {{$item.label}}
+              ui-select-choices(repeat="lang.code as lang in languageCodes  | filter: $select.search")
+                span {{lang.label}}
+        .form-group
+          label Industries
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple tagging tagging-label="(custom)" ng-model="profileFilters.industries" reset-search-input="true")
+              ui-select-match(placeholder="Select or enter custom") {{$item}}
+              ui-select-choices(repeat="item in institutionIndustries  | filter: $select.search")
+                span {{item}}
+        .form-group
+          label Universities
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple tagging tagging-label="" ng-model="profileFilters.universities")
+              ui-select-match(placeholder="Type to enter") {{$item}}
+              ui-select-choices(repeat="item in profileFilters.universities")
+                span {{item}}
+        .form-group
+          label Desired Location (USA)
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple ng-model="profileFilters.locationsUSA" reset-search-input="true")
+              ui-select-match(placeholder="Select any") {{$item.label}}
+              ui-select-choices(repeat="item.key as item in locationsUSAChoices  | filter: $select.search")
+                span {{item.label}}
+          
+        .form-group
+          label Desired Location (Abroad)
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple ng-model="profileFilters.locationsAbroad" reset-search-input="true")
+              ui-select-match(placeholder="Select any") {{$item.name}}
+              ui-select-choices(repeat="item.code as item in locationsAbroadChoices  | filter: $select.search")
+                span {{item.name}}
+          
+        .form-group
+          label Skills
+          .form-group
+            .ui-select-custom.ui-select-compact
+              ui-select.form-control(multiple tagging tagging-label="false" ng-model="profileFilters.skills" search="false")
+                ui-select-match(placeholder="Type to add") {{$item}}
+                ui-select-choices(repeat="item in []")
+                  span {{item}}
+        .btn-toolbar(cg-busy="promise")
+          .btn-group
+            btn.btn.btn-sm.btn-default(ng-click="resetProfileFilters()")
+              i.fa.fa-times &nbsp;
+              span Reset
+            btn.btn.btn-sm.btn-info(ng-click="searchProfiles()")
+              i.fa.fa-search &nbsp;
+              span Search
+      
+      div(ng-if="searchForm == 'user'")
+        .form-group
+          label ID
+          input.form-control(type="text" ng-model="userFilters.id")
+        .form-group
+          label Short ID
+          input.form-control(type="text" ng-model="userFilters.shortId")
+        .form-group
+          label Name
+          input.form-control(type="text" ng-model="userFilters.name")
+        .form-group
+          label Email
+          input.form-control(type="text" ng-model="userFilters.email")
+        .form-group
+          label Native Languages
+          .ui-select-custom.ui-select-compact
+            ui-select.form-control(multiple ng-model="userFilters.languages" reset-search-input="true")
+              ui-select-match(placeholder="Select any") {{$item.label}}
+              ui-select-choices(repeat="lang.code as lang in languageCodes  | filter: $select.search")
+                span {{lang.label}}
+        .btn-toolbar(cg-busy="promise")
+          .btn-group
+            btn.btn.btn-sm.btn-default(ng-click="resetUserFilters()")
+              i.fa.fa-times &nbsp;
+              span Reset
+            btn.btn.btn-sm.btn-info(ng-click="searchUsers()")
+              i.fa.fa-search &nbsp;
+              span Search
+      
+    .col-xs-9
+      div(cg-busy="promise")
+        div(ng-show="!res.results.length") No results to show.
+        div(ng-if="res.results.length")
+          p.lead Results ({{res.total}}):
+          overview-results(results="res.results")
+          nav(ng-show="res.total > numPerPage")
+            ul.pagination
+              li(ng-repeat="i in pagination.range track by $index" ng-class="{active: $index+1 == pagination.currentPage}")
+                a(ng-click="goToPage($index + 1)") {{$index + 1}}

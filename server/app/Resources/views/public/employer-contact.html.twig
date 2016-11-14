@@ -1,0 +1,222 @@
+{% extends 'public-page-default.html.twig' %}
+
+{% block content %}
+
+<div class="row employer-contact">
+  <div class="col-xs-12">
+    <div class="content-pad">
+
+      <form class="form" method="post" novalidate>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="lead">
+              Tell us about yourself and your organization:
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-errors">{{ form_errors(form) }}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.firstName)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'First Name'}}) }}
+              <div class="form-errors">{{ form_errors(form.firstName) }}</div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.lastName)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+              <div class="form-errors">{{ form_errors(form.lastName) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="form-group {% if form_errors(form.email)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'address@example.com'}}) }}
+              <div class="form-errors">{{ form_errors(form.email) }}</div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.phoneNumber)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.phoneNumber, {'attr': {'class': 'form-control', 'placeholder': '(555) 555-5555'}}) }}
+              <div class="form-errors">{{ form_errors(form.phoneNumber) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.title)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Title'}}) }}
+              <div class="form-errors">{{ form_errors(form.title) }}</div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.institution.name)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.institution.name, {'attr': {'class': 'form-control', 'placeholder': 'Business Name'}}) }}
+              <div class="form-errors">{{ form_errors(form.institution.name) }}</div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group field-industries {% if form_errors(form.institution.industries)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.institution.industries, {'attr': {'placeholder': 'Industries'}}) }}
+              <div class="form-errors">{{ form_errors(form.institution.industries) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.numEmployees)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.numEmployees, {'attr': {'class': 'form-control', 'placeholder': '# Employees'}}) }}
+              <div class="form-errors">{{ form_errors(form.numEmployees) }}</div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.numAnnualHires)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.numAnnualHires, {'attr': {'class': 'form-control', 'placeholder': '# Annual Hires'}}) }}
+              <div class="form-errors">{{ form_errors(form.numAnnualHires) }}</div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group {% if form_errors(form.numPositions)|length > 0 %} has-error {% endif %}">
+              {{ form_widget(form.numPositions, {'attr': {'class': 'form-control', 'placeholder': '# Positions'}}) }}
+              <div class="form-errors">{{ form_errors(form.numPositions) }}</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="spacer"></div>
+        
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="lead">
+              Click below if you would like to add criteria for a job position you need to fill.
+            </p>
+          </div>
+        </div>
+
+        <div class="positions">
+            {% for position in form.positions %}
+            <div class="position">
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <p class="lead">Position #{{loop.index}}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4">
+                  <div class="form-group {% if form_errors(position.title)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.title, {'attr': {'class': 'form-control', 'placeholder': 'Title'}}) }}
+                    <div class="form-errors">{{ form_errors(position.title) }}</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group {% if form_errors(position.city)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.city, {'attr': {'class': 'form-control', 'placeholder': 'City'}}) }}
+                    <div class="form-errors">{{ form_errors(position.city) }}</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group field-country {% if form_errors(position.country)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.country, {'attr': {'class': 'form-control select2-responsive', 'placeholder': 'Country'}}) }}
+                    <div class="form-errors">{{ form_errors(position.country) }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4">
+                  <div class="form-group field-status {% if form_errors(position.status)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.status, {'attr': {'class': 'form-control', 'placeholder': 'Status'}}) }}
+                    <div class="form-errors">{{ form_errors(position.status) }}</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group field-date {% if form_errors(position.startDate)|length > 0 %} has-error {% endif %}">
+                    <div class="form-control-static">
+                      <span class="pull-left">Starting:&nbsp;</span>
+                      {{ form_widget(position.startDate, {'attr': {'placeholder': 'Start Date'}}) }}
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="form-errors">{{ form_errors(position.startDate) }}</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group {% if form_errors(position.salary)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.salary, {'attr': {'class': 'form-control', 'placeholder': 'Salary'}}) }}
+                    <div class="form-errors">{{ form_errors(position.salary) }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4">
+                  <div class="form-group field-languages{% if form_errors(position.desiredLanguages)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.desiredLanguages, {'attr': {'class': 'form-control select2-responsive', 'placeholder': 'Desired Language Experience'}}) }}
+                    <div class="form-errors">{{ form_errors(position.desiredLanguages) }}</div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group field-countries {% if form_errors(position.desiredCountries)|length > 0 %} has-error {% endif %}">
+                    {{ form_widget(position.desiredCountries, {'attr': {'class': 'form-control select2-responsive', 'placeholder': 'Desired Country Experience'}}) }}
+                    <div class="form-errors">{{ form_errors(position.desiredCountries) }}</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            {{ form_widget(form.addPosition, {'label': 'Add Position', 'attr':{'class': 'btn btn-info btn-sm'}}) }}
+          </div>
+        </div>
+
+        {{ form_widget(form._token) }}
+
+        <div class="spacer"></div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="pull-right">
+              <div class="form-errors">{{ form_errors(form.recaptcha) }}</div>
+              {{ form_widget(form.recaptcha) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="spacer"></div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="text-right">
+              {{ form_widget(form.save, {'attr':{'class': 'btn btn-info'}}) }}
+            </p>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeEmployerContactForm();
+  });
+</script>
+
+{% endblock %}

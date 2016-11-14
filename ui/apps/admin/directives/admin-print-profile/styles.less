@@ -1,0 +1,128 @@
+.custom-zd-help-button {
+  @media print {
+    display: none;
+  }
+}
+
+.print-view {
+  .no-print-view {
+    display: none;
+  }
+  
+  .no-print {
+    @media print {
+      display: none;
+    }
+  }
+}
+
+
+.admin-print-profile {
+  @profile-border-color: @brand-info;
+  
+  .print-header {
+    background-color: #444;
+    color: @text-color-inverse;
+    
+    padding: @navbar-height/2 0px;
+  }
+    
+  .body {
+    padding: @navbar-height/2 0px;
+    background-color: @body-bg;
+    
+    // forced overrides within profile
+    // for actual print... particularly with
+    // progress bars
+    @media print {
+      font-size: 0.88em !important;
+      
+      .candidate-profile {
+        padding: 0px 0px;
+        
+        .header {
+          
+          border-bottom: 2px solid @profile-border-color !important;
+          
+          h1,h2,h3,h4,h5 {
+            color: @brand-info !important;
+          }
+          
+          h1,h2 {
+            font-size: 1.25em !important;
+          }
+          
+          h3,h4,h5 {
+            font-size: 1.125em !important;
+          }
+        }
+        
+        .body {
+          padding-top: 10px;
+          
+          h2,h3,h4,h5 {
+            color: @brand-info !important;
+          }
+          
+          .section {
+            h2 {
+              border-color: @brand-info !important;
+            }
+
+            .divider {
+              background-color: fadeout(@brand-warning, 50%) !important;
+              
+              .highlight {
+                border-color: @brand-warning !important;
+              }
+            }
+            
+          }
+          
+          .subtext {
+            color: #777 !important;
+          }
+          
+          .subsection {
+            page-break-after: auto;
+            page-break-inside: avoid;
+          }
+                    
+          .progress {
+            background-color: #eee !important;
+            
+            .progress-bar-info {
+              background-color: @brand-info !important;
+              color: #fff !important;
+            }
+          }
+          
+          .labels {
+            .label {
+              color: #fff !important;
+              
+              &.label-primary {
+                background-color: @brand-primary !important;
+                border-color: @brand-primary !important;
+              }
+              
+              &.label-info {
+                background-color: @brand-info !important;
+                border-color: @brand-info !important;
+              }
+
+              i.fa {
+                &::before, &::after {
+                  color: #fff !important;
+                }
+              }
+            }
+          }
+        }
+        
+        
+      }
+    }
+    
+  }
+}

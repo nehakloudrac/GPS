@@ -1,0 +1,18 @@
+.profile-app
+  app-page
+    app-menu(active="profile")
+      
+    .profile-app-body
+      .container
+        .row
+          .col-xs-12
+            .profile-buttons
+              a.btn.btn-warning.btn-md(href="#/profile" ng-show="layout.includes('profile.edit')")
+                i.fa.fa-user
+                |  View Profile
+              button.btn.btn-warning.btn-md(ng-click="edit()" ng-show="layout.eq('profile.view')")
+                i.fa.fa-pencil
+                |  Edit Profile
+        .row
+          .col-xs-12
+            ui-view

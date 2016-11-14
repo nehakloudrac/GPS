@@ -1,0 +1,22 @@
+.form-timeline-event
+  .choose-type(ng-if="!event.type")
+    .row
+      .col-sm-4
+        .form-group
+          label.required Type of experience
+          .select-wrap
+            select.form-control(
+              ng-model="event.type"
+              ng-options="type.type as type.label for type in timelineTypes"
+              ng-change="init()"
+            )
+              option(value="") -- Choose type --
+  .form-event(ng-if="event.type" ng-switch="event.type")
+    form-job(ng-switch-when="job")
+    form-volunteer(ng-switch-when="volunteer")
+    form-military(ng-switch-when="military")
+    form-research(ng-switch-when="research")
+    form-university(ng-switch-when="university")
+    form-study-abroad(ng-switch-when="study_abroad")
+    form-language-acquisition(ng-switch-when="language_acquisition")
+    p(ng-switch-default) No form for that type...

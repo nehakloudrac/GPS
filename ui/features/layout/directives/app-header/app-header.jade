@@ -1,0 +1,33 @@
+nav.app-header.navbar.navbar-default
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed(data-toggle="collapse" data-target="#bs-navbar-collapse")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      span.navbar-brand.gps-breadcrumb
+        a.gps-breadcrumb-icon(ng-href="{{layout.uiPath('dashboard', '/')}}")
+          img(src="/public/images/g-logo-xs.png")
+        i.fa.fa-angle-double-right.gps-breadcrumb-separator
+        span.gps-breadcrumb-text(ng-repeat-start="item in layout.getBreadcrumb()" ng-if="$last || !item.href") {{item.title}}
+        a.gps-breadcrumb-text.navbar-link(ng-if="item.href" ng-href="{{item.href}}") {{item.title}}
+        i.gps-breadcrumb-separator.fa.fa-angle-double-right(ng-show="!$last" ng-repeat-end)
+
+    .collapse.navbar-collapse(id="bs-navbar-collapse")
+      ul.nav.navbar-nav.navbar-right.user-menu(ng-if="menu()")
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown" role="button" aria-expanded="false")
+            img.user-img.img-circle(ng-src="{{getProfileImageUrl()}}")
+            span {{user.name}}
+            i.fa.fa-caret-down
+          ul.dropdown-menu(role="menu")
+            li(ng-show="isAdmin()")
+              a(ng-href="{{layout.uiPath('admin', '/')}}")
+                i.fa.fa-fw.fa-pie-chart
+                |  Admin
+            li.divider(ng-show="isAdmin()")
+            li
+              a(href="/logout")
+                i.fa.fa-fw.fa-sign-out
+                | Sign Out

@@ -1,0 +1,9 @@
+.row
+  .col-xs-12
+    h4
+      |  {{getLabel(militaryServices, event.branch)}}
+      small  {{getRank()}}
+    p(ng-show="event.unit")
+      b {{event.unit}}  
+    p(ng-show="event.occupationalSpecialty") Specialties: {{event.occupationalSpecialty.join(', ')}}
+    div(ng-bind-html="getDescription()")

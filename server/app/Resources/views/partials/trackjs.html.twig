@@ -1,0 +1,24 @@
+<!-- BEGIN TRACKJS -->
+<script type="text/javascript">
+(function(window) {
+  var config = {
+    token: 'fb8cd4e72cf847f49c5965e6f50b4812'
+  };
+  
+  {% if app.user %}
+  config.userId = "{{app.user.getEmail()}}";
+  config.sessionId = "{{app.session.getId()}}";
+  {% else %}
+  config.userId = "anonymous";
+  config.sessionId = "{{app.session.getId() ?: 'empty'}}";
+  {% endif %}
+  
+  {% if app.environment == 'dev' %}
+  config.enabled = false;
+  {% endif %}
+  
+  window._trackJs = config;
+})(window);
+</script>
+<script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" crossorigin="anonymous"></script>
+<!-- END TRACKJS -->

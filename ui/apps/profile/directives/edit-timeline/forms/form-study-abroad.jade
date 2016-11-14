@@ -1,0 +1,55 @@
+.form-study-abroad
+
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.programName}") Program Name
+        field-container(error-path="programName" promise="form.fields['programName'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['programName'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('programName')")
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.countryRefs.length}")
+          span Country
+          label-description(text="If the program involved academic time in more than one country, you may list multiple.")
+        field-container(error-path="countryRefs" promise="form.fields['countryRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['countryRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.countryCodes" id-field="code" label-field="name" ng-change="form.saveField('countryRefs')")
+
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.duration.start}") Duration
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="currently enrolled")
+  
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !event.institution.name}")
+          span Sponsor
+          label-description(text="Name of the institution that administers the program.")
+        field-container(error-path="institution.name" promise="form.fields['institution.name'].promise")
+          input.form-control(type="text" blur-on-enter ng-model="form.fields['institution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('institution.name')")
+    .col-xs-6
+      .form-group
+        label
+          span Hosting Institution
+          label-description(text="Name of hosting institution, if different than sponsor.")
+        field-container(error-path="hostingInstitution.name" promise="form.fields['hostingInstitution.name'].promise")
+          input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['hostingInstitution.name'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('hostingInstitution.name')")
+  
+  .row
+    .col-xs-6
+      .form-group
+        label
+          span Language Study
+          label-description(text="If you formally studied any foreign languages as part of this program, select them here.")
+        field-container(error-path="languageRefs" promise="form.fields['languageRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['languageRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.languageCodes" id-field="code" label-field="label" ng-change="form.saveField('languageRefs')")
+    .col-xs-6(ng-if="event.languageRefs.length > 0")
+      .form-group
+        label % Class Time in Local Language
+        field-container(error-path="classTimePercentLocalLang" promise="form.fields['classTimePercentLocalLang'].promise")
+          .input-group
+            input.form-control(type="text" placeholder="Optional" maxlength="3" blur-on-enter ng-model="form.fields['classTimePercentLocalLang'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('classTimePercentLocalLang')")
+            .input-group-addon %
+        

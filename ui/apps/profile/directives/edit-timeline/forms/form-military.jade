@@ -1,0 +1,92 @@
+.form-military
+
+  .row
+    .col-xs-4
+      .form-group
+        label(ng-class="{required: !event.branch || !event.rankValue || !event.rankType}") Service & Rank
+        field-container(error-path="branch" promise="form.fields['branch'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['branch'].value"
+              ng-options="item.key as item.label for item in conf.militaryServices"
+              ng-change="form.saveField('branch')"
+            )
+    .col-xs-4(ng-show="event.branch")
+      .form-group
+        label.empty
+        field-container(error-path="rankType" promise="form.fields['rankType'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['rankType'].value"
+              ng-options="item.key as item.label for item in conf.militaryRankTypes"
+              ng-change="form.saveField('rankType')"
+            )
+    .col-xs-4(ng-if="event.rankType")
+      .form-group
+        label.empty
+        field-container(error-path="rankValue" promise="form.fields['rankValue'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['rankValue'].value"
+              ng-options="item.key as item.label for item in conf.militaryRanks[event.branch][event.rankType]"
+              ng-change="form.saveField('rankValue')"
+            )
+
+  .row
+    .col-xs-4
+      .form-group
+        label Assigned Unit
+        field-container(error-path="unit" promise="form.fields['unit'].promise")
+          input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['unit'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('unit')")
+    .col-xs-8
+      .form-group
+        label(ng-class="{required: !event.duration.start}") Duration
+        field-container(error-path="duration" promise="form.fields['duration'].promise")
+          input-date-range(ng-model="form.fields['duration'].value" ng-change="form.saveField('duration')" is-current-message="current assignment")
+  
+  .row
+    .col-xs-12
+      .form-group
+        label(ng-class="{required: !event.description.length}") Responsibilities & Achievements
+        field-container(error-path="description" promise="form.fields['description'].promise")
+          textarea.form-control(rows="5" maxlength="10000" placeholder="Briefly describe your roles and responsibilities..." ng-model="form.fields['description'].value" ng-model-options="{updateOn:'default blur', debounce: { 'default': 5000, 'blur': 0 } }" ng-change="form.saveField('description')")
+  
+  .row
+    .col-xs-12
+      .form-group
+        label Operation
+        field-container(error-path="operation" promise="form.fields['operation'].promise")
+          input.form-control(type="text" placeholder="Optional" blur-on-enter ng-model="form.fields['operation'].value" ng-model-options="{updateOn: 'blur'}" ng-change="form.saveField('operation')")
+  
+  .row
+    .col-xs-6
+      .form-group
+        label Geographic Specialty
+        field-container(error-path="geographicSpecialty" promise="form.fields['geographicSpecialty'].promise")
+          .select-wrap
+            select.form-control(
+              ng-model="form.fields['geographicSpecialty'].value"
+              ng-options="key for (i, key) in conf.militaryGeographicSpecialties"
+              ng-change="form.saveField('geographicSpecialty')"
+            )
+    .col-xs-6
+      .form-group
+        label Occupational Specialties
+        field-container(error-path="occupationalSpecialties" promise="form.fields['occupationalSpecialties'].promise")
+          input-string-list(model="form.fields['occupationalSpecialties'].value" on-change="form.saveField('occupationalSpecialties')")
+  
+  .row
+    .col-xs-6
+      .form-group
+        label
+          span Foreign Language Use
+          label-description(text="Did this assignment involve extensive use of foreign language?")
+        field-container(error-path="languageRefs" promise="form.fields['languageRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['languageRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.languageCodes" id-field="code" label-field="label" ng-change="form.saveField('languageRefs')")
+    .col-xs-6
+      .form-group
+        label
+          span Foreign Travel
+          label-description(text="Did this assignment involve extensive time in other countries?")
+        field-container(error-path="countryRefs" promise="form.fields['countryRefs'].promise")
+          input-multiselect(bs-tooltip="{title: 'Type to search'}" data-placement="left" ng-model="form.fields['countryRefs'].value" suggestion-limit="50" placeholder="Select all that apply" choices="conf.countryCodes" id-field="code" label-field="name" ng-change="form.saveField('countryRefs')")

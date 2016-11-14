@@ -1,0 +1,12 @@
+.search-paginator
+  ul(ng-show="total > limit")
+    li
+      p Pages:
+    li.link(ng-class="{active: state.currentPage > 1}" ng-click="goToPage(state.currentPage - 1)")
+      a &larr;
+    li
+      input(type="text" blur-on-enter ng-model="state.currentPage" ng-model-options="{updateOn: 'blur'}")
+      span /
+      span {{state.totalPages}}
+    li.link(ng-class="{active: state.currentPage < state.totalPages}" ng-click="goToPage(state.currentPage + 1)")
+      a &rarr;

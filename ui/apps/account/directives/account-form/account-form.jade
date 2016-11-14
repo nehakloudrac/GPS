@@ -1,0 +1,157 @@
+.account-form
+  .row
+    .col-sm-3
+      field-label(required-when="!user.firstName || !user.lastName") Name
+    .col-sm-9
+      .row
+        .col-xs-4
+          .form-group
+            field-container(error-path="firstName" promise="models.firstName.promise")
+              input.form-control(type="text" placeholder="First" blur-on-enter ng-model="models.firstName.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('firstName')")
+        .col-xs-4
+          .form-group
+            field-container(error-path="lastName" promise="models.lastName.promise")
+              input.form-control(type="text" placeholder="Last" blur-on-enter ng-model="models.lastName.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('lastName')")
+        .col-xs-4
+          .form-group
+            field-container(error-path="preferredName" promise="models.preferredName.promise")
+              input.form-control(type="text" placeholder="Preferred" blur-on-enter ng-model="models.preferredName.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('preferredName')")
+
+  .row
+    .col-sm-3
+      field-label(required-when="!user.address.countryCode || !user.address.city") Current Residence
+    .col-sm-9
+      .form-group
+        field-container(promise="models['address'].promise")
+          input-location(ng-model="models['address'].value" ng-change="saveField('address')")
+
+  .row
+    .col-sm-3
+      field-label(required-when="!user.currentJobStatus") Job Status
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="currentJobStatus" promise="models.currentJobStatus.promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="models.currentJobStatus.value"
+                  ng-options="item.key as item.label for item in userJobStatusOptions"
+                  ng-change="saveField('currentJobStatus')"
+                )
+                  
+  .row
+    .col-sm-3
+      field-label Phone
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="phone" promise="models.phone.promise")
+              input.form-control(type="text" placeholder="555-555-5555" blur-on-enter ng-model="models.phone.value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('phone')")
+
+  .row
+    .col-sm-3
+      field-label Gender
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="gender" promise="models.gender.promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="models.gender.value"
+                  ng-options="item.key as item.label for item in genderOptions"
+                  ng-change="saveField('gender')"
+                )
+  .row
+    .col-sm-3
+      field-label Workforce Diversity
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="diversity" promise="models['diversity'].promise")
+              //- TODO bs-select
+              .ui-select-custom
+                ui-select.form-control(multiple ng-model="models['diversity'].value" on-select="saveField('diversity')" on-remove="saveField('diversity')")
+                  ui-select-match(placeholder="Optional. Select all that apply.") {{$item.label}}
+                  ui-select-choices(repeat="item.key as item in diversityFlags")
+                    span(ng-bind-html="item.label")
+
+  .row
+    .col-sm-3
+      field-label How you heard about us
+    .col-xs-9
+      .row
+        .col-xs-8
+          field-container(error-path="referralMediumChoice" error-placement="right" promise="models['referralMediumChoice'].promise")
+            .form-group
+              .select-wrap
+                select.form-control(
+                  ng-model="models['referralMediumChoice'].value"
+                  ng-options="item.key as item.label for item in referralMediums"
+                  ng-change="saveField('referralMediumChoice')"
+                )
+                
+          field-container(ng-if="user.referralMediumChoice == 'other'" error-path="referralMediumOther" promise="models['referralMediumOther'].promise")
+            .form-group
+              input.form-control(type="text" blur-on-enter placeholder="Please tell us how you found out about GPS." ng-model="models['referralMediumOther'].value" ng-model-options="{updateOn: 'blur'}" ng-change="saveField('referralMediumOther')")
+
+
+  .row.section-spacer
+    .col-xs-12
+      p.lead.section-title Languages & Countries
+
+  .row
+    .col-sm-3
+      field-label(required-when="!user.citizenship.length") 
+        label Passports & Visas
+        label-description(text="Countries where you hold a passport or are legally allowed to work.")
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="citizenship" promise="models.citizenship.promise")
+              input-multiselect(bs-tooltip="{title: 'Type to search list'}" load-on-focus suggestion-limit="50" ng-model="models.citizenship.value" placeholder="Select all that apply" choices="countryCodes" id-field="code" label-field="name" ng-change="saveField('citizenship')")
+            //- p.small.help-block Countries where you hold a passport or are legally allowed to work.
+
+  .row(ng-if="couldWorkInUSA()")
+    .col-sm-3
+      field-label US Work Authorization
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="usWorkAuthorization" promise="models.usWorkAuthorization.promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="models['usWorkAuthorization'].value"
+                  ng-options="item.key as item.label for item in usWorkAuthorizations"
+                  ng-change="saveField('usWorkAuthorization')"
+                )              
+          
+  .row(ng-if="couldWorkInUSA()")
+    .col-sm-3
+      field-label US Security Clearance
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="usSecurityClearance" promise="models.usSecurityClearance.promise")
+              .select-wrap
+                select.form-control(
+                  ng-model="models['usSecurityClearance'].value"
+                  ng-options="item.key as item.label for item in usSecurityClearances"
+                  ng-change="saveField('usSecurityClearance')"
+                )
+
+  .row
+    .col-sm-3
+      field-label(required-when="!user.languages.length") Native Language
+    .col-sm-9
+      .row
+        .col-xs-8
+          .form-group
+            field-container(error-path="languages" promise="models.languages.promise")
+                input-multiselect(bs-tooltip="{title: 'Type to search list'}" suggestion-limit="50" ng-model="models.languages.value" placeholder="Select all that apply" choices="languageCodes" id-field="code" label-field="label" ng-change="saveField('languages')")

@@ -1,0 +1,66 @@
+.section.section-ideal-job(ng-if="showIdealJobSection()")
+  .section-title
+    h2
+      span Ideal Job
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.ideal-job")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+  .section-body
+    .row.subsection.desired(ng-if="showDesiredSection()")
+      .col-xs-4
+        h3 Desired
+      .col-xs-8(ng-if="isIdealJobSectionEmpty()")
+        .incomplete-block
+          span Information for ideal job is incomplete
+          a.incomplete-link(ui-sref="profile.edit.ideal-job")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+      .col-xs-8(ng-if="!isIdealJobSectionEmpty()")
+        p(ng-if="profile.idealJob.availableImmediately || profile.idealJob.desiredDate.start") <b>Start date:</b> {{ profile.idealJob.availableImmediately ? 'ASAP' : profile.idealJob.desiredDate.start * 1000| date:'MM/dd/yyyy'}}
+        p(ng-if="profile.idealJob.jobTypes.length") <b>Commitment:</b> {{getLabels(labels.jobTypes, profile.idealJob.jobTypes)}}
+        p(ng-if="profile.idealJob.locationsUSA.length") <b>Locations in US:</b> {{getLabels(labels.locationsUSAChoices, profile.idealJob.locationsUSA)}}
+        p(ng-if="profile.idealJob.locationsAbroad.length") <b>Locations abroad:</b> {{getLabels(labels.locationsAbroadChoices, profile.idealJob.locationsAbroad, 'code', 'name')}}
+        p(ng-if="profile.idealJob.willingnessToTravel") <b>Willingness to travel:</b> {{getLabel(labels.willingnessToTravel, profile.idealJob.willingnessToTravel)}}
+        p(ng-if="profile.idealJob.willingnessToTravel") <b>Willing to travel overseas:</b> {{profile.idealJob.willingToTravelOverseas ? 'Yes' : 'No'}}
+        p(ng-if="profile.idealJob.industries.length") <b>Industries:</b> {{profile.idealJob.industries.join(', ')}}
+        p(ng-if="profile.idealJob.employerTypes.length") <b>Types of organization:</b> {{getLabels(labels.institutionTypes, profile.idealJob.employerTypes)}}
+        div(ng-if="profile.idealJob.availability && profile.idealJob.availability.length > 0")
+          p <b>Availability for project-based work:</b>
+          ul
+            li(ng-repeat="window in profile.idealJob.availability" ng-show="window.duration.start && window.duration.end")
+              | {{window.duration.start * 1000 | date:'MM/dd/yyyy'}} - {{window.duration.end * 1000 | date:'MM/dd/yyyy'}}
+              span(ng-show="window.travelInternational") ; can travel internationally
+              span(ng-show="window.travelDomestic") ; can travel domestically
+        div(ng-if="profile.idealJob.minSalary || profile.idealJob.minHourlyRate || profile.idealJob.minMonthlyRate || profile.idealJob.minWeeklyRate || profile.idealJob.minDailyRate")
+          p <b>Target compensation</b>
+          ul
+            li(ng-if="profile.idealJob.minSalary") ${{profile.idealJob.minSalary}} annual salary
+            li(ng-if="profile.idealJob.minHourlyRate") ${{profile.idealJob.minHourlyRate}} hourly
+            li(ng-if="profile.idealJob.minMonthlyRate") ${{profile.idealJob.minMonthlyRate}} monthly
+            li(ng-if="profile.idealJob.minWeeklyRate") ${{profile.idealJob.minWeeklyRate}} weekly
+            li(ng-if="profile.idealJob.minDailyRate") ${{profile.idealJob.minDailyRate}} daily
+    .row.subsection(ng-if="showWorkEnvironmentSection()")
+      .col-xs-4
+        h3 Work Environment
+      .col-xs-8(ng-if="strongJobPreferences.length == 0")
+        .incomplete-block
+          span Information for work preferences is incomplete
+          a.incomplete-link(ui-sref="profile.edit.ideal-job")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+      .col-xs-8(ng-if="strongJobPreferences.length > 0")
+        h5 Candidate prefers to:
+        ul
+          li(ng-repeat="item in strongJobPreferences") {{item}}
+    .row.subsection(ng-if="showOrgValuesSection()")
+      .col-xs-4
+        h3 Employer Values
+      .col-xs-8(ng-if="!profile.employerIdeals || isEmpty(profile.employerIdeals)")
+        .incomplete-block
+          span Information for employer values is incomplete
+          a.incomplete-link(ui-sref="profile.edit.ideal-job")
+            span Add Info
+            i.g.g-2x.g-circle-plus
+      .col-xs-8(ng-if="profile.employerIdeals")
+        ol
+          li(ng-repeat="item in profile.employerIdeals") {{getLabel(labels.ideals, item)}}

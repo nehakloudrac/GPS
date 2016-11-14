@@ -1,0 +1,29 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        enabled: true
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
+
+monolog:
+    handlers: ~     #don't log at all during tests
+
+#allow http_basic auth during testing to make life easier
+security:
+    firewalls:
+        #override the main firewall during testing to force loading users from 
+        #the fixture manager and allow easy stateless auth via http_basic
+        main:
+            http_basic:
+                provider: test

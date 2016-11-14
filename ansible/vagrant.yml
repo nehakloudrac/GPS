@@ -1,0 +1,35 @@
+- hosts: localhost
+  connection: local
+  roles:
+    - Stouts.mongodb
+    - elasticsearch
+    - redis
+    - node
+    - symfony-web
+  vars:
+    mongodb_version: "3.0.12"
+    symfony_nginx_server_name: dev.gps.com
+    symfony_nginx_web_root: /vagrant/server/web
+    symfony_nginx_index_script: app_dev.php
+    symfony_log_root: /var/log/gps
+    symfony_nginx_ssl_cert_file: /vagrant/ansible/files/nginx.crt
+    symfony_nginx_ssl_key_file: /vagrant/ansible/files/nginx.key
+
+  tasks:
+    - name: enable swapfile
+      shell: /vagrant/ansible/files/create-swap.sh
+
+    - name: copy parameters.yml
+      copy:
+        src: /vagrant/server/app/config/parameters.yml.dist
+        dest: /vagrant/server/app/config/parameters.yml
+      notify:
+        - restart nginx
+    
+    - name: symlink console
+      file:
+        src: /vagrant/server/app/console
+        dest: /usr/local/bin/gps
+        state: link
+    
+    - apt: pkg=python-pdfminer

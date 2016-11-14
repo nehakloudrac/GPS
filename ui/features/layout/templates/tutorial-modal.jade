@@ -1,0 +1,28 @@
+.modal.tutorial-modal(ng-controller="TutorialModalController")
+  .modal-dialog
+    .modal-content
+      .modal-body
+        p.lead(ng-show="tutorial[index].title") {{tutorial[index].title}}
+        .tutorial-content
+          .tutoral-item-container(ng-if="tutorial[index].template" bind-template="tutorial[index].template")
+          .tutoral-item-container(ng-if="tutorial[index].items" ng-repeat="item in tutorial[index].items")
+            .tutorial-item(ng-if="item.type == 'text'")
+              p(ng-bind-html="item.text")
+            .tutorial-item(ng-if="item.type == 'img'")
+              img.thumbnail.img-responsive.center-block(ng-src="{{item.src}}")
+        nav(ng-show="showNav")
+          ul.pager
+            li.previous(ng-click="prev()" ng-hide="index <= 0")
+              a {{getPrevText()}}
+            //- li
+            //-   b {{index + 1}} of {{tutorial.length}}
+            li.next.finished(analytics-on="click" analytics-event="tutorial.prev" ng-show="finishedText && index == tutorial.length - 1" ng-click="finished()")
+              a {{finishedText}}
+            li.next(analytics-on="click" analytics-event="tutorial.next" ng-click="next()" ng-hide="index >= tutorial.length - 1")
+              a {{getNextText()}}
+      .modal-footer
+        p.lead.pull-left(ng-show="title")
+          i.fa.fa-lightbulb-o &nbsp;
+          span {{title}} ({{index + 1}}/{{tutorial.length}})
+        a.btn.btn-sm.btn-primary.pull-right(analytics-on="click" analytics-event="tutorial.close" ng-click="close()") {{closeText}}
+        .clearfix

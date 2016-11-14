@@ -1,0 +1,12 @@
+.popover.search-highlight-popover(ng-controller="HighlightPopoverController")
+  .arrow
+  h3.popover-title
+    span Search hits
+  .popover-content
+    .highlight(ng-if="result.highlights.length == 0")
+      p.small No highlights to show.
+    .highlight(ng-repeat="(field,hits) in result.highlights track by $index")
+      p.small {{defs[field].name}}
+      ul
+        li(ng-repeat="hit in hits track by $index")
+          span.small(ng-bind-html="hit")

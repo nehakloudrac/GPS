@@ -1,0 +1,30 @@
+.admin-facets
+  .row
+    .col-xs-12
+      .alert.alert-danger(ng-show="error") {{error}}
+  .row
+    .col-xs-3
+      .facet-filter
+        .form-group
+          .ui-select-custom
+            ui-select(ng-model="models.selectedFacet" reset-search-input="true")
+              ui-select-match(placeholder="Category") {{$select.selected.val}}
+              ui-select-choices(repeat="choice in facetChoices")
+                span {{choice.val}}
+        .form-group
+          input.form-control(type="text" placeholder="Filter values" ng-model="facetValueFilter")
+      .facets(cg-busy="facetPromise")
+        .facet-results(ng-if="!facetResults.length")
+          p No results.
+        .facet-results(ng-if="facetResults.length > 0")
+          p <b>{{facetResults.length}}</b> potential values:
+          hr
+          .facet(ng-repeat="facet in facetResults |filter:facetValueFilter track by facet.value" ng-click="selectFacetValue(facet)" ng-class="{'selected': selectedFacetValue.value === facet.value}")
+            p.small ({{facet.count}})&nbsp;{{facet.translation}}
+      
+    .col-xs-9(cg-busy="profilePromise")
+      div(ng-show="!profileResults.results.length") Select a value on the left to see matches.
+      div(ng-if="profileResults.results.length")
+        p.lead {{profileResults.total}} results for <em>{{selectedFacetValue.translation}}</em>:
+        hr
+        overview-results(results="profileResults.results")

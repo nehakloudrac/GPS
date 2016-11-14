@@ -1,0 +1,10 @@
+.row
+  .col-xs-12
+    h4
+      |  {{event.institution.name}}
+      small(ng-show="event.degrees")  {{getLabels(universityDegrees, event.degrees)}}  
+    p(ng-show="event.gpa") GPA {{event.gpa}}
+    p(ng-repeat="concentration in event.concentrations")
+      b  {{getLabel(concentrationTypes, concentration.type)}}  
+      |  {{concentration.fieldName}}
+      em.small(ng-show="concentration.intlConcentration")  (international concentration)

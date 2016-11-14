@@ -1,0 +1,5 @@
+.view-profile-container
+  .row
+    .col-xs-12
+      .profile-container(cg-busy="promise")
+        candidate-profile(ng-if="profile" profile="profile" user="user" view-as-employer="viewAsEmployer")

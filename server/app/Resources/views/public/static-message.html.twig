@@ -1,0 +1,15 @@
+{% extends 'public-page-default.html.twig' %}
+
+{% block content %}
+
+<div class="row static-message-container">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="content-pad">
+      {% for paragraph in paragraphs %}
+      <p class="text-large">{{paragraph | raw}}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

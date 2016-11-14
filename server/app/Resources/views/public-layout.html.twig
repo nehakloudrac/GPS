@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75">
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400|Oswald:300,400,700|Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="/public/images/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/public/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/public/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/public/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/public/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/public/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/public/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/public/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/public/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/public/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/public/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/public/images/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/public/images/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="/public/styles.css?{{assetCacheInvalidator}}" />
+    <link rel="stylesheet" type="text/css" href="/icons/gps-icons.css?{{assetCacheInvalidator}}" />
+
+    {% include 'partials/trackjs.html.twig' %}
+    {% include 'partials/zendesk.html.twig' %}
+
+    {% if app.environment == 'prod' %}
+    {% include 'partials/google-analytics-public.html.twig' %}
+    {% endif %}
+  </head>
+  <body>
+
+    {# begin body #}
+    {% block body %}{% endblock %}
+    {# end body #}
+
+    {# begin footer #}
+    <div class="public-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            
+            <!-- <div class="row">
+              <div class="col-xs-12">
+                <p>
+                  LOGO: maybe remove?
+                </p>
+              </div>
+            </div> -->
+            
+            <div class="row flex menus">
+              <div class="menu col-xs-4 col-sm-2 col-sm-offset-3">
+                <ul>
+                  <li>
+                    <a href="{{path('homepage')}}">Candidates</a>
+                  </li>
+                  <li>
+                    <a href="{{path('employers')}}">Employers</a>
+                  </li>
+                  <li>
+                    <a href="{{path('login')}}">Log In</a>
+                  </li>
+                  <li>
+                    <a href="{{path('create-account')}}">Join GPS</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="menu col-xs-4 col-sm-2">
+                <ul>
+                  <li>
+                    <a href="{{path('homepage')}}">About</a>
+                  </li>
+                  <li>
+                    <a href="{{path('terms-of-use')}}">Terms</a>
+                  </li>
+                  <li>
+                    <a href="{{path('privacy-policy')}}">Privacy</a>
+                  </li>
+                  <li>
+                    <a href="{{path('faqs')}}">FAQs</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="menu col-xs-4 col-sm-2">
+                <ul>
+                  <li>
+                    <span>Connect with Us</span>
+                  </li>
+                  <li>
+                    <span class="social-icon">
+                      <a class="icon" href="https://www.facebook.com/GlobalProfessionalSearch/" target="_blank">
+                        <i class="fa fa-facebook"></i>
+                      </a>
+                    </span>
+                    <span class="social-icon">
+                      <a class="icon" href="https://twitter.com/GPS_Jobs" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                      </a>
+                    </span>
+                    <span class="social-icon">
+                      <a class="icon" href="https://www.linkedin.com/company/global-professional-search" target="_blank">
+                        <i class="fa fa-linkedin"></i>
+                      </a>
+                    </span>
+                    <!-- <span class="social-icon">
+                      <i class="fa fa-lock"></i>
+                    </span> -->
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+              <div class="col-xs-12">
+                <p class="small text-center copyright">
+                  &#169; Global Professional Search 2015 <i class="fa fa-lock"></i>
+                </p>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    {# end footer #}
+    
+    <div class="custom-zd-help-button">
+      <span>Leave us a message</span>
+      <i class="fa fa-lg fa-comment"></i>
+    </div>
+
+		<script src="/public/app.js?{{assetCacheInvalidator}}"></script>
+
+    {% block javascripts %}{% endblock %}
+
+    {% if app.environment == 'dev' %}
+    <script>
+      document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+    {% endif %}
+  </body>
+</html>

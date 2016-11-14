@@ -1,0 +1,9 @@
+.section(ng-if="leadershipItems.length > 0")
+  .section-title
+    h2 Outstanding Leadership
+  .section-body
+    .row
+      .col-xs-4
+      .col-xs-8
+        h4(ng-repeat-begin="item in leadershipItems") {{item.position}}
+        p(ng-repeat-end) {{item.location}}

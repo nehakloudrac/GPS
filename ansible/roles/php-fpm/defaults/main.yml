@@ -1,0 +1,7 @@
+
+#fpm could have a different ini file, but by default we'll just
+#use whichever the main php.ini file is
+php_fpm_ini_config_file: roles/php/files/php.ini
+
+php_fpm_config_file: roles/php-fpm/files/php-fpm.conf
+php_fpm_pool_config_file: roles/php-fpm/files/php-fpm-pool.conf

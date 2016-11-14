@@ -1,0 +1,38 @@
+.profile-cards {
+  
+  .section-spacer {
+    min-width: 100%;
+    width: 100%;
+    margin-top: 20px;
+    
+    &::before {
+      content: '\00A0';
+    }
+  }
+  
+  .profile-card {
+    margin-bottom: 30px;
+    border-radius: @border-radius-base;
+    background-color: @gray-lighter;
+
+    &.expanded {
+      background-color: white;
+      border: 2px solid @gray-lighter;
+    }
+    
+    &.enabled {
+      .profile-card-header {
+        cursor: pointer;
+      }
+    }
+    
+    .profile-card-header {
+      padding: 15px;
+    }
+    
+    .profile-card-body {
+      padding: 10px;
+    }
+  }
+  
+}

@@ -1,0 +1,8 @@
+.row
+  .col-xs-12
+    h4
+      |  Study Abroad  
+      small  {{event.programName}}
+    p
+      b {{event.institution.name}}
+    div(ng-bind-html="getDescription()")

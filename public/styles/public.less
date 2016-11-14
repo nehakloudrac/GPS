@@ -1,0 +1,318 @@
+// For the newer design:
+.homepage,.employer {
+
+  @spacer: 40px;
+  
+  // general typography, trying to mimic the design
+  font-size: 1em;
+  h1,h2 { font-size: 2em; }
+  h3 { font-size: 1.5em; }
+  h4,h5 { font-size: 1.33em; }
+  p.lead { font-size: 1.33em; }
+  p { font-size: 1em; }  
+  
+  .t14 { font-size: 14px; }
+  .t16 { font-size: 16px; }
+  .t18 { font-size: 18px; }
+  .t24 { font-size: 24px; }
+  .t30 { font-size: 30px; }
+  .t36 { font-size: 36px; }
+  .t42 { font-size: 42px; }
+  
+  .headers {
+    .text-center;
+    
+    h3 {
+      .t30;
+      .text-normal;
+      
+      margin: 0px;
+    }
+    
+    p {
+      .t18;
+      .text-normal;
+      
+      margin: 0px;
+      margin-top: @spacer - 10;
+    }
+  }
+  
+  .public-section-hiring {
+    
+    .video {
+      padding-right: @spacer;
+      margin-top: @spacer;
+      width: 100%;
+    }
+    
+    .media-container {
+      margin-top: @spacer*2;
+      padding-left: @spacer;
+      
+      .infographic {
+        &.last {
+          margin-top: @spacer;
+        }
+                
+        &.ratio {
+          .media-body {
+            padding-top: 10px;
+          }
+        }
+
+        &.percent {
+          .media-body {
+            padding-top: 30px;
+          }
+
+          .media-left {
+            padding-left: 12px;
+            padding-right: 20px;
+            
+            img {
+              max-width: 130px;
+            }
+          }
+        }
+
+        .citation {
+          margin-top: @spacer/4;
+
+          cite {
+            .small;
+            
+            font-style: italic;
+            color: white;
+          }
+        }
+
+        .media {
+          img {
+            max-width: 150px;
+          }  
+        }
+        
+      }
+    }
+      
+  }
+  
+  .partner-logos {
+    text-align: center;
+    
+    .logo {
+      display: inline-block;
+      padding: 15px;
+      
+      img {
+        max-width: 200px;
+        max-height: 150px;
+        
+        &.eaccny {
+          max-width: 250px;
+        }
+        
+        &.miis {
+          max-width: 250px;
+          max-height: 200px;
+        }
+        
+        &.jncl {
+          max-width: 100px;
+        }
+        
+        &.faoa {
+          max-width: 100px;
+        }
+        
+        &.aatg {
+          max-width: 150px;
+        }
+        
+        &.npca {
+          max-width: 175px;
+        }
+        
+        &.ciber {
+          max-width: 150px;
+        }
+        
+        &.aati {
+          max-height: 125px;
+        }
+        
+        &.nyu {
+          max-height: 125px;
+        }
+        
+        &.geovisions {
+          
+        }
+        
+      }
+    }
+  }
+  
+  .block {
+    padding: @spacer + 10 0px;
+  }
+
+  .block-quotes {
+    color: @gray;
+  }
+
+  .block-collage {
+    padding: 100px 0px;
+  }
+
+  .block-bg-info {
+    color: white;
+    background-color: @brand-info;
+  }
+
+  .block-bg-light {
+    color: @brand-primary;
+    background-color: @gray-lighter;
+  }
+
+  .block-bg-white {
+    color: @brand-primary;
+    background-color: white;
+  }
+
+  .block-bg-collage {
+    background: url('/public/images/new-design-2/home/image-collage.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 200px 0px;
+  }
+  
+  .block-separator {
+    border-bottom: 1px solid @gray-lighter;
+  }
+
+	// NOTE, generated from http://embedresponsively.com
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe, .embed-container object, .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  // custom overrides for responsive embed
+  .valign-embed {
+    .embed-container {
+      padding-bottom: 0px;
+      position: inherit;
+    }
+  }
+  
+}
+
+// Older design below
+
+
+.heading-light {
+	text-transform: uppercase;
+  font-weight: 300;
+  font-size: 36px;
+}
+
+.heading-bold {
+	text-transform: uppercase;
+  font-weight: 600;
+  font-size: 50px;
+  color: @brand-warning;
+}
+
+.heading-sub {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.laptop-img {
+	margin-top: 40px;
+}
+
+.laptop-resume-img {
+	margin-top: 100px;
+}
+
+.curve-container {
+	background: no-repeat url("/public/images/new-design/curved_line_with_dots.png");
+	
+	&.employers {
+		.item {
+			margin-top: 20px;
+		}
+	}
+	
+	.item {
+		margin-top: 35px;
+		padding-left: 100px;
+		
+		&:first-child, &:last-child {
+			padding-left: 60px;
+		}
+		
+		h4 {
+			margin: 0px;
+			font-size: 20px;
+			font-weight: 500;
+			text-transform: uppercase;
+			margin-bottom: 5px;
+			
+			a {
+				color: @brand-warning;
+			}
+		}
+		p {
+			margin: 0px;
+		}
+	}
+}
+
+.btw-box {
+	margin-top: 40px;
+	
+	h4 {
+		font-weight: 500;
+		font-size: 24px;
+		text-transform: uppercase;
+	}
+}
+
+
+.collapse-banner-title {
+	display: inline-block;
+	
+	// @media (max-width: @screen-sm-max) {
+	// 	float: left;
+  // }
+}
+
+.section-time-money {
+	h4 {
+		color: @brand-warning;
+		font-size: 32px;
+		font-weight: 500;
+	}
+}
+
+.markdown-document {
+	h1,h2,h3,h4,h5,h6 {
+		font-weight: bold;
+	}
+	
+	a {
+		text-decoration: underline;
+	}
+}

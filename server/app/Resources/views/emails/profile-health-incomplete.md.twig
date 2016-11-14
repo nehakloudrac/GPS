@@ -1,0 +1,17 @@
+Hi {{ user.getName() }},
+
+GPS solicits feedback directly from employer clients regarding what they find most attractive in a candidate's GPS profile. Increase the likelihood that your profile is shortlisted in a search. Here are some suggestions:
+
+{% for item in incomplete_items %}
+* {{item}}
+{% endfor %}
+
+Get your language and culture to work. [Return]({{dashboardLink}}) to your profile now.
+
+{% include 'partials/email-footer.md.twig'  %}  
+
+
+
+<p class="text-align: right">
+[Unsubscribe]({{unsubscribeLink}})
+</p>

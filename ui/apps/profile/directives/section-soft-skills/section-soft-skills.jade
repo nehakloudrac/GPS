@@ -1,0 +1,11 @@
+.section-soft-skills
+  .row
+    .col-xs-12
+      p.lead Drag and drop the 5 traits that best describe you and rank by importance (1=most important):
+      sortable-list(
+        model="profile.softSkills"
+        on-update="saveTraits(items)"
+        choices="softSkills"
+        busy="promise"
+        max="5"
+      )

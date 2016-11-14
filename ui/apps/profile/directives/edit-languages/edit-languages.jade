@@ -1,0 +1,26 @@
+.edit-languages
+  .edit-section(cg-busy="deletePromise")
+    p.lead If you have any proficiency in any foreign languages, please add them below.
+    .list
+      edit-list-item(
+        ng-repeat="language in languages | filter:notCurrentlyEditing"
+        title="{{getLanguageLabel(language.code)}}"
+        on-edit="edit(language)"
+        on-remove="delete(language)"
+        incomplete-when="isIncomplete(language)"
+      )
+    .empty(ng-if="!currentLanguage")
+      p(ng-show="languages.length == 0") No languages to show.
+      a.btn.btn-sm.btn-info(ng-click="add()") Add language
+    .form
+      edit-list-form(
+        show-when="currentLanguage != null"
+        remove-text="Remove this language"
+        cancel-when="!currentLanguage.hash"
+        done-when="currentLanguage.hash"
+        incomplete-when="isIncomplete(currentLanguage)"
+        on-remove="delete(currentLanguage)"
+        on-cancel="done()"
+        on-done="done()"
+      )
+        form-language(language="currentLanguage")

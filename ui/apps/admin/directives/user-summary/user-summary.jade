@@ -1,0 +1,29 @@
+.user-summary
+  .panel.panel-default
+    .panel-heading Bio
+    .panel-body
+      user-summary-items(items="bioData")
+  
+  .panel.panel-default
+    .panel-heading Experience Abroad
+    .panel-body
+      user-summary-items(items="countryData")
+  
+  .panel.panel-default
+    .panel-heading Foreign Languages
+    .panel-body
+      user-summary-items(items="languageData")
+
+  .panel.panel-default
+    .panel-heading Professional (current)
+    .panel-body
+      div(ng-repeat="items in workData")
+        hr(ng-show="!$first")
+        user-summary-items(items="items")
+  
+  .panel.panel-default
+    .panel-heading University
+    .panel-body
+      div(ng-repeat="items in universityData")
+        hr(ng-show="!$first")
+        user-summary-items(items="items")

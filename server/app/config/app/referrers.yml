@@ -1,0 +1,106 @@
+parameters:
+
+    gps.referrers:
+        aata:
+            name: "American Association of Teachers of Arabic"
+
+        aatf:
+            name: "American Association of Teachers of French"
+
+        aatg:
+            name: "American Association of Teachers of German"
+            registration_theme:
+                logo: "/public/images/partner-logos/aatg.png"
+
+        aati:
+            name: "American Association of Teachers of Italian"
+            registration_theme:
+                logo: "/public/images/partner-logos/aati.png"
+
+        aatj:
+            name: "American Association of Teachers of Japanese"
+
+        aatsp:
+            name: "American Association of Teachers of Spanish and Portuguese"
+            registration_theme:
+                logo: "/public/images/partner-logos/aatsp.png"
+
+        aatseel:
+            name: "American Association of Teachers of Slavic and East European Languages"
+
+        actfl:
+            name: "American Councils of Teachers of Foreign Language"
+
+        actr:
+            name: "American Council of Teachers of Russian"
+        
+        aifs:
+            name: "American Institute For Foreign Study"
+            registration_theme:
+                logo: "/public/images/partner-logos/aifs.png"
+        
+        byu:
+            name: "Brigham Young University"
+
+        dli:
+            name: "Defense Language Institute"
+
+        faoa:
+            name: "Foreign Area Officers Association"
+            registration_theme:
+                logo: "/public/images/partner-logos/faoa.png"
+        
+        iie:
+            name: "Institute of International Education"
+            registration_theme:
+                logo: "/public/images/partner-logos/iie.png"
+
+        miis:
+            name: "Middlebury Institute of International Studies at Monterey"
+            registration_theme:
+                logo: "/public/images/partner-logos/miis.png"
+
+        ncolctl:
+            name: "National Council of Less Commonly Taught Languages"
+            registration_theme:
+                logo: "/public/images/partner-logos/ncolctl.png"
+
+        npca:
+            name: "National Peace Corps Alumni Association"
+            registration_theme:
+                logo: "/public/images/partner-logos/npca.png"
+        
+        flagship-portuguese-uga:
+            name: "Portuguese Flagship Program, UGA"
+            registration_theme:
+                logo: "/public/images/partner-logos/flagship-uga.png"
+        
+        ciber:
+            name: "The Centers for International Business Education & Research"        
+            registration_theme:
+                logo: "/public/images/partner-logos/ciber.png"
+        
+        ur:
+            name: "University of Richmond"
+            registration_theme:
+                logo: "/public/images/partner-logos/ur.png"
+        
+        nyu:
+            name: "New York University"
+            registration_theme:
+                logo: "/public/images/partner-logos/nyu.png"
+        
+        boren:
+            name: "Boren Forum Inc."
+            registration_theme:
+                logo: "/public/images/partner-logos/boren.png"
+        
+        geovisions:
+            name: "GeoVisions"
+            registration_theme:
+                logo: "/public/images/partner-logos/geovisions.png"
+            
+        
+        miguel-marling:
+            name: "Miguel Marling"
+            person: true

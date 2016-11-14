@@ -1,0 +1,98 @@
+parameters:
+    gps.partner_logos:
+        -
+            name: Institute of International Education
+            class: iie
+            src: '/public/images/partner-logos/iie.png'
+            href: 'http://www.iie.org/'
+        -
+            name: The American Association of Teachers of Spanish and Portuguese
+            class: aatsp
+            src: '/public/images/partner-logos/aatsp.png'
+            href: 'http://www.aatsp.org/'
+        -
+            name: American Institute For Foreign Study
+            class: aifs
+            src: '/public/images/partner-logos/aifs.png'
+            href: 'http://www.aifsabroad.com/'
+        -
+            name: European American Chamber of Commerce
+            class: eaccny
+            src: '/public/images/partner-logos/eacc.png'
+            href: 'http://www.eaccny.com/'
+        -
+            name: Joint National Committee for Languages
+            class: jncl
+            src: '/public/images/partner-logos/jncl.png'
+            href: 'http://www.languagepolicy.org/'
+        -
+            name: Middlebury Institute of International Studies
+            class: miis
+            src: '/public/images/partner-logos/miis.png'
+            href: 'http://www.miis.edu/'
+        -
+            name: Foreign Area Officer Association
+            class: faoa
+            src: '/public/images/partner-logos/faoa.png'
+            href: 'http://www.faoa.org/'
+        -
+            name: The Language Flagship
+            class: flagship
+            src: '/public/images/partner-logos/flagship.png'
+            href: 'http://thelanguageflagship.org/'
+        -
+            name: Generation Study Abroad
+            class: gsa
+            src: '/public/images/partner-logos/gsa.png'
+            href: 'http://www.iie.org/programs/generation-study-abroad'
+        -
+            name: Texas Language Center
+            class: tlc
+            src: '/public/images/partner-logos/tlc.png'
+            href: 'http://www.utexas.edu/cola/tlc/'
+        -
+            name: National Council of Less Commonly Taught Languages
+            class: ncolctl
+            src: '/public/images/partner-logos/ncolctl.png'
+            href: 'http://www.ncolctl.org/'
+        -
+            name: American Association of Teachers of German
+            class: aatg
+            src: '/public/images/partner-logos/aatg.png'
+            href: 'http://www.aatg.org/'
+        -
+            name: National Peace Corps Association
+            class: npca
+            src: '/public/images/partner-logos/npca.png'
+            href: 'http://www.peacecorpsconnect.org/'
+        -
+            name: "The Centers for International Business Education & Research"
+            class: ciber
+            src: '/public/images/partner-logos/ciber.png'
+            href: 'http://ciberweb.msu.edu/'
+        -
+            name: "University of Richmond"
+            class: ur
+            src: '/public/images/partner-logos/ur.png'
+            href: 'http://www.richmond.edu/'
+        -
+            name: "American Association of Teachers of Italian"
+            class: aati
+            src: '/public/images/partner-logos/aati.png'
+            href: 'http://aati-online.org/'
+        -
+            name: "New York University"
+            class: nyu
+            src: '/public/images/partner-logos/nyu.png'
+            href: 'http://www.nyu.edu/'
+        -
+            name: "Boren Forum Inc."
+            class: boren
+            src: '/public/images/partner-logos/boren.png'
+            href: 'http://www.borenforum.org/'
+        -
+            name: "GeoVisions"
+            class: geovisions
+            src: '/public/images/partner-logos/geovisions.png'
+            href: 'http://geovisions.org/'
+            

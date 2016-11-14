@@ -1,0 +1,26 @@
+.edit-countries
+  .edit-section(cg-busy="deletePromise")
+    p.lead Add foreign countries in which you have spent significant and relevant time.
+    .list
+      edit-list-item(
+        ng-repeat="country in countries | filter:notCurrentlyEditing"
+        title="{{getCountryLabel(country.code)}}"
+        on-edit="edit(country)"
+        on-remove="delete(country)"
+        incomplete-when="isIncomplete(country)"
+      )
+    .empty(ng-if="!currentCountry")
+      p(ng-show="countries.length == 0") No countries to show.
+      a.btn.btn-sm.btn-info(ng-click="add()") Add country
+    .form
+      edit-list-form(
+        show-when="currentCountry != null"
+        remove-text="Remove this country"
+        cancel-when="!currentCountry.hash"
+        done-when="currentCountry.hash"
+        incomplete-when="isIncomplete(currentCountry)"
+        on-remove="delete(currentCountry)"
+        on-cancel="done()"
+        on-done="done()"
+      )
+        form-country(country="currentCountry")

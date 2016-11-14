@@ -1,0 +1,22 @@
+.form-award
+  .row
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !award.name}") Name of award
+        field-container(error-path="name" promise="form.fields['name'].promise")
+          input.form-control(
+            type="text"
+            blur-on-enter
+            ng-model="form.fields['name'].value"
+            ng-model-options="{updateOn:'default blur', debounce: { 'default': 200, 'blur': 0 } }"
+            ng-blur="form.saveField('name')"
+            bs-typeahead
+            data-min-length="0"
+            data-limit="awardsListNames.length"
+            bs-options="name for name in awardsListNames"
+          )
+    .col-xs-6
+      .form-group
+        label(ng-class="{required: !award.date}") Date received
+        field-container(error-path="date" promise="form.fields['date'].promise")
+          input.form-control.datefield(type="text" placeholder="\uF073" bs-datepicker autoclose="1" date-format="MMMM yyyy" min-view="1" ng-model="form.fields['date'].value" ng-change="form.saveField('date')")

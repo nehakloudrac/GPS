@@ -1,0 +1,207 @@
+imports:
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: constants.php }
+    - { resource: parameters.yml }
+
+framework:
+    #esi:             ~
+    translator: { fallbacks: [en] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:
+        enable_annotations: true
+        cache: apc
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        handler_id: session_handler_redis
+        cookie_lifetime: 86400
+        gc_maxlifetime: 86400
+    fragments:       ~
+    http_method_override: true
+
+# MonologBundle config
+monolog:
+    channels: ['gps_app', 'gps_user','gps_api','gps_mailer', 'gps_debug']
+    handlers:
+        # App-level logging happens all the time
+        app:
+            channels:   ['gps_app','gps_user','gps_api','gps_mailer']
+            path:       "%log_root%/%kernel.environment%.log"
+            type:       rotating_file
+            level:      info
+            max_files:  10
+            formatter: monolog.formatter.session_request
+
+        #Symfony-level error related logging only happens at a certain error threshold
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+            formatter: monolog.formatter.session_request
+        nested:
+            type:       rotating_file
+            path:       "%log_root%/%kernel.environment%.log"
+            level:      info
+            max_files:  10
+        console:
+            channels: gps_debug
+            verbosity_levels:
+                VERBOSITY_NORMAL: DEBUG
+            level: debug
+            type:  console
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'form/fields.html.twig'
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Swiftmailer Configuration
+swiftmailer:
+    default_mailer: memspooled
+    mailers:
+        memspooled:
+            transport:          "%mailer_transport%"
+            host:               "%mailer_host%"
+            username:           "%mailer_user%"
+            password:           "%mailer_password%"
+            sender_address:     "%mailer_sender_address%"
+            encryption:         "%mailer_encryption%"
+            port:               "%mailer_port%"
+            disable_delivery:   "%mailer_disable_delivery%"
+            spool: { type: memory }
+            antiflood:
+                sleep: 3
+                threshold: 50
+        filespooled:
+            transport:          "%mailer_transport%"
+            host:               "%mailer_host%"
+            username:           "%mailer_user%"
+            password:           "%mailer_password%"
+            sender_address:     "%mailer_sender_address%"
+            encryption:         "%mailer_encryption%"
+            port:               "%mailer_port%"
+            disable_delivery:   "%mailer_disable_delivery%"
+            spool:
+                type: file
+                path: "%mailer_file_spool_path%"
+            antiflood:
+                sleep: 3
+                threshold: 50
+
+# Doctrine MongoDB Bundle: https://github.com/doctrine/DoctrineMongoDBBundle
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://%mongodb_server%
+            options:
+                connect: true
+                replicaSet: "%mongodb_replica_set%"
+    default_database: "%mongodb_database%"
+    document_managers:
+        default:
+            auto_mapping: true
+            metadata_cache_driver: apc
+            retry_connect: 3
+
+# JMS Serializer Bundle: https://github.com/schmittjoh/JMSSerializerBundle
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: "Y-m-dTH:i:s" # ISO8601
+            default_timezone: "UTC" # defaults to whatever timezone set in php.ini or via date_default_timezone_set
+    property_naming:
+        separator:
+        lower_case: true
+    metadata:
+        cache: gps.serializer_cache
+        debug: "%kernel.debug%"
+        auto_detection: true
+
+# AWS SDK bundle (official): https://github.com/aws/aws-sdk-php-symfony
+aws:
+    version: latest
+    region: us-east-1
+    credentials:
+        key: "%aws_key%"
+        secret: "%aws_secret%" # this will be escaped as '@not-a-real-secret'
+
+# Flysystem Bundle: https://github.com/1up-lab/OneupFlysystemBundle
+oneup_flysystem:
+    adapters:
+        transcoding:
+            local:
+                directory: %files_transcoding_root%
+        profile_images:
+            local:
+                directory: %files_profile_images_root%
+        candidate_docs:
+            local:
+                directory: %files_candidate_docs_root%
+        public:
+            local:
+                directory: %files_public_root%
+    filesystems:
+        transcoding:
+            adapter: transcoding
+            alias: gps.filesystem.transcoding
+        profile_images:
+            adapter: profile_images
+            alias: gps.filesystem.profile_images
+        candidate_docs:
+            adapter: candidate_docs
+            alias: gps.filesystem.candidate_docs
+        public:
+            adapter: public
+            alias: gps.filesystem.public
+
+# AC Web Services Bundle: https://github.com/AmericanCouncils/WebServicesBundle
+ac_web_services:
+    serializer:
+        allow_deserialize_into_target: true
+        enable_form_deserialization: true
+    paths:
+        "{^/api/}":
+            include_exception_data: %include_api_exception_data%
+            include_response_data: true
+            allow_code_suppression: true
+            default_response_format: json
+            allow_jsonp: true
+            http_exception_map:
+                'Symfony\Component\Security\Core\Exception\AccessDeniedException':
+                    code: 401
+                    message: "Your session expired due to inactivity."
+
+# Nelmio API Doc Bundle: https://github.com/nelmio/NelmioApiDocBundle
+nelmio_api_doc: ~
+
+# EWZRecaptchaBundle: https://github.com/excelwebzone/EWZRecaptchaBundle
+ewz_recaptcha:
+    enabled:        %recaptcha_enabled%
+    public_key:     %recaptcha_public_key%
+    private_key:    %recaptcha_private_key%
+    locale_key:     %kernel.default_locale%

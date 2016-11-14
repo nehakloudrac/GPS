@@ -1,0 +1,51 @@
+.sortable-list {
+
+  .sortable-options {
+    float: left;
+    width: 100%;
+    padding: 20px;
+    background-color: @shaded-bg;
+    border-radius: @border-radius-base;
+
+    .sortable-option {
+      border-radius: @border-radius-base;
+      cursor: move;
+      background-color: @brand-info;
+      color: white;
+      float: left;
+      padding: 3px 6px;
+      margin: 5px 10px 5px 0px;
+      list-style: none;
+    }
+  }
+
+  .sortable-choices {
+    min-height: 120px;
+    background-color: @shaded-bg;
+    padding: 20px;
+    border-radius: @border-radius-base;
+
+    .sortable-choice, .sortable-choice-ghost {
+      list-style: none;
+      padding: 3px 6px;
+      color: white;
+      background-color: @brand-info;  //lighten(@brand-info, 40%);
+      // border: 2px solid lighten(@brand-info, 35%);
+      margin-bottom: 10px;
+      cursor: move;
+      border-radius: @border-radius-base;
+      
+      .remove {
+        cursor: pointer;
+        color: white;
+      }
+
+      p {
+        padding: 0px;
+        margin: 0px;
+      }
+
+    }
+  }
+
+}

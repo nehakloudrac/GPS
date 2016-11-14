@@ -1,0 +1,68 @@
+.dashboard-page
+  app-page
+    app-menu(active="dashboard")
+    
+    .dashboard-page-body
+      .container
+        //- new
+        .row.flex
+          .col-sm-9.col-xs-6
+            p.lead.text-info {{greetingText}}, {{user.name}}!
+            p.text-info(ng-bind-html="getDashboardBannerMessage()")
+          .col-sm-3.col-xs-6.greeting-buttons
+            a.btn.btn-warning.pull-left(href="/candidate/profile") View Profile
+            i.g.g-3x.g-circle-question.pull-right(ng-click="launchDashboardTutorial()")
+        .row
+          .col-xs-12
+            hr.separator
+        .row
+          .col-sm-3.hidden-xs
+            img.profile-photo.center-block.img-circle.img-responsive(ng-src="{{getProfileImageUrl()}}")
+            .contact-info
+              br
+              p.small
+                b {{user.firstName}} {{user.lastName}}
+              p.small(ng-bind-html="getUserLocation()")
+              p.small {{user.email}}
+              br
+              p.small Status: <b>{{getStatus()}}</b>
+              br
+              .info-button
+                a.btn.btn-open(href="/candidate/account") Edit Contact Info
+          .col-sm-6.col-xs-6
+            div(ng-if="!user.status.seenProfileViewTutorial")
+              p.lead(style="font-size:19px") Welcome to GPS!
+              p You have taken the first step in creating your profile. Help us get to know you better by answering more questions about your skills and experience.
+              p GPS translates your answers into a customized, résumé-style profile viewable at any time by clicking the "Profile" button above. Your profile is what employers receive when we match you with a job opportunity.
+              p.text-center
+                a.btn.btn-info.btn-continue(href="/candidate/profile")
+                  i.fa.fa-user &nbsp;
+                  span Continue Profile
+            div(ng-if="user.status.seenProfileViewTutorial")
+              p.lead.section-title Profile Status
+              profile-section-status(profile="profile")
+          .col-sm-3.col-xs-6
+            p.lead.section-title Latest Activity
+            .block.search-block(ng-show="user.tracker.profileSearchHitsTotal > 0")
+              p.title Search activity
+              p.small The number of times your profile has come up in searches:
+              p
+                span.h3 {{user.tracker.profileSearchHitsTotal}} &nbsp;
+                span.small total
+              p(ng-show="user.tracker.profileSearchHitsTotal > user.tracker.profileSearchHitsTotalLastMonth")
+                span.h3 {{user.tracker.profileSearchHitsTotal - user.tracker.profileSearchHitsTotalLastMonth}} &nbsp;
+                span.small this month
+              p(ng-show="user.tracker.profileSearchHitsLastMonth")
+                span.h3 {{user.tracker.profileSearchHitsLastMonth}} &nbsp;
+                span.small last month
+            .block.article-block
+              p.title Content Feed
+              p
+                b {{story.title}}
+              p {{story.abstract[0]}}
+              a.text-warning(analytics-on="click" analytics-event="resources.article.view" target="_blank" ng-href="{{story.url}}") View Article
+            .block.twitter-block
+              p.title Social Media
+              <a class="twitter-timeline" data-chrome="noheader nofooter noborders noscrollbar transparent" data-tweet-limit="1" href="https://twitter.com/GPS_Jobs" data-widget-id="622472110548615173">Tweets by @GPS_Jobs</a>
+              
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

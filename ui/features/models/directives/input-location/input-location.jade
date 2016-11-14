@@ -1,0 +1,24 @@
+.input-location
+  .row
+    .col-xs-4
+      .form-group
+        .select-wrap
+          select.form-control(
+            ng-model="model.countryCode"
+            ng-options="item.code as item.name for item in conf.countryCodes"
+            ng-change="updateCountry()"
+          )
+            option(value="") -- Country --
+    .col-xs-4
+      .form-group
+        input.form-control(type="text" blur-on-enter placeholder="City" ng-model="model.city" ng-model-options="{updateOn: 'blur'}" ng-change="update()")
+    .col-xs-4(ng-show="model.countryCode == 'US'")
+      .form-group
+        .select-wrap
+          select.form-control(
+            ng-model="model.territory"
+            ng-options="item.key as item.label for item in conf.usTerritories"
+            ng-change="update()"
+          )
+            option(value="") -- State --
+        

@@ -1,0 +1,1 @@
+nginx_config_file: roles/nginx/files/nginx.conf

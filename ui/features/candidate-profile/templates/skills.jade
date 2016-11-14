@@ -1,0 +1,62 @@
+.section.subsection(ng-if="showSkillsSection()")
+  .section-title
+    h2
+      span Skills
+      a.edit-link(ng-show="!hideIncomplete" ui-sref="profile.edit.skills")
+        i.fa.fa-pencil
+        span &nbsp; Edit
+  .section-body    
+    .row
+      .col-xs-4
+        h3 Top Self Reported
+      .col-xs-8
+        .row
+          .col-xs-6(ng-if="showSoftSkillsSection()")
+            h4 Not-So-Soft Skills
+
+            .incomplete-block(ng-if="!profile.softSkills || profile.softSkills.length == 0")
+              span Information for not-so-soft skills is incomplete
+              a.incomplete-link(ui-sref="profile.edit.skills")
+                span Add Info
+                i.g.g-2x.g-circle-plus
+
+            ul(ng-if="profile.softSkills")
+              li(ng-repeat="skill in profile.softSkills track by $index") {{getLabel(labels.softSkills, skill)}}
+          .col-xs-6(ng-if="showHardSkillsSection()")
+            h4 Hard Skills
+
+            .incomplete-block(ng-if="isEmpty(profile.hardSkills)")
+              span Information for hard skills is incomplete
+              a.incomplete-link(ui-sref="profile.edit.skills")
+                span Add Info
+                i.g.g-2x.g-circle-plus
+
+            ul(ng-if="!isEmpty(profile.hardSkills)")
+              li(ng-repeat="skill in topHardSkills track by $index") {{getLabel(labels.hardSkills, skill)}}
+
+        .row(ng-if="showCertificationsSection()")
+          .col-xs-12
+            h4 Certifications
+            .incomplete-block(ng-if="completeCertifications.length == 0")
+              span Information for certifications is incomplete
+              a.incomplete-link(ui-sref="profile.edit.professional")
+                span Add Info
+                i.g.g-2x.g-circle-plus              
+            ul
+              li(ng-repeat="cert in completeCertifications")
+                span {{cert.name}} &nbsp;
+                span.subtext ({{cert.duration.start * 1000 | date:'MMM yyyy'}} - {{cert.duration.end ? (cert.duration.end * 1000 | date:'MMM yyyy') : 'Present'}})
+
+              
+        .row(ng-if="showDomainSkillsSection()")
+          .col-xs-12
+            h4 Domain Skills
+
+            .incomplete-block(ng-if="advancedDomainSkills.length == 0")
+              span Information for domain skills is incomplete
+              a.incomplete-link(ui-sref="profile.edit.skills")
+                span Add Info
+                i.g.g-2x.g-circle-plus
+            
+            div(ng-if="advancedDomainSkills.length > 0")
+              p {{advancedDomainSkills.join(', ')}}

@@ -1,0 +1,85 @@
+.section-domain-skills {
+
+  .skill-block {
+    background-color: @shaded-bg;
+    border-radius: @border-radius-base;
+    margin-bottom: @navbar-height / 2;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    &.examples {
+      background-color: lighten(@brand-info, 10%);
+
+      .header {
+        background-color: @brand-info;
+      }
+
+      .body {
+        ul {
+          background-color: lighten(@brand-info, 15%);
+
+          li {
+            background-color: @brand-primary;
+          }
+        }
+      }
+    }
+
+    .header {
+      background-color: @brand-info;
+      color: @text-color-inverse;
+      padding: 10px;
+      border-top-left-radius: @border-radius-base;
+      border-top-right-radius: @border-radius-base;
+      
+      .lead {
+        margin: 0px;
+      }
+
+      .input-group {
+        width: 50%;
+      }
+    }
+
+    .body {
+      flex: 1;
+      display: flex;
+
+      .ghost {
+        background-color: fadeout(@brand-primary, 40%);
+      }
+
+      ul {
+
+        flex: 1;
+
+        background-color: lighten(@shaded-bg, 5%);
+        padding: 10px;
+        margin: 0px;
+        float: left;
+        width: 100%;
+        min-height: 30px;
+        border-radius: @border-radius-base;
+        min-height: 50px;
+
+        li {
+          border-radius: @border-radius-base;
+          cursor: move;
+          background-color: @brand-info;
+          color: @text-color-inverse;
+          float: left;
+          padding: 3px 6px;
+          margin: 4px;
+          list-style: none;
+
+          .remove {
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+  }
+}

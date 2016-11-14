@@ -1,0 +1,22 @@
+.admin-page
+  app-page
+    app-menu(active="admin")
+
+    .admin-page-body
+      .container
+        .admin-nav
+          ul.nav.nav-tabs
+            li(ng-click="layout.go('admin.overview')" ng-class="{active: state == 'admin.overview'}")
+              a Overview
+            li(ng-click="layout.go('admin.search-candidates')" ng-class="{active: state == 'admin.search-candidates'}")
+              a Candidates
+            li(ng-click="layout.go('admin.facets')" ng-class="{active: state == 'admin.facets'}")
+              a Categories
+            li(ng-click="layout.go('admin.search')" ng-class="{active: state == 'admin.search'}")
+              a Search
+            li(ng-click="layout.go('admin.resource-links')" ng-class="{active: layout.eq('admin.resource-links')}")
+              a Resources
+            li(ng-click="layout.go('admin.partners')" ng-class="{active: state == 'admin.partners'}")
+              a Partners
+        .admin-content
+          ui-view

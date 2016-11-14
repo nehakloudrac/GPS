@@ -1,0 +1,7 @@
+- name: install redis-server
+  apt: pkg=redis-server
+
+- name: set up redis.conf
+  copy: src=roles/redis/files/redis.conf dest=/etc/redis/redis.conf
+  notify:
+    - restart redis

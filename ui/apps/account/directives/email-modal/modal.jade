@@ -1,0 +1,29 @@
+.modal.change-email-modal(ng-controller="ChangeEmailModalController")
+  .container
+    .row
+      .col-xs-12
+        .modal-dialog
+          .modal-content(cg-busy="promise")
+            .modal-header
+              p.lead.modal-title Change your email address
+            .modal-body
+              p Use the form below to change your primary contact email address.  Once your email is changed you will be redirected to log in again with your new email address.
+              
+              .alert.alert-warning(ng-if="error") {{error}}
+
+              .form-group
+                .input-group
+                  .input-group-addon @
+                  input.form-control(type="text" ng-model="newEmail" placeholder="address@example.com")
+              
+              p(ng-show="newEmail") Your email will be changed from <b>{{oldEmail}}</b> to <b>{{newEmail}}</b>
+              
+              .alert.alert-info
+                p.small You will be sent an email to verify your new address.  Candidates must have a verified email address in order to be matched with prospective employers.
+            .modal-footer
+              a.btn.btn-sm.btn-default(ng-click="cancel()")
+                i.fa.fa-times &nbsp;
+                span Cancel
+              a.btn.btn-sm.btn-info(ng-click="confirm()")
+                i.fa.fa-check &nbsp;
+                span Confirm change

@@ -1,0 +1,12 @@
+.filter(ng-class="{dirty: dirty}")
+  .filter-header
+    span.collapse-toggle(ng-init="collapsed=false" ng-click="collapsed = !collapsed") {{collapsed ? '[+]' : '[-]'}} &nbsp;
+    span.filter-name
+      span {{filter.name}}
+      label-description(ng-if="filter.def.desc" text="{{filter.def.desc}}")
+  .filter-body-container(ng-show="!collapsed")
+    .filter-body(ng-if="'basic-number' == filter.type")
+      filter-basic-number(filter="filter")
+    .filter-body(ng-if="'facet-select' == filter.type")
+      filter-facet-select(filter="filter" result="result")
+      

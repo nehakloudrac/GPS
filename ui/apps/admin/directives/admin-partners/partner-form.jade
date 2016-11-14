@@ -1,0 +1,52 @@
+.partner-form
+  
+  .row
+    .col-xs-8
+      .form-group
+        input.form-control(type="text" ng-model="partner.name" placeholder="Name")
+
+      .form-group
+        input.form-control(type="text" ng-model="partner.key" placeholder="key")
+        p.help-block https://www.globalprofessionalsearch.com/referrer/{{partner.key}}
+
+      .form-group
+        input.form-control(type="text" ng-model="partner.url" placeholder="http://example.com/")
+
+      .form-group
+        .input-multiselect
+          tags-input(ng-model="tags" replace-spaces-with-dashes="false" placeholder="Enter tags..." on-tag-added="updateTags()" on-tag-removed="updateTags()")
+
+    .col-xs-4(ng-show="partner.id")
+      .form-group(cg-busy="promise")
+        .file.pad-lg.clickable(ngf-select ngf-change="upload($files)" accept="image/*")
+          img.clickable.center-block(ng-src="{{getLogoUrl()}}")
+        p.help-block Click image area to upload logo.
+
+      .form-group
+        input.form-control(type="text" ng-model="partner.logoCss" placeholder="Logo CSS style overrides")
+        p.help-block style="{{partner.logoCss}}"
+    
+  .row
+    .col-xs-12
+      .form-group
+        textarea.form-control(rows="5" ng-model="partner.description" placeholder="Description... Markdown syntax is permitted.")
+  
+  .row
+    .col-xs-12
+      .form-group
+        textarea.form-control(rows="5" ng-model="partner.referrerCustomText" placeholder="Custom referrer text... Markdown syntax is permitted.")
+
+  .row
+    .col-xs-12
+      .checkbox
+        label
+          input(type="checkbox" ng-model="partner.isEnabled")
+          span Enabled?
+      .checkbox
+        label
+          input(type="checkbox" ng-model="partner.isReferrerLinkEnabled")
+          span Has referrer link?
+      .checkbox
+        label
+          input(type="checkbox" ng-model="partner.isPublicPartner")
+          span Is a public partner?

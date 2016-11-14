@@ -1,0 +1,40 @@
+- name: create symfony app log directory
+  file: path={{symfony_log_root}}
+        state=directory
+        recurse=yes
+        owner=www-data
+        group=www-data
+
+# copy site config and cert files
+- name: configure nginx {{symfony_nginx_server_name}} - place site config file
+  template: src=roles/symfony-web/templates/nginx.j2
+            dest=/etc/nginx/sites-available/{{symfony_nginx_server_name}}
+  tags: nginx_conf
+  notify:
+    - restart nginx
+
+- name: configure nginx {{symfony_nginx_server_name}} - symlink nginx site config to sites-enabled
+  file: src=/etc/nginx/sites-available/{{symfony_nginx_server_name}}
+        dest=/etc/nginx/sites-enabled/{{symfony_nginx_server_name}}
+        state=link
+  notify:
+    - restart nginx
+
+- name: copy htpasswd if used
+  when: symfony_nginx_htpasswd_file is defined
+  copy: src={{symfony_nginx_htpasswd_file}}
+        dest={{symfony_project_root}}/.htpasswd
+  notify:
+    - restart nginx
+
+- name: copy ssl cert file if used
+  when: symfony_nginx_ssl_cert_file is defined
+  copy: src={{symfony_nginx_ssl_cert_file}} dest=/etc/ssl/certs/{{symfony_nginx_server_name}}.crt
+  notify:
+    - restart nginx
+
+- name: copy ssl key file if used
+  when: symfony_nginx_ssl_key_file is defined
+  copy: src={{symfony_nginx_ssl_key_file}} dest=/etc/ssl/private/{{symfony_nginx_server_name}}.key
+  notify:
+    - restart nginx

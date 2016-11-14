@@ -1,0 +1,44 @@
+.row.timeline-event(ng-switch="event.type")
+  .col-xs-12(ng-show="isIncomplete()")
+    .row
+      .col-xs-4
+      .col-xs-8
+        p.text-warning
+          i.fa.fa-exclamation-circle
+          |  Incomplete {{getLabel(timelineTypes, event.type, 'type')}} experience - 
+          a.alert-link(ng-href="{{getEditUrl()}}") Click to finish
+  .col-xs-12(ng-show="!isIncomplete()")
+    .row
+      .col-xs-4
+        h3.subtext(ng-show="event.duration.start") {{event.duration.start * 1000 | date:'MMM yyyy'}} - {{event.duration.end ? (event.duration.end * 1000 | date:'MMM yyyy') : 'Present'}}
+        h3.subtext(ng-show="!event.duration.start")
+          em unknown
+        .row
+          .col-xs-12
+            .labels
+              .label.label-info(ng-repeat="ref in event.languageRefs")
+                i.fa.fa-comment  
+                |  {{getLabel(languageCodes, ref, 'code')}}
+            .clearfix
+        .row
+          .col-xs-12
+            .labels
+              .label.label-primary(ng-repeat="ref in event.countryRefs")
+                i.fa.fa-globe
+                |  {{getLabel(countryCodes, ref, 'code', 'name')}}
+              .clearfix
+      .col-xs-8(ng-switch-when="job")
+        profile-timeline-event-job
+      .col-xs-8(ng-switch-when="volunteer")
+        profile-timeline-event-volunteer
+      .col-xs-8(ng-switch-when="military")
+        profile-timeline-event-military
+      .col-xs-8(ng-switch-when="research")
+        profile-timeline-event-research
+      .col-xs-8(ng-switch-when="university")
+        profile-timeline-event-university
+      .col-xs-8(ng-switch-when="study_abroad")
+        profile-timeline-event-study-abroad
+      .col-xs-8(ng-switch-when="language_acquisition")
+        profile-timeline-event-language-acquisition
+        

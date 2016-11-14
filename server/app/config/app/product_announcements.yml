@@ -1,0 +1,13 @@
+parameters:
+
+    gps.product_announcements:
+        -
+            subject: Improving Workforce Diversity
+            tags: ['diversity']
+            deployed: "2016-03-25"
+            template: 'emails/product-announcements/diversity.md.twig'
+            targetLink: "/candidate/account"
+            match:
+                user:
+                    diversity:
+                        '$exists': false

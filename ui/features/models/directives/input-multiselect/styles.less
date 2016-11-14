@@ -1,0 +1,39 @@
+.input-multiselect {
+
+  // custom bootstrap hacks - included tags-input css mimics default
+  // bootstrap styles only, doesn't take into account the custom bootstrap
+  // theme - so some hacks for overriding
+  .tags {
+    padding: 4px 15px;
+    // height: @input-height-base;
+    border: 2px solid @input-border;
+
+    &.focused {
+      border: 2px solid @brand-primary;
+      box-shadow: none;
+    }
+
+    input.input {
+      &::placeholder {
+        color: @input-color-placeholder;
+      }
+    }
+
+    ul.tag-list {
+      li.tag-item {
+        background-color: @gray;
+        border: none;
+      }
+    }
+  }
+
+
+  // hacks for long labels in the dropdown lists - force
+  // to multiline with a border
+  tags-input .autocomplete .suggestion-list {
+    li.suggestion-item {
+      white-space: normal;
+      border-bottom: 1px solid @gray-lighter;
+    }
+  }
+}

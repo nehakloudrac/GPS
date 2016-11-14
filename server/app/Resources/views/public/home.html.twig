@@ -1,0 +1,338 @@
+{% extends 'public-layout.html.twig' %}
+
+{% block body %}
+
+<div class="homepage">
+  {# begin header #}
+  <div class="faded-header">
+    {% include 'partials/public-header.html.twig' %}
+  </div>
+  {# end header #}
+
+
+  {# Rotating image full-screen header #}
+  <div ng-app="gps.public" ng-controller="HeaderController" ng-class="backgroundImageClasses[selectedIndex]" class="home-header">
+
+    <div class="background-text-container">
+      <div class="background-text">
+        <div class="background-text-content">
+          <p class="t14 text-normal">
+            <span class="t16 text-semibold">WANTED: </span>
+            {% verbatim %}
+            {{ backgroundImageTexts.candidate[selectedIndex] }}
+            {% endverbatim %}
+          </p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    
+    <div class="banner">
+      <div class="container">
+        <div class="row title">
+          <div class="col-xs-12 text-center">
+            <h2 class="title">
+              <span class="text-warning">Language</span> and <span class="text-warning">Culture</span> at Work
+            </h2>
+            <p class="tagline lead text-center">
+              Tomorrow's Marketplace is Hiring Your Global Skill Set Today
+            </p>      
+            <a href="/account/create" class="join btn btn-warning btn-get-started">Get Started</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+    
+    <div class="continue">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <span class="center text-normal t18">Learn More</span>
+            <!-- <span class="right">
+              <span class="small">Are you an employer?</span>
+              <a href="/employers" class="btn btn-warning">Find Global Talent</a>
+            </span> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <i class="fa fa-2x fa-angle-down"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="home-section-advantage block block-bg-white">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="headers">
+            <h3>
+              Job Matching For Global Professionals
+            </h3>
+            <p>
+              GPS Gives You an Advantage
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row text-center">
+        <div class="col-sm-4">
+          <div class="pad-lg">
+            <div class="text-center icon">
+              <img src="/public/images/new-design-2/home/icon-passport.png" alt="" />
+            </div>
+            <div class="subheader">
+              <h4 class="text-bold t16">Stand Apart in Tomorrow's Work Environment</h4>
+            </div>
+            <p class="text-normal t14 content">
+              Leverage your foreign language and experience abroad. GPS translates your global skills into a vernacular that resonates with employers.
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="pad-lg">
+            <div class="text-center icon">
+              <img src="/public/images/new-design-2/home/icon-contact.png" alt="" />
+            </div>
+            <div class="subheader">
+              <h4 class="text-bold t16">Find Your Ideal Job</h4>              
+            </div>
+            <p class="text-normal t14 content">
+              Complete our survey to tell us about your skills and interests.  In return, we match you to real job openings that speak to your career goals.
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="pad-lg">
+            <div class="text-center icon">
+              <img src="/public/images/new-design-2/home/icon-binoculars.png" alt="" />
+            </div>
+            <div class="subheader">
+              <h4 class="text-bold t16">Increase Your Chances of Getting Hired</h4>              
+            </div>
+            <p class="text-normal t14 content">
+              We vet each opportunity. GPS only works with employers that value global talent and are ready to hire.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="home-section-about block block-bg-light">
+    <div class="container">
+      <div class="row flex">
+        <div class="col-sm-6">
+          <div class="headers text-center">
+            <h3>The Only Job-Matching Service To:</h3>
+          </div>
+
+          <div class="content">
+            <div class="media-container">
+              <div class="media">
+                <div class="media-left media-top">
+                  <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+                </div>
+                <div class="media-body">
+                  <p class="text-normal t14">Spotlight the candidate’s <b>global competencies</b>&mdash;foreign language proficiency, experience abroad, regional expertise, and cultural competency&mdash;as well as relevant work experience.</p>
+                </div>
+              </div>
+
+              <div class="media last">
+                <div class="media-left media-top">
+                  <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+                </div>
+                <div class="media-body">
+                  <p class="text-normal t14">Use proprietary technology to pre-qualify candidates by matching employer hiring criteria with the candidate’s skills and interests.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-sm-6 flex hidden-xs block-bg-light">
+          <div class="flex image-container">
+            <div class="flex bg-profile-image"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="public-section-hiring block block-bg-info">
+    <div class="container">
+      <div class="row visible-xs">
+        <div class="col-xs-12">
+          <div class='embed-container'><iframe src='https://www.youtube.com/embed/videoseries?list=PLBK-fEasFBaUnaQwZacT7_0nxg7RnaO9d' frameborder='0' allowfullscreen></iframe></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 hidden-xs">
+          <div class="headers">
+            <h3>Hear What Global CEOs Are Saying</h3>
+          </div>
+          <div class="video">
+            <div class='embed-container'><iframe src='https://www.youtube.com/embed/videoseries?list=PLBK-fEasFBaUnaQwZacT7_0nxg7RnaO9d' frameborder='0' allowfullscreen></iframe></div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="content">
+            <div class="media-container">
+              
+              <div class="infographic ratio">
+                <div class="media">
+                  <div class="media-left media-top">
+                    <img src="/public/images/new-design-2/home/1-in-3.png" alt="" />
+                  </div>
+                  <div class="media-body">
+                    <p class="text-normal t14">US mid- and large-size companies have international operations or serve multilingual clientele.</p>
+                    <div class="citation text-center">
+                      <cite title="US Census Bureau">&mdash; US Census Bureau</cite>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="infographic percent last">
+                <div class="media">
+                  <div class="media-left media-top">
+                    <img class="center-block" src="/public/images/new-design-2/home/93-percent.png" alt="" />
+                  </div>
+                  <div class="media-body">
+                    <p class="text-normal t14">of these companies are looking for candidates who have the global skills to work with clients from different countries and cultures.</p>
+                    <div class="citation text-center">
+                      <cite title="2014 Michigan State University, JNCL, GALA Employment Trends Survey">&mdash; 2014 Michigan State University, JNCL, GALA Employment Trends Survey</cite>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="home-section-getting-started block-bg-white">
+    <div class="laptop-bg hidden-xs"></div>
+    <div class="content block block-bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            
+            <div class="headers">
+              <h3>Get Started</h3>
+              <p>
+                <span class="text-bold">The process is easy.</span>  Create your profile and your work is done.
+              </p>
+            </div>              
+
+            <div class="content-container">
+              <div class="media">
+                <div class="media-left media-middle">
+                  <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading text-bold t16">Complete Your Profile</h4>
+                  <p class="text-normal t14">
+                    Answer questions about your experience.
+                  </p>
+                </div>
+              </div>
+
+              <div class="media">
+                <div class="media-left media-middle">
+                  <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading text-bold t16">Get Matched</h4>
+                  <p class="text-normal t14">
+                    GPS translates your experience into a customized profile that spotlights the global skills that set you apart.
+                  </p>
+                </div>
+              </div>
+
+              <div class="media">
+                <div class="media-left media-middle">
+                  <img src="/public/images/new-design-2/home/circle-check.png" alt="" />
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading text-bold t16">Get Hired</h4>
+                  <p class="text-normal t14">
+                    GPS uses a proprietary algorithm to match you with employers who value your background and interests.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-sm-6 visible-xs">
+            <img src="/public/images/new-design-2/home/mb-air.png" alt="" class="img-responsive" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="home-section-membership block block-bg-white">
+    <div class="container">
+      <div class="col-xs-12 text-center">
+        <div class="headers">
+          <h3>Membership is Free</h3>
+        </div>
+        <div class="content">
+          <p class="text-normal t14">
+            Leverage your foreign language and experience abroad.
+          </p>
+          <p class="text-normal t14">
+            GPS translates your skills and experience into language that resonates with employers.
+          </p>
+        </div>
+        
+        <a href="/account/create" class="btn btn-warning btn-get-started">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-section-partners block-bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="partner-logos">
+            {% for item in partners %}
+            <span class="logo">
+              <a href="{{item.href}}" target="_blank">
+                <img class="{{item.class}}" src="{{item.src}}" alt="{{item.name}}" />
+              </a>
+            </span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-section-join block block-bg-collage">
+    <div class="container">
+      <div class="col-xs-12 text-center">
+        <h3 class="text-normal t30">Get Your Language and Culture to Work</h3>
+        <a href="/account/create" class="btn btn-warning btn-get-started">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

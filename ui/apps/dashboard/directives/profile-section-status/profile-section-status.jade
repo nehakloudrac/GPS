@@ -1,0 +1,87 @@
+.profile-section-status
+  .row
+    .col-sm-5
+      .status-block.status-global
+        .status-header
+          .header-percent
+            span.percent-num {{percentCompleted.globalCompetencies}}
+            span.percent-marker
+              sup %
+            span.progress-arc
+              progress-arc(
+                size="40"
+                stroke="#276a80"
+                stroke-width="7"
+                background="#eeeeee"
+                complete="percentCompleted.globalCompetencies / 100"
+              )
+          .header-title Global Competencies
+        .status-body
+          .subsections
+            profile-section-status-label(label="Experience Abroad" check="menuHelper.getExperiencesAbroadStatus()" href="/edit/countries")
+            profile-section-status-label(label="Languages" check="menuHelper.getLanguagesStatus()" href="/edit/languages")
+    .col-sm-5.col-sm-offset-1
+      .status-block.status-work-edu
+        .status-header
+          .header-percent
+            span.percent-num {{percentCompleted.workAndEducation}}
+            span.percent-marker
+              sup %
+            span.progress-arc
+              progress-arc(
+                size="40"
+                stroke="#276a80"
+                stroke-width="7"
+                background="#eeeeee"
+                complete="percentCompleted.workAndEducation / 100"
+              )
+          .header-title Work & Education
+        .status-body
+          .subsections
+            profile-section-status-label(label="Work History" check="menuHelper.getProfessionalHistoryStatus()" href="/edit/professional")
+            profile-section-status-label(label="Ideal Job" check="menuHelper.getIdealJobStatus()" href="/edit/ideal-job")
+            profile-section-status-label(label="Education History" check="menuHelper.getEducationHistoryStatus()" href="/edit/education")
+            profile-section-status-label(label="Awards & Honors" check="menuHelper.getAwardsAndHonorsStatus()" href="/edit/education")
+  .row
+    .col-sm-5
+      .status-block.status-skills
+        .status-header
+          .header-percent
+            span.percent-num {{percentCompleted.skills}}
+            span.percent-marker
+              sup %
+            span.progress-arc
+              progress-arc(
+                size="40"
+                stroke="#276a80"
+                stroke-width="7"
+                background="#eeeeee"
+                complete="percentCompleted.skills / 100"
+              )
+          .header-title Skills
+        .status-body
+          .subsections
+            profile-section-status-label(label="Not-So-Soft Skills" check="menuHelper.getSoftSkillsStatus()" href="/edit/skills")
+            profile-section-status-label(label="Hard Skills" check="menuHelper.getHardSkillsStatus()" href="/edit/skills")
+            profile-section-status-label(label="Domain Skills" check="menuHelper.getDomainSkillsStatus()" href="/edit/skills")
+    .col-sm-5.col-sm-offset-1
+      .status-block.status-persona
+        .status-header
+          .header-percent
+            span.percent-num {{percentCompleted.persona}}
+            span.percent-marker
+              sup %
+            span.progress-arc
+              progress-arc(
+                size="40"
+                stroke="#276a80"
+                stroke-width="7"
+                background="#eeeeee"
+                complete="percentCompleted.persona / 100"
+              )
+          .header-title Personal
+        .status-body
+          .subsections
+            profile-section-status-label(label="Organizations" check="menuHelper.getOrganizationsStatus()" href="/edit/personal")
+            profile-section-status-label(label="Hobbies" check="menuHelper.getHobbiesStatus()" href="/edit/personal")
+            profile-section-status-label(label="Character" check="menuHelper.getCharacterStatus()" href="/edit/personal")

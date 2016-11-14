@@ -1,0 +1,171 @@
+imports:
+    - { resource: app/partner_logos.yml }
+    - { resource: app/product_announcements.yml }
+    - { resource: app/referrers.yml }
+
+parameters:
+    jms_serializer.datetime_handler.class: GPS\AppBundle\Serializer\DateTimeHandler
+    gps.email.asset_base_url: %email_asset_base_url%
+
+    gps.email.from_address: %email_from_address%
+
+    #both acct verify and pw reset one-time-use tokens expire after one week
+    gps.token_manager.lifetime: 604800
+
+    gps.profile.completeness_reindex_delay_minutes: 5       #don't reindex if profile was modified within last 5 min
+
+    gps.fixture_dir: '%fixtures_path%'
+    
+    gps.user_provider.class: 'GPS\AppBundle\Document\User'
+    gps.user_provider.repo: 'AppBundle:User'
+
+    gps.test_user_provider.class: 'GPS\AppBundle\Document\TestUser'
+    gps.test_user_provider.repo: 'AppBundle:TestUser'
+    gps.allow_fixture_mongo_reset: "%fixtures_allow_mongo_reset%"
+    
+    gps.li_pdf_profile: "%kernel.root_dir%/Resources/lipdf/linkedin.php"
+    
+    gps.crypto_key: "%crypto_key%"
+services:
+
+    session_handler_redis:
+        class: Drak\NativeSession\NativeRedisSessionHandler
+        arguments: ["%redis_url%"]
+
+    jms_serializer.naming_strategy:
+        class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
+    #cache service specifically for the jms metadata used by the serializer
+    gps.jms_cache:
+        class: Metadata\Cache\DoctrineCacheAdapter
+        arguments: ['gps.jms_metadata', @gps.local_cache]
+
+    gps.fixtures:
+        class: GPS\AppBundle\Testing\FixtureManager
+        arguments: [@doctrine_mongodb, %mongodb_database%, %gps.fixture_dir%]
+
+    #backend for shared app cache
+    gps.redis:
+        class: Redis
+        calls:
+            - [pconnect, [%redis_host%, %redis_port%]]
+
+    #backend for local app cache
+    gps.local_redis:
+        class: Redis
+        calls:
+            - [pconnect, [localhost, 6379]]
+            - [setOption, [%gps.local_redis.prefix%, '__gps_']] #Redis::OPT_PREFIX
+
+    #this should be used for app-level caching, where multiple web instances
+    #should have access to the same state
+    gps.shared_cache:
+        class: Doctrine\Common\Cache\RedisCache
+        calls:
+            - [setRedis, [@gps.redis]]
+
+    #this is used for caching of some metadata in other services - do not
+    #use this for app-level caching... this was going to be APC, but this
+    #way I can set values via cli or web and not have to worry about the
+    #environment
+    gps.local_cache:
+        class: Doctrine\Common\Cache\RedisCache
+        calls:
+            - [setRedis, [@gps.local_redis]]
+    
+    gps.elasticsearch:
+        class: Elastica\Client
+        arguments:
+            -
+                host: "%es_host%"
+                port: "%es_port%"
+
+    
+    gps.token_manager:
+        class: GPS\AppBundle\Service\TokenManager
+        arguments: [@gps.shared_cache, "one_time_use_", %gps.token_manager.lifetime%]
+
+    gps.thumbnailer:
+        class: GPS\AppBundle\Service\Thumbnailer
+    
+    gps.linkedin_parser:
+        class: GPS\AppBundle\Service\LinkedInParser
+        arguments:
+            - %gps.li_pdf_profile%
+            - %gps.form.languages%
+            - %gps.form.countries%
+
+    gps.mailer:
+        class: GPS\AppBundle\Service\Mailer
+        arguments:
+            - %gps.email.from_address%
+            - @mailer
+            - @templating
+            - @gps.token_manager
+            - @router
+            - %gps.email.asset_base_url%
+            - @monolog.logger.gps_mailer
+    
+    gps.maintenance_mode_subscriber:
+        class: GPS\AppBundle\EventListener\MaintenanceModeSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: ac.webservice.subscriber }
+    
+    gps.short_form_subscriber:
+        class: GPS\AppBundle\EventListener\ShortFormCompletedSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    gps.user_removal_subscriber:
+        class: GPS\AppBundle\EventListener\UserRemovalSubscriber
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    monolog.formatter.session_request:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%%\n"
+
+    monolog.processor.session_request:
+        class: GPS\AppBundle\Service\SessionIdLogHandler
+        arguments:  ["@session"]
+        tags:
+            - { name: monolog.processor, method: processRecord }
+
+    gps.api_session_expired_listener:
+        class: GPS\AppBundle\EventListener\ApiSessionExpiredListener
+        tags:
+            - { name: ac.webservice.listener, event: ac.webservice.exception, method: handleApiException }
+
+    gps.user_provider:
+        class: GPS\AppBundle\Security\OdmUserProvider
+        arguments:
+            - @doctrine.odm.mongodb.document_manager
+            - %gps.user_provider.class%
+            - %gps.user_provider.repo%
+
+    gps.test_user_provider:
+        class: GPS\AppBundle\Security\OdmUserProvider
+        arguments:
+            - @doctrine.odm.mongodb.document_manager
+            - %gps.test_user_provider.class%
+            - %gps.test_user_provider.repo%
+    
+    gps.data_token_generator:
+        class: GPS\AppBundle\Service\DataTokenGenerator
+        arguments:
+            - %gps.crypto_key%
+            - @router
+            - @request_stack
+            - %gps.email.asset_base_url%
+
+    # Overridden for debug purposes
+    ac_web_services.initialized_object_constructor:
+        class: GPS\AppBundle\Serializer\InitializedObjectConstructor
+        arguments:
+            - @ac_web_services.serializer.fallback_object_constructor
+            - @monolog.logger.gps_debug

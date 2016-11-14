@@ -1,0 +1,77 @@
+upstream phpfcgi {
+  server unix:/var/run/php5-fpm.sock;
+}
+server {
+    listen 80;
+
+    server_name {{symfony_nginx_server_name}};
+    root {{symfony_nginx_web_root}};
+
+    error_log /var/log/nginx/{{symfony_nginx_server_name}}.error.log;
+    access_log /var/log/nginx/{{symfony_nginx_server_name}}.access.log;
+    
+    client_max_body_size {{symfony_nginx_max_upload}};
+    
+    # strip app.php/ prefix if it is present
+    rewrite ^/(app|app_dev)\.php/?(.*)$ /$1 permanent;
+
+    location / {
+
+        index {{symfony_nginx_index_script}};
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^ /{{symfony_nginx_index_script}}?$query_string last;
+    }
+
+    # pass the PHP scripts to FastCGI server from upstream phpfcgi
+    location ~ ^/(app|app_dev)\.php(/|$) {
+        fastcgi_pass phpfcgi;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param  HTTPS off;
+    }
+}
+
+{% if symfony_nginx_ssl_key_file is defined %}
+server {
+    listen 443;
+
+    server_name {{symfony_nginx_server_name}};
+    root {{symfony_nginx_web_root}};
+
+    ssl on;
+    ssl_certificate /etc/ssl/certs/{{symfony_nginx_server_name}}.crt;
+    ssl_certificate_key /etc/ssl/private/{{symfony_nginx_server_name}}.key;
+
+    error_log /var/log/nginx/{{symfony_nginx_server_name}}.error.log;
+    access_log /var/log/nginx/{{symfony_nginx_server_name}}.access.log;
+
+    client_max_body_size {{symfony_nginx_max_upload}};
+
+    # strip app.php/ prefix if it is present
+
+    rewrite ^/(app|app_dev)\.php/?(.*)$ /$1 permanent;
+
+    location / {
+
+        index {{symfony_nginx_index_script}};
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^ /{{symfony_nginx_index_script}}?$query_string last;
+    }
+
+    # pass the PHP scripts to FastCGI server from upstream phpfcgi
+    location ~ ^/(app|app_dev)\.php(/|$) {
+        fastcgi_pass phpfcgi;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS on;
+    }
+}
+{% endif %}

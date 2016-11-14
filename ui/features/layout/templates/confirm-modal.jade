@@ -1,0 +1,11 @@
+.modal.confirm-modal(ng-controller="ConfirmModalController")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h3 {{title}}
+      .modal-body
+        p(ng-if="message") {{message}}
+        div(ng-if="template" ng-include="template")
+      .modal-footer
+        a.btn.btn-default(ng-click="cancel()") {{ getCancelText() }}
+        a.btn.btn-info(ng-click="confirm()") {{ getConfirmText() }}

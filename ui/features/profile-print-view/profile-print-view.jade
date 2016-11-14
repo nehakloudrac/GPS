@@ -1,0 +1,12 @@
+.profile-print-view
+  .header
+    .container
+      .col-xs-12
+        h1 Print Preview
+        button.btn.btn-info
+          i.fa.fa-print &nbsp
+          span Print/PDF
+  .body
+    .container(ng-if="profile && user")
+      .col-xs-12
+        candidate-profile(profile="profile" user="user" view-as-employer="true")

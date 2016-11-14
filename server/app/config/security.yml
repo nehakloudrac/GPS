@@ -1,0 +1,68 @@
+security:
+    providers:
+        default:
+            id: gps.user_provider
+        
+        #in some tests users are loaded from config
+        test:
+            id: gps.test_user_provider
+
+        #TODO: add a custom provider for dealing w/ users authenticated statelessly via api key
+        # api_key_provider:
+        #     api_key:
+        #         class: AppBundle:ApiClient
+        #         property: key
+
+    role_hierarchy:
+
+        #admin users can access the /admin section, but can't necessarily do everything there
+        ROLE_ADMIN: ROLE_USER
+
+        #super-admins can promote others to "admin" status
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    encoders:
+        GPS\AppBundle\Document\TestUser: plaintext
+        GPS\AppBundle\Document\User:
+            algorithm: bcrypt
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        main:
+            provider: default
+            anonymous: ~
+            form_login:
+                login_path: /login
+                check_path: /login-check
+                csrf_provider: form.csrf_provider
+                target_path_parameter: _target_path
+                default_target_path: /candidate/dashboard
+                use_referer: true
+            logout:
+                path: /logout
+                target: /
+            #TODO: enable the remember me functionality
+            #remember_me:
+
+        #TODO: add an api specific firewall that allows stateless auth
+        # api:
+        #     pattern: ^/api
+        #     anonymous: ~
+        #     stateless: true
+        #     provider: api_key_provider
+
+    #NOTE: order matters - first match wins so list more specific patterns first
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/account, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/logout, roles: IS_AUTHENTICATED_REMEMBERED, requires_channel: https }
+        - { path: ^/api/admin, roles: ROLE_ADMIN, requires_channel: https }
+        - { path: ^/api, roles: IS_AUTHENTICATED_REMEMBERED, requires_channel: https }
+        - { path: ^/candidate, roles: IS_AUTHENTICATED_REMEMBERED, requires_channel: https }
+        - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
+        - { path: ^/employers/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/l/a, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/l/r, roles: IS_AUTHENTICATED_REMEMBERED, requires_channel: https }

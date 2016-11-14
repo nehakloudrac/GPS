@@ -1,0 +1,209 @@
+@import (inline) 'bower_components/angular-ui-select/dist/select.css';
+@import (inline) 'bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css';
+@import (inline) 'bower_components/angular-busy/dist/angular-busy.css';
+@import (inline) "node_modules/ng-tags-input/build/ng-tags-input.css";
+@import (inline) "node_modules/ng-tags-input/build/ng-tags-input.bootstrap.css";
+
+// shared features
+@import 'ui/features/layout/styles.less';
+@import 'ui/features/models/styles.less';
+@import 'ui/features/candidate-profile/styles.less';
+
+// app directives
+@import './directives/input-num-months/styles.less';
+@import './directives/input-concentrations/styles.less';
+@import './directives/timeline-activities-editor/styles.less';
+@import './directives/section-nav/styles.less';
+@import './directives/sortable-list/styles.less';
+@import './directives/edit-list/styles.less';
+
+// page-level directives last, so they can override
+@import './directives/view-profile/styles.less';
+@import './directives/section-ideal-job/styles.less';
+@import './directives/edit-countries/styles.less';
+@import './directives/edit-languages/styles.less';
+@import './directives/edit-timeline/styles.less';
+@import './directives/section-soft-skills/styles.less';
+@import './directives/section-hard-skills/styles.less';
+@import './directives/section-domain-skills/styles.less';
+@import './directives/section-personal/styles.less';
+
+@import './directives/profile-cards/styles.less';
+@import './directives/profile-app/styles.less';
+@import './directives/profile-intro/styles.less';
+
+
+@bootswatch-theme: 'flatly';
+@spacer-height: @navbar-height / 2;
+
+.profile-section-body {
+  min-height: 500px;
+}
+
+.profile-section-nav {
+  margin-top: @navbar-height / 2;
+}
+
+.alert {
+  font-size: @font-size-base;
+}
+
+.margin-spacer-bottom {
+  margin-bottom: @spacer-height;
+}
+
+.margin-spacer-top {
+  margin-top: @spacer-height;
+}
+
+.padded-spacer-top {
+  padding-top: @spacer-height;
+}
+
+.padded-spacer-bottom {
+  padding-bottom: @spacer-height;
+}
+
+.hr {
+  .clearfix();
+
+  margin: 20px;
+  border-bottom: 2px solid @gray;
+}
+
+.editable-field-block {
+  padding: 10px;
+  border-radius: @border-radius-base;
+  background-color: @shaded-bg;
+  border-left: 4px solid @shaded-bg;
+  
+  &.editable {
+    cursor: pointer;
+    &:hover {
+      border-left: 4px solid @brand-info;
+    }
+  }
+  
+  &.editing {
+    border-left: 4px solid @brand-info;
+  }
+
+}
+
+.no-select {
+  user-select: none;
+}
+
+.slider-box {
+  @selection-color: @brand-info;
+  
+  user-select: none;
+
+  &.unanswered {
+    .slider-handle {
+      background-color: @gray;
+    }
+  }
+  
+  .slider-tick-label-container {
+    font-size: @font-size-small;
+  }
+
+  .cg-busy {
+    .saving-inner {
+      font-size: 0.5em;
+    }
+  }
+
+  .slider-handle {
+    background-image: none;
+    background-color: @selection-color;
+  }
+  
+  .slider-track {
+
+    .slider-selection {
+      background-image: none;
+      box-shadow: none;
+
+      &.tick-slider-selection {
+        background-color: lighten(@selection-color, 20%);
+      }
+    }
+    
+    .slider-tick {
+      &.in-selection {
+        background-image: none;
+        background-color: lighten(@selection-color, 10%);
+      }
+    }
+    
+  }
+
+  .slider-horizontal {
+    width: 100%;
+  }
+}
+
+.required-mark {
+  &::after {
+    content: "\00A0 *";
+    color: @brand-warning;
+  }  
+}
+
+.required-labels {
+  
+  .req-label {
+    
+  }
+  
+  label {
+    font-weight: normal;
+    
+    &.required {
+      .required-mark;
+      
+      font-weight: bold;
+    }
+  }
+  
+}
+
+.delete-link {
+  color: @brand-danger;
+  &:hover {
+    color: @brand-danger;
+  }
+}
+
+.section-personal {
+  .organization {
+    margin-bottom: 21px;
+  }
+}
+
+.edit-section {
+  
+  .list, .empty, .form {
+    margin-bottom: @spacer-height;
+  }
+  
+  label {
+    font-weight: normal;
+    
+    &.empty {
+      margin-bottom: 5px;
+    }
+    
+    &.required {
+      font-weight: bold;
+      
+      &::after {
+        content: "\00A0 *";
+        color: @brand-warning;
+      }
+    }
+  }
+
+}
